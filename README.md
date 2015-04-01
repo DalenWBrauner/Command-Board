@@ -5,4 +5,4 @@ This is Dalen's Test Commit!
 #shane caldwell is all about commitment 
 
 
-So I can't get the pushing to work through terminal just yet, but here I can edit through the website...yay -Noah
+I can commit things! -Noah

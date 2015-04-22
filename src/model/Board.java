@@ -8,13 +8,14 @@ public class Board {
     private final static int BOARD_WIDTH = 15;
     private final static int BOARD_HEIGHT = 15;
 
-    private boolean isFinished;
+    private boolean finished;
+    private String boardName = "untitled";
 
     private Tile[][] tiles = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
 
     public Board() {
         System.out.println("new Board();");
-        isFinished = false;
+        finished = false;
 
         for (int x = 0; x < BOARD_WIDTH; x++) {
             for (int y = 0; y < BOARD_HEIGHT; y++) {
@@ -27,11 +28,21 @@ public class Board {
      * edited from here on.
      */
     public void setFinished() {
-        isFinished = true;
+        finished = true;
     }
 
-    public void addTile(Tile tile) throws FinishedBoardException {
-        if (!isFinished) { throw new FinishedBoardException(); }
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setName(String name) {
+        assert(!finished);
+        boardName = name;
+    }
+
+    public void addTile(Tile tile) {
+        assert(!finished);
+        tiles[tile.getX()][tile.getY()] = tile;
     }
 
     public Tile getTile(int x, int y) {
@@ -46,4 +57,7 @@ public class Board {
         return BOARD_HEIGHT;
     }
 
+    public String getName() {
+        return boardName;
+    }
 }

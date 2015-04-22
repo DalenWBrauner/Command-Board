@@ -1,6 +1,6 @@
 package model.tile;
 
-public class PassCheckpoint implements OnPassStrat {
+public class OnPassCheckpoint implements OnPassStrat {
 
     @Override
     public void onPass() {

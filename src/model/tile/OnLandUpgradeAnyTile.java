@@ -1,6 +1,6 @@
 package model.tile;
 
-public class LandOnCheckpoint implements OnLandStrat {
+public class OnLandUpgradeAnyTile implements OnLandStrat {
 
     @Override
     public void onLand() {

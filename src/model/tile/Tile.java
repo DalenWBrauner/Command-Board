@@ -2,6 +2,8 @@ package model.tile;
 
 public abstract class Tile {
 
+    public enum TileType { NONE, PROPERTY, START, CHECKPOINT }
+
     private int xPos;
     private int yPos;
 
@@ -26,6 +28,5 @@ public abstract class Tile {
         yPos = y;
     }
 
-
-
+    abstract public TileType getTileType();
 }

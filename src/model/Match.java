@@ -25,13 +25,51 @@ public class Match extends Observable {
     /** Starts the game. */
     public void start() {
         System.out.println("Match.start(); START");
-        printBoard();
+        debug();
         System.out.println("Match.start(); END");
     }
 
     /** Returns the Tile object at a given position on the board. */
     public Tile getTile(int x, int y) {
         return theBoard.getTile(x, y);
+    }
+
+    private void debug() {
+        System.out.println("Match.debug(); START");
+        printBoard();
+
+
+        Tile tileA = theBoard.getTile(2,2);
+        if (tileA.getTileType() == TileType.PROPERTY) {
+            ((PropertyTile) tileA).setOwner(PlayerID.PLAYER1);
+            ((PropertyTile) tileA).setCard(CardShape.SHAPE1);
+        } else { assert(false); }
+        System.out.println("Player 1 now owns the tile at (2,2)...");
+
+        Tile tileB = theBoard.getTile(3,3);
+        if (tileB.getTileType() == TileType.PROPERTY) {
+            ((PropertyTile) tileB).setOwner(PlayerID.PLAYER2);
+            ((PropertyTile) tileB).setCard(CardShape.SHAPE2);
+        } else { assert(false); }
+        System.out.println("Player 2 now owns the tile at (3,3)...");
+
+        Tile tileC = theBoard.getTile(5,4);
+        if (tileC.getTileType() == TileType.PROPERTY) {
+            ((PropertyTile) tileC).setOwner(PlayerID.PLAYER3);
+            ((PropertyTile) tileC).setCard(CardShape.SHAPE3);
+        } else { assert(false); }
+        System.out.println("Player 3 now owns the tile at (5,4)...");
+
+        Tile tileD = theBoard.getTile(2,7);
+        if (tileD.getTileType() == TileType.PROPERTY) {
+            ((PropertyTile) tileD).setOwner(PlayerID.PLAYER4);
+            ((PropertyTile) tileD).setCard(CardShape.SHAPE1);
+        } else { assert(false); }
+        System.out.println("Player 4 now owns the tile at (2,7)...");
+        System.out.println();
+
+        printBoard();
+        System.out.println("Match.debug(); END");
     }
 
     /** Prints out basic information about the current board. */
@@ -113,6 +151,6 @@ public class Match extends Observable {
                 }
             }
         }
-
+        System.out.println();
     }
 }

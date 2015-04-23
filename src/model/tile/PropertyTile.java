@@ -42,6 +42,10 @@ public class PropertyTile extends Tile {
         return (int) (currentValue / 10f);
     }
 
+    public void setLevel(int newLevel) {
+        myLevel = newLevel;
+    }
+
     public int getLevel() {
         return myLevel;
     }
@@ -50,7 +54,15 @@ public class PropertyTile extends Tile {
         return owner;
     }
 
+    public void setOwner(PlayerID newOwner) {
+        owner = newOwner;
+    }
+
     public CardShape getCard() {
         return myCard;
+    }
+
+    public void setCard(CardShape newCard) {
+        myCard = newCard;
     }
 }

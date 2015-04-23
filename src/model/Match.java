@@ -3,8 +3,10 @@ package model;
 import java.util.Collection;
 import java.util.Observable;
 
+import model.ActualPlayer.PlayerID;
 import model.tile.CheckpointTile;
 import model.tile.CheckpointTile.CheckpointColor;
+import model.tile.PropertyTile;
 import model.tile.Tile;
 import model.tile.Tile.TileType;
 
@@ -24,19 +26,16 @@ public class Match extends Observable {
         System.out.println("Match.start(); START");
 
         // For each tile on the board,
-        for (int x = 0; x < theBoard.getWidth(); x++) {
-            for (int y = 0; y < theBoard.getHeight(); y++) {
-
-                // Get the type of the tile,
+        for (int y = 0; y < theBoard.getHeight(); y++) {
+            for (int x = 0; x < theBoard.getWidth(); x++) {
                 Tile thisTile = theBoard.getTile(x,y);
-                TileType tileType = thisTile.getTileType();
 
-                // And if the tile exists,
+                // If the tile exists,
+                TileType tileType = thisTile.getTileType();
                 if (tileType != TileType.NONE) {
 
                     // Print it out!
                     System.out.print("The Tile at (" + x + ", " + y + ") is ");
-
 
                     if (tileType == TileType.CHECKPOINT) {
                         // If you're a checkpoint, print out your color!
@@ -55,7 +54,22 @@ public class Match extends Observable {
                         }
 
                     } else if (tileType == TileType.PROPERTY) {
-                        System.out.println("a property tile!");
+                        System.out.print("a property tile owned by ");
+                        PlayerID tileOwner = ((PropertyTile) thisTile).getOwner();
+                        if (tileOwner == PlayerID.NOPLAYER) {
+                            System.out.print("nobody");
+                        } else if (tileOwner == PlayerID.PLAYER1) {
+                            System.out.print("Player 1");
+                        } else if (tileOwner == PlayerID.PLAYER2) {
+                            System.out.print("Player 2");
+                        } else if (tileOwner == PlayerID.PLAYER3) {
+                            System.out.print("Player 3");
+                        } else if (tileOwner == PlayerID.PLAYER4) {
+                            System.out.print("Player 4");
+                        }
+                        System.out.print(" with a value of $");
+                        System.out.print( ((PropertyTile) thisTile).getValue()  );
+                        System.out.println(".");
 
                     } else if (tileType == TileType.START) {
                         System.out.println("the START!");

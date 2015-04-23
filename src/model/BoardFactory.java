@@ -25,30 +25,29 @@ public class BoardFactory {
             theBoard.addTile(new CheckpointTile(5, 7, CheckpointColor.YLW));
 
             // Add the Property Tiles
-            theBoard.addTile(new PropertyTile(0, 3));
-            theBoard.addTile(new PropertyTile(0, 4));
-            theBoard.addTile(new PropertyTile(0, 5));
-            theBoard.addTile(new PropertyTile(1, 2));
-            theBoard.addTile(new PropertyTile(1, 5));
-            theBoard.addTile(new PropertyTile(2, 2));
-            theBoard.addTile(new PropertyTile(2, 5));
-            theBoard.addTile(new PropertyTile(2, 6));
-            theBoard.addTile(new PropertyTile(2, 7));
-            theBoard.addTile(new PropertyTile(3, 0));
-            theBoard.addTile(new PropertyTile(3, 1));
-            theBoard.addTile(new PropertyTile(3, 3));
-            theBoard.addTile(new PropertyTile(3, 4));
-            theBoard.addTile(new PropertyTile(3, 7));
-            theBoard.addTile(new PropertyTile(4, 0));
-            theBoard.addTile(new PropertyTile(4, 2));
-            theBoard.addTile(new PropertyTile(4, 4));
-            theBoard.addTile(new PropertyTile(4, 7));
-            theBoard.addTile(new PropertyTile(5, 1));
-            theBoard.addTile(new PropertyTile(5, 2));
-            theBoard.addTile(new PropertyTile(5, 4));
-            theBoard.addTile(new PropertyTile(5, 5));
-            theBoard.addTile(new PropertyTile(5, 6));
-            theBoard.addTile(new PropertyTile(5, 7));
+            theBoard.addTile(new PropertyTile(0, 3, 600));
+            theBoard.addTile(new PropertyTile(0, 4, 800));
+            theBoard.addTile(new PropertyTile(0, 5, 1000));
+            theBoard.addTile(new PropertyTile(1, 2, 600));
+            theBoard.addTile(new PropertyTile(1, 5, 800));
+            theBoard.addTile(new PropertyTile(2, 2, 400));
+            theBoard.addTile(new PropertyTile(2, 5, 600));
+            theBoard.addTile(new PropertyTile(2, 6, 550));
+            theBoard.addTile(new PropertyTile(2, 7, 500));
+            theBoard.addTile(new PropertyTile(3, 0, 220));
+            theBoard.addTile(new PropertyTile(3, 1, 200));
+            theBoard.addTile(new PropertyTile(3, 3, 400));
+            theBoard.addTile(new PropertyTile(3, 4, 600));
+            theBoard.addTile(new PropertyTile(3, 7, 450));
+            theBoard.addTile(new PropertyTile(4, 0, 250));
+            theBoard.addTile(new PropertyTile(4, 2, 200));
+            theBoard.addTile(new PropertyTile(4, 4, 550));
+            theBoard.addTile(new PropertyTile(4, 7, 350));
+            theBoard.addTile(new PropertyTile(5, 1, 250));
+            theBoard.addTile(new PropertyTile(5, 2, 220));
+            theBoard.addTile(new PropertyTile(5, 4, 500));
+            theBoard.addTile(new PropertyTile(5, 5, 450));
+            theBoard.addTile(new PropertyTile(5, 6, 350));
 
 
         // Of course, if we've never heard of this board before...

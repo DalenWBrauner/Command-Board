@@ -11,4 +11,5 @@ public interface Player {
     public Wallet getWallet();
     public ArrayList<PropertyTile> getTilesOwned();
     public PlayerID getPlayerID();
+    public void giveTile(PropertyTile newTile);
 }

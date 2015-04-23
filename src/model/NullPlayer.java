@@ -18,4 +18,7 @@ public class NullPlayer implements Player {
 
     @Override
     public PlayerID getPlayerID() { return PlayerID.NOPLAYER; }
+
+    @Override
+    public void giveTile(PropertyTile newTile) { newTile.reset(); }
 }

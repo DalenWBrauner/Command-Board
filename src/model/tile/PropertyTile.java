@@ -19,13 +19,21 @@ public class PropertyTile extends Tile {
         super(x, y);
         baseValue = DEFAULT_BASE_VALUE;
         updateValue();
-
     }
 
     public PropertyTile(int x, int y, int theBaseValue) {
         super(x, y);
         baseValue = theBaseValue;
         updateValue();
+    }
+
+    @Override
+    public TileType getTileType() {
+        return TileType.PROPERTY;
+    }
+
+    private void updateValue() {
+        currentValue = getValueAtLevel(myLevel);
     }
 
     private int getValueAtLevel(int level) {
@@ -40,15 +48,6 @@ public class PropertyTile extends Tile {
         // Round to the nearest 10
         value = (int) (Math.round(value / 10.0) * 10.0);
         return value;
-    }
-
-    private void updateValue() {
-        currentValue = getValueAtLevel(myLevel);
-    }
-
-    @Override
-    public TileType getTileType() {
-        return TileType.PROPERTY;
     }
 
     public int getValue() {
@@ -92,5 +91,11 @@ public class PropertyTile extends Tile {
 
     public void setCard(CardShape newCard) {
         myCard = newCard;
+    }
+
+    public void reset() {
+        setCard(CardShape.NOCARD);
+        setOwner(PlayerID.NOPLAYER);
+        setLevel(1);
     }
 }

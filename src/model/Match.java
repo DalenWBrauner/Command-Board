@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import model.ActualPlayer.PlayerID;
@@ -14,9 +14,9 @@ import model.tile.Tile.TileType;
 public class Match extends Observable {
 
     private Board theBoard;
-    private Collection<Player> players;
+    private ArrayList<Player> players;
 
-    public Match(Board requestedBoard, Collection<Player> playersInTurnOrder) {
+    public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder) {
         System.out.println("new Match();");
         theBoard = requestedBoard;
         players = playersInTurnOrder;
@@ -35,33 +35,34 @@ public class Match extends Observable {
     }
 
     private void debug() {
+        assert(players.size() == 4);
         System.out.println("Match.debug(); START");
         printBoard();
 
         Tile tileA = theBoard.getTile(2,2);
         if (tileA.getTileType() == TileType.PROPERTY) {
-            ((PropertyTile) tileA).setOwner(PlayerID.PLAYER1);
             ((PropertyTile) tileA).setCard(CardShape.SHAPE1);
+            players.get(0).giveTile((PropertyTile) tileA);
         } else { assert(false); }
         System.out.println("Player 1 now owns the tile at (2,2)...");
 
         Tile tileB = theBoard.getTile(3,3);
         if (tileB.getTileType() == TileType.PROPERTY) {
-            ((PropertyTile) tileB).setOwner(PlayerID.PLAYER2);
+            players.get(1).giveTile((PropertyTile) tileB);
             ((PropertyTile) tileB).setCard(CardShape.SHAPE2);
         } else { assert(false); }
         System.out.println("Player 2 now owns the tile at (3,3)...");
 
         Tile tileC = theBoard.getTile(5,4);
         if (tileC.getTileType() == TileType.PROPERTY) {
-            ((PropertyTile) tileC).setOwner(PlayerID.PLAYER3);
+            players.get(2).giveTile((PropertyTile) tileC);
             ((PropertyTile) tileC).setCard(CardShape.SHAPE3);
         } else { assert(false); }
         System.out.println("Player 3 now owns the tile at (5,4)...");
 
         Tile tileD = theBoard.getTile(2,7);
         if (tileD.getTileType() == TileType.PROPERTY) {
-            ((PropertyTile) tileD).setOwner(PlayerID.PLAYER4);
+            players.get(3).giveTile((PropertyTile) tileD);
             ((PropertyTile) tileD).setCard(CardShape.SHAPE1);
         } else { assert(false); }
         System.out.println("Player 4 now owns the tile at (2,7)...");

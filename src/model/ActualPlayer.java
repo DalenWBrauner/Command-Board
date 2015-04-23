@@ -32,13 +32,19 @@ public class ActualPlayer implements Player {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ArrayList<PropertyTile> getTilesOwned() {
-        // Do I maybe want to return a copy instead?
-        return myTiles;
+        return (ArrayList<PropertyTile>) myTiles.clone();
     }
 
     @Override
     public PlayerID getPlayerID() {
         return myID;
+    }
+
+    @Override
+    public void giveTile(PropertyTile newTile) {
+        myTiles.add(newTile);
+        newTile.setOwner(myID);
     }
 }

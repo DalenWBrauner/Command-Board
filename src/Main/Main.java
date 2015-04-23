@@ -8,7 +8,7 @@ public class Main {
     /** Default settings for Match creation
      * Feel free to change these, they are arbitrary (for now).
      */
-    private final static int DEFAULT_NUMBER_OF_PLAYERS = 3;
+    private final static int DEFAULT_NUMBER_OF_PLAYERS = 4;
     private final static int DEFAULT_CASH_GOAL = 9000;
     private final static String DEFAULT_BOARD = "Default";
 

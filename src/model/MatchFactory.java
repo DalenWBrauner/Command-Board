@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import model.ActualPlayer.PlayerID;
 
@@ -10,11 +11,6 @@ public class MatchFactory {
 
     public Match createMatch(int numberOfPlayers, int cashGoal, String whichBoard) {
         System.out.println("MatchFactory.createMatch(); START");
-
-        // Determine Turn Order
-        int[] turnOrder = new int[numberOfPlayers];
-        // for player in number of players assign a random value to each player
-        // order based on the random value
 
         // Create Player Objects
         ArrayList<Player> thePlayers = new ArrayList<>();
@@ -31,10 +27,23 @@ public class MatchFactory {
             thePlayers.add(new ActualPlayer(PlayerID.PLAYER4));
         }
 
+        // Shuffle the Turn Order
+        Collections.shuffle(thePlayers);
+
         // Print some stuff
         System.out.println("There are " + numberOfPlayers + " players.");
-        for (int i = 0; i < turnOrder.length; i++) {
-            System.out.println("Player "+turnOrder[i]+" goes on turn "+(i+1)+".");
+        System.out.println("The turn order is:");
+        for (Player player : thePlayers) {
+            if (player.getID() == PlayerID.PLAYER1) {
+                System.out.println("Player 1");
+            } else if (player.getID() == PlayerID.PLAYER2) {
+                System.out.println("Player 2");
+            } else if (player.getID() == PlayerID.PLAYER3) {
+                System.out.println("Player 3");
+            } else if (player.getID() == PlayerID.PLAYER4) {
+                System.out.println("Player 4");
+            }
+
         }
         System.out.println("We're playing on the "+whichBoard+" Board!");
         System.out.println("First one back to the start with $"+cashGoal+" wins!");

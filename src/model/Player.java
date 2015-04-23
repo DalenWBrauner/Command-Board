@@ -10,6 +10,7 @@ public interface Player {
     public Hand getHand();
     public Wallet getWallet();
     public ArrayList<PropertyTile> getTilesOwned();
-    public PlayerID getPlayerID();
+    public PlayerID getID();
     public void giveTile(PropertyTile newTile);
+    void removeTile(PropertyTile oldTile);
 }

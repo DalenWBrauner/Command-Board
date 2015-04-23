@@ -15,7 +15,6 @@ public class Main {
     private final static MatchFactory theMatchFactory = new MatchFactory();
 
     public static void main(String[] args) {
-        System.out.println("main(); START");
 
         // Start with the default behavior
         int numberOfPlayers = DEFAULT_NUMBER_OF_PLAYERS;
@@ -38,6 +37,6 @@ public class Main {
 
         Match theMatch = theMatchFactory.createMatch(numberOfPlayers, cashGoal, whichBoard);
         theMatch.start();
-        System.out.println("main(); END");
+        theMatch.debug();
     }
 }

@@ -24,9 +24,7 @@ public class Match extends Observable {
 
     /** Starts the game. */
     public void start() {
-        System.out.println("Match.start(); START");
-        debug();
-        System.out.println("Match.start(); END");
+        System.out.println("Match.start();");
     }
 
     /** Returns the Tile object at a given position on the board. */
@@ -34,7 +32,7 @@ public class Match extends Observable {
         return theBoard.getTile(x, y);
     }
 
-    private void debug() {
+    public void debug() {
         assert(players.size() == 4);
         System.out.println("Match.debug(); START");
         printBoard();

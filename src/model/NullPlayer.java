@@ -17,8 +17,11 @@ public class NullPlayer implements Player {
     public ArrayList<PropertyTile> getTilesOwned() { return null; }
 
     @Override
-    public PlayerID getPlayerID() { return PlayerID.NOPLAYER; }
+    public PlayerID getID() { return PlayerID.NOPLAYER; }
 
     @Override
     public void giveTile(PropertyTile newTile) { newTile.reset(); }
+
+    @Override
+    public void removeTile(PropertyTile oldTile) {}
 }

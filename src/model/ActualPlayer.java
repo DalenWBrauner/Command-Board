@@ -38,7 +38,7 @@ public class ActualPlayer implements Player {
     }
 
     @Override
-    public PlayerID getPlayerID() {
+    public PlayerID getID() {
         return myID;
     }
 
@@ -46,5 +46,10 @@ public class ActualPlayer implements Player {
     public void giveTile(PropertyTile newTile) {
         myTiles.add(newTile);
         newTile.setOwner(myID);
+    }
+
+    @Override
+    public void removeTile(PropertyTile oldTile) {
+        myTiles.remove(oldTile);
     }
 }

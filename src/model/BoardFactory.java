@@ -1,6 +1,7 @@
 package model;
 
 import model.tile.CheckpointTile;
+import model.tile.CheckpointTile.CheckpointColor;
 import model.tile.PropertyTile;
 import model.tile.StartTile;
 
@@ -18,10 +19,10 @@ public class BoardFactory {
             theBoard.addTile(new StartTile(3, 2));
 
             // Add the Checkpoint Tiles
-            theBoard.addTile(new CheckpointTile(5, 0));
-            theBoard.addTile(new CheckpointTile(0, 2));
-            theBoard.addTile(new CheckpointTile(3, 5));
-            theBoard.addTile(new CheckpointTile(5, 7));
+            theBoard.addTile(new CheckpointTile(5, 0, CheckpointColor.RED));
+            theBoard.addTile(new CheckpointTile(0, 2, CheckpointColor.BLU));
+            theBoard.addTile(new CheckpointTile(3, 5, CheckpointColor.GRN));
+            theBoard.addTile(new CheckpointTile(5, 7, CheckpointColor.YLW));
 
             // Add the Property Tiles
             theBoard.addTile(new PropertyTile(0, 3));

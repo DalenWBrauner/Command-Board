@@ -3,6 +3,8 @@ package model;
 import java.util.Collection;
 import java.util.Observable;
 
+import model.tile.CheckpointTile;
+import model.tile.CheckpointTile.CheckpointColor;
 import model.tile.Tile;
 import model.tile.Tile.TileType;
 
@@ -25,18 +27,39 @@ public class Match extends Observable {
         for (int x = 0; x < theBoard.getWidth(); x++) {
             for (int y = 0; y < theBoard.getHeight(); y++) {
 
-                // Print out their type
-                TileType tileType = theBoard.getTile(x,y).getTileType();
-                // (unless they don't exist)
+                // Get the type of the tile,
+                Tile thisTile = theBoard.getTile(x,y);
+                TileType tileType = thisTile.getTileType();
+
+                // And if the tile exists,
                 if (tileType != TileType.NONE) {
+
+                    // Print it out!
                     System.out.print("The Tile at (" + x + ", " + y + ") is ");
 
-                } if (tileType == TileType.CHECKPOINT) {
-                    System.out.println("a checkpoint!");
-                } else if (tileType == TileType.PROPERTY) {
-                    System.out.println("a property tile!");
-                } else if (tileType == TileType.START) {
-                    System.out.println("the starting tile!");
+
+                    if (tileType == TileType.CHECKPOINT) {
+                        // If you're a checkpoint, print out your color!
+                        CheckpointColor whichColor = ((CheckpointTile) thisTile).getColor();
+                        if (whichColor == CheckpointColor.RED) {
+                            System.out.println("the Red Checkpoint!");
+                        } else if (whichColor == CheckpointColor.BLU) {
+                            System.out.println("the Blue Checkpoint!");
+                        } else if (whichColor == CheckpointColor.GRN) {
+                            System.out.println("the Green Checkpoint!");
+                        } else if (whichColor == CheckpointColor.YLW) {
+                            System.out.println("the Yellow Checkpoint!");
+                        } else {
+                            // If getColor() did not return one of the above enum values,
+                            assert(false);
+                        }
+
+                    } else if (tileType == TileType.PROPERTY) {
+                        System.out.println("a property tile!");
+
+                    } else if (tileType == TileType.START) {
+                        System.out.println("the START!");
+                    }
                 }
             }
         }

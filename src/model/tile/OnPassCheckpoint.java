@@ -4,8 +4,6 @@ public class OnPassCheckpoint implements OnPassStrat {
 
     @Override
     public void onPass() {
-        // TODO Auto-generated method stub
-
+        System.out.println("You passed a checkpoint!");
     }
-
 }

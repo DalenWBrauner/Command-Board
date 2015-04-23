@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import model.ActualPlayer.PlayerID;
+
 public class MatchFactory {
 
     private static BoardFactory boardFactory = new BoardFactory();
@@ -16,8 +18,17 @@ public class MatchFactory {
 
         // Create Player Objects
         ArrayList<Player> thePlayers = new ArrayList<>();
-        for (int p = 0; p < numberOfPlayers; p++) {
-            thePlayers.add(new ActualPlayer());
+        if (numberOfPlayers > 0) {
+            thePlayers.add(new ActualPlayer(PlayerID.PLAYER1));
+        }
+        if (numberOfPlayers > 1) {
+            thePlayers.add(new ActualPlayer(PlayerID.PLAYER2));
+        }
+        if (numberOfPlayers > 2) {
+            thePlayers.add(new ActualPlayer(PlayerID.PLAYER3));
+        }
+        if (numberOfPlayers > 3) {
+            thePlayers.add(new ActualPlayer(PlayerID.PLAYER4));
         }
 
         // Print some stuff

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import model.ActualPlayer.PlayerID;
 import model.tile.PropertyTile;
 
 public class NullPlayer implements Player {
@@ -15,4 +16,6 @@ public class NullPlayer implements Player {
     @Override
     public ArrayList<PropertyTile> getTilesOwned() { return null; }
 
+    @Override
+    public PlayerID getPlayerID() { return PlayerID.NOPLAYER; }
 }

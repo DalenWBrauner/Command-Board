@@ -11,12 +11,14 @@ public class ActualPlayer implements Player {
     private Hand myHand;
     private Wallet myWallet;
     private ArrayList<PropertyTile> myTiles;
+    private PlayerID myID;
 
-    public ActualPlayer() {
+    public ActualPlayer(PlayerID id) {
         System.out.println("new ActualPlayer();");
         myHand = new Hand();
         myWallet = new Wallet();
         myTiles = new ArrayList<PropertyTile>();
+        myID = id;
     }
 
     @Override
@@ -33,5 +35,10 @@ public class ActualPlayer implements Player {
     public ArrayList<PropertyTile> getTilesOwned() {
         // Do I maybe want to return a copy instead?
         return myTiles;
+    }
+
+    @Override
+    public PlayerID getPlayerID() {
+        return myID;
     }
 }

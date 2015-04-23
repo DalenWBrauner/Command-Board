@@ -4,8 +4,8 @@ import java.util.Collection;
 
 public class Hand {
 
-    public enum CARDTYPE { HAT, CROWN, KEY, JOKER };
+    public enum CardShape { NOCARD, SHAPE1, SHAPE2, SHAPE3 };
 
-    private Collection<CARDTYPE> inHand;
+    private Collection<CardShape> inHand;
 
 }

@@ -34,5 +34,4 @@ public class ActualPlayer implements Player {
         // Do I maybe want to return a copy instead?
         return myTiles;
     }
-
 }

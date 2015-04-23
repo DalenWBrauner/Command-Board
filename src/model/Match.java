@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Observable;
 
 import model.ActualPlayer.PlayerID;
+import model.Hand.CardShape;
 import model.tile.CheckpointTile;
 import model.tile.CheckpointTile.CheckpointColor;
 import model.tile.PropertyTile;
@@ -21,11 +22,21 @@ public class Match extends Observable {
         players = playersInTurnOrder;
     }
 
-    /** Starts the game */
+    /** Starts the game. */
     public void start() {
         System.out.println("Match.start(); START");
+        printBoard();
+        System.out.println("Match.start(); END");
+    }
 
-        // For each tile on the board,
+    /** Returns the Tile object at a given position on the board. */
+    public Tile getTile(int x, int y) {
+        return theBoard.getTile(x, y);
+    }
+
+    /** Prints out basic information about the current board. */
+    public void printBoard() {
+     // For each tile on the board,
         for (int y = 0; y < theBoard.getHeight(); y++) {
             for (int x = 0; x < theBoard.getWidth(); x++) {
                 Tile thisTile = theBoard.getTile(x,y);
@@ -54,21 +65,46 @@ public class Match extends Observable {
                         }
 
                     } else if (tileType == TileType.PROPERTY) {
-                        System.out.print("a property tile owned by ");
+
+                        // Display Tile Level
+                        System.out.print("a Level " + ((PropertyTile) thisTile).getLevel()
+                                + " Property Tile");
+
+                        // Display Tile Owner
+                        System.out.print(" owned by");
                         PlayerID tileOwner = ((PropertyTile) thisTile).getOwner();
+
                         if (tileOwner == PlayerID.NOPLAYER) {
-                            System.out.print("nobody");
+                            System.out.print(" nobody");
                         } else if (tileOwner == PlayerID.PLAYER1) {
-                            System.out.print("Player 1");
+                            System.out.print(" Player 1");
                         } else if (tileOwner == PlayerID.PLAYER2) {
-                            System.out.print("Player 2");
+                            System.out.print(" Player 2");
                         } else if (tileOwner == PlayerID.PLAYER3) {
-                            System.out.print("Player 3");
+                            System.out.print(" Player 3");
                         } else if (tileOwner == PlayerID.PLAYER4) {
-                            System.out.print("Player 4");
+                            System.out.print(" Player 4");
                         }
-                        System.out.print(" with a value of $");
+
+                        // Display Card
+                        System.out.print(" with");
+                        CardShape tileCard = ((PropertyTile) thisTile).getCard();
+
+                        if (tileCard == CardShape.NOCARD) {
+                            System.out.print(" no card");
+                        } else if (tileCard == CardShape.SHAPE1) {
+                            System.out.print(" a Shape1 card");
+                        } else if (tileCard == CardShape.SHAPE2) {
+                            System.out.print(" a Shape2 card");
+                        } else if (tileCard == CardShape.SHAPE3) {
+                            System.out.print(" a Shape3 card");
+                        }
+
+                        // Display Tile Value
+                        System.out.print(" and with a value of $");
                         System.out.print( ((PropertyTile) thisTile).getValue()  );
+
+                        // End of sentence
                         System.out.println(".");
 
                     } else if (tileType == TileType.START) {
@@ -77,10 +113,6 @@ public class Match extends Observable {
                 }
             }
         }
-        System.out.println("Match.start(); END");
-    }
 
-    public Tile getTile(int x, int y) {
-        return theBoard.getTile(x, y);
     }
 }

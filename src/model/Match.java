@@ -38,7 +38,6 @@ public class Match extends Observable {
         System.out.println("Match.debug(); START");
         printBoard();
 
-
         Tile tileA = theBoard.getTile(2,2);
         if (tileA.getTileType() == TileType.PROPERTY) {
             ((PropertyTile) tileA).setOwner(PlayerID.PLAYER1);
@@ -66,6 +65,18 @@ public class Match extends Observable {
             ((PropertyTile) tileD).setCard(CardShape.SHAPE1);
         } else { assert(false); }
         System.out.println("Player 4 now owns the tile at (2,7)...");
+        System.out.println();
+
+        printBoard();
+
+        ((PropertyTile) tileA).setLevel(2);
+        System.out.println("Player 1 has leveled up their tile by 1!");
+        ((PropertyTile) tileB).setLevel(3);
+        System.out.println("Player 2 has leveled up their tile by 2!");
+        ((PropertyTile) tileC).setLevel(4);
+        System.out.println("Player 3 has leveled up their tile by 3!");
+        ((PropertyTile) tileD).setLevel(5);
+        System.out.println("Player 4 has leveled up their tile by 4!");
         System.out.println();
 
         printBoard();

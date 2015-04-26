@@ -2,8 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
-import model.ActualPlayer.PlayerID;
 import model.tile.PropertyTile;
+import shared.enums.PlayerID;
 
 public interface Player {
 

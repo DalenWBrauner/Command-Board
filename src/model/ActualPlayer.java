@@ -3,10 +3,9 @@ package model;
 import java.util.ArrayList;
 
 import model.tile.PropertyTile;
+import shared.enums.PlayerID;
 
 public class ActualPlayer implements Player {
-
-    public static enum PlayerID {PLAYER1, PLAYER2, PLAYER3, PLAYER4, NOPLAYER}
 
     private Hand myHand;
     private Wallet myWallet;

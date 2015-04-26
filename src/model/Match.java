@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import model.ActualPlayer.PlayerID;
-import model.Hand.CardShape;
 import model.tile.CheckpointTile;
-import model.tile.CheckpointTile.CheckpointColor;
 import model.tile.PropertyTile;
 import model.tile.Tile;
-import model.tile.Tile.TileType;
+import shared.enums.CardShape;
+import shared.enums.CheckpointColor;
+import shared.enums.PlayerID;
+import shared.enums.TileType;
 
 public class Match extends Observable {
 

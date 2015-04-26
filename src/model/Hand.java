@@ -2,9 +2,9 @@ package model;
 
 import java.util.Collection;
 
-public class Hand {
+import shared.enums.CardShape;
 
-    public enum CardShape { NOCARD, SHAPE1, SHAPE2, SHAPE3 };
+public class Hand {
 
     private Collection<CardShape> inHand;
 

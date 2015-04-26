@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import model.ActualPlayer.PlayerID;
+import shared.enums.PlayerID;
 
 public class MatchFactory {
 

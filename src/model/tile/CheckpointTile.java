@@ -1,9 +1,9 @@
 package model.tile;
 
+import shared.enums.CheckpointColor;
+import shared.enums.TileType;
 
 public class CheckpointTile extends Tile {
-
-    public enum CheckpointColor { RED, BLU, GRN, YLW };
 
     private CheckpointColor myColor;
 

@@ -1,7 +1,8 @@
 package model.tile;
 
-import model.ActualPlayer.PlayerID;
-import model.Hand.CardShape;
+import shared.enums.CardShape;
+import shared.enums.PlayerID;
+import shared.enums.TileType;
 
 public class PropertyTile extends Tile {
 

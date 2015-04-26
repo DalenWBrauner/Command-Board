@@ -1,9 +1,9 @@
 package model;
 
 import model.tile.CheckpointTile;
-import model.tile.CheckpointTile.CheckpointColor;
 import model.tile.PropertyTile;
 import model.tile.StartTile;
+import shared.enums.CheckpointColor;
 
 public class BoardFactory {
 

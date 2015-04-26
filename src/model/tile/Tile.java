@@ -1,8 +1,8 @@
 package model.tile;
 
-public abstract class Tile {
+import shared.enums.TileType;
 
-    public enum TileType { NONE, PROPERTY, START, CHECKPOINT }
+public abstract class Tile {
 
     private int xPos;
     private int yPos;

@@ -1,5 +1,6 @@
 package model.tile;
 
+import shared.enums.TileType;
 
 public class NullTile extends Tile {
 

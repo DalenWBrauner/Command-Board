@@ -37,6 +37,6 @@ public class Main {
 
         Match theMatch = theMatchFactory.createMatch(numberOfPlayers, cashGoal, whichBoard);
         theMatch.start();
-        theMatch.debug();
+        //theMatch.debug();
     }
 }

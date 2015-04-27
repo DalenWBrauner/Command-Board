@@ -13,7 +13,7 @@ public class ActualPlayer implements Player {
     private PlayerID myID;
 
     public ActualPlayer(PlayerID id) {
-        System.out.println("new ActualPlayer();");
+        System.out.println("new ActualPlayer("+id.toString()+");");
         myHand = new Hand();
         myWallet = new Wallet();
         myTiles = new ArrayList<PropertyTile>();

@@ -15,21 +15,87 @@ public class Match extends Observable {
 
     private Board theBoard;
     private ArrayList<Player> players;
+    private PlayerID currentPlayer;
+    private PlayerID winner;
+    private boolean matchIsOver;
+    private int turnNumber;
 
     public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder) {
         System.out.println("new Match();");
         theBoard = requestedBoard;
         players = playersInTurnOrder;
+        winner = PlayerID.NOPLAYER;
+        matchIsOver = false;
     }
 
     /** Starts the game. */
     public void start() {
-        System.out.println("Match.start();");
+        System.out.println("Match.start(); START");
+
+        turnNumber = 0;
+        while (!matchIsOver) {
+            // Setup the next player to start
+            turnNumber++;
+            currentPlayer = players.get((turnNumber - 1)  % players.size()).getID();
+
+            // Take that player's turn.
+            matchIsOver = takeTurn();
+        }
+
+        // The Match is over!
+        System.out.println("The match is over! " + winner.toString() + " wins!");
+        System.out.println("Match.start(); END");
+    }
+
+    /** Takes the current player's turn.
+     * @return true if and only if the game is over.
+     */
+    private boolean takeTurn() {
+        System.out.print("TURN  " + turnNumber + ":\t");
+        System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
+
+        if (turnNumber >= 20) {
+            winner = currentPlayer;
+            return true;
+        }
+        return false;
     }
 
     /** Returns the Tile object at a given position on the board. */
     public Tile getTile(int x, int y) {
         return theBoard.getTile(x, y);
+    }
+
+    /** Return the ID of the player whose turn it is. */
+    public PlayerID getCurrentPlayerID() {
+        return currentPlayer;
+    }
+
+    /** Return which turn is being taken
+     * (the number of turns taken by all players + 1)
+    */
+    public int getNumberOfTurns() {
+        return turnNumber;
+    }
+
+    /** Returns whether or not the Match has ended.
+     *
+     * @return true if the Match is over.
+     */
+    public boolean isTheMatchOver() {
+        return matchIsOver;
+    }
+
+    /** Returns the winner of the game!
+     * If the game isn't over yet, returns NOPLAYER.
+     * @return The PlayerID of the winning Player.
+     */
+    public PlayerID whoWon() {
+        if (matchIsOver) {
+            return winner;
+        } else {
+            return PlayerID.NOPLAYER;
+        }
     }
 
     public void debug() {
@@ -99,18 +165,7 @@ public class Match extends Observable {
                     if (tileType == TileType.CHECKPOINT) {
                         // If you're a checkpoint, print out your color!
                         CheckpointColor whichColor = ((CheckpointTile) thisTile).getColor();
-                        if (whichColor == CheckpointColor.RED) {
-                            System.out.println("the Red Checkpoint!");
-                        } else if (whichColor == CheckpointColor.BLU) {
-                            System.out.println("the Blue Checkpoint!");
-                        } else if (whichColor == CheckpointColor.GRN) {
-                            System.out.println("the Green Checkpoint!");
-                        } else if (whichColor == CheckpointColor.YLW) {
-                            System.out.println("the Yellow Checkpoint!");
-                        } else {
-                            // If getColor() did not return one of the above enum values,
-                            assert(false);
-                        }
+                        System.out.println("the " + whichColor.toString() + " Checkpoint!");
 
                     } else if (tileType == TileType.PROPERTY) {
 
@@ -119,20 +174,8 @@ public class Match extends Observable {
                                 + " Property Tile");
 
                         // Display Tile Owner
-                        System.out.print(" owned by");
                         PlayerID tileOwner = ((PropertyTile) thisTile).getOwner();
-
-                        if (tileOwner == PlayerID.NOPLAYER) {
-                            System.out.print(" nobody");
-                        } else if (tileOwner == PlayerID.PLAYER1) {
-                            System.out.print(" Player 1");
-                        } else if (tileOwner == PlayerID.PLAYER2) {
-                            System.out.print(" Player 2");
-                        } else if (tileOwner == PlayerID.PLAYER3) {
-                            System.out.print(" Player 3");
-                        } else if (tileOwner == PlayerID.PLAYER4) {
-                            System.out.print(" Player 4");
-                        }
+                        System.out.print(" owned by " + tileOwner.toString());
 
                         // Display Card
                         System.out.print(" with");

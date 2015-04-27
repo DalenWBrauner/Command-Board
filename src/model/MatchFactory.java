@@ -31,19 +31,9 @@ public class MatchFactory {
         Collections.shuffle(thePlayers);
 
         // Print some stuff
-        System.out.println("There are " + numberOfPlayers + " players.");
-        System.out.println("The turn order is:");
+        System.out.println("The " + numberOfPlayers + " players play in this order:");
         for (Player player : thePlayers) {
-            if (player.getID() == PlayerID.PLAYER1) {
-                System.out.println("Player 1");
-            } else if (player.getID() == PlayerID.PLAYER2) {
-                System.out.println("Player 2");
-            } else if (player.getID() == PlayerID.PLAYER3) {
-                System.out.println("Player 3");
-            } else if (player.getID() == PlayerID.PLAYER4) {
-                System.out.println("Player 4");
-            }
-
+            System.out.println(player.getID().toString());
         }
         System.out.println("We're playing on the "+whichBoard+" Board!");
         System.out.println("First one back to the start with $"+cashGoal+" wins!");

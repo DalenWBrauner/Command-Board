@@ -1,6 +1,6 @@
 package view;
 
-class Game{
+class Game {
 
    private InterfaceControl controller;
    //private GameSkin skin;

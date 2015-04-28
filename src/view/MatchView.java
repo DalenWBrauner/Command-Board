@@ -2,15 +2,16 @@ package view;
 
 import model.Match;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import controller.ScreenSwitcher;
 
-public class GameView implements ControlledScreen {
+public class MatchView implements ControlledScreen {
 
     Group mainGroup;
     ScreenSwitcher myController;
     Match match;
     
-    public GameView() {
+    public MatchView() {
         mainGroup = new Group();
         // TODO: Create scrollpane with grid of tiles
         // within.
@@ -20,6 +21,10 @@ public class GameView implements ControlledScreen {
     
     public void loadMatch(Match m) {
         match = m;
+        // A temporary label.
+        Label temp = new Label();
+        temp.setText("LOOK AT THEM GRAPHICS!");
+        mainGroup.getChildren().add(temp);
         // ... do setup stuff (activate tiles)
     }
 

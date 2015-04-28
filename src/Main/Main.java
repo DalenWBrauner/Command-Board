@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import view.ControlledScreen;
-import view.GameView;
+import view.MatchView;
 import view.MenuScreenView;
 import controller.ScreenSwitcher;
 import javafx.application.Application;
@@ -49,7 +49,7 @@ public class Main extends Application {
         ScreenSwitcher mainContainer = new ScreenSwitcher();
         
         // Add our screens to the stack.
-        GameView gameMap = new GameView();
+        MatchView gameMap = new MatchView();
         mainContainer.registerScreen(GAME_SCREEN, gameMap);
         ControlledScreen menuScreen = new MenuScreenView(gameMap);
         mainContainer.registerScreen(MENU_SCREEN, menuScreen);

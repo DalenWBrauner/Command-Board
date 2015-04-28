@@ -33,7 +33,7 @@ public class MenuScreenView implements ControlledScreen {
             new Image(MenuScreenView.class.getResource(
                     "/images/Menu Screen Background.jpg").toString());*/
 
-    public MenuScreenView(GameView gameScreen) {
+    public MenuScreenView(MatchView gameScreen) {
         mainGroup = new Group();
         
         // Our background image.

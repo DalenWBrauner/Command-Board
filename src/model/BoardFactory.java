@@ -12,9 +12,8 @@ public class BoardFactory {
         Board theBoard = new Board();
         theBoard.setName(boardName);
 
-        // Edit the board, add tiles, etc.
-        if (boardName.equals("Default")) {
-
+        switch(boardName) {
+        case "Default":
             // Add the Start Tile
             theBoard.addTile(new StartTile(3, 2));
 
@@ -48,10 +47,9 @@ public class BoardFactory {
             theBoard.addTile(new PropertyTile(5, 4, 500));
             theBoard.addTile(new PropertyTile(5, 5, 450));
             theBoard.addTile(new PropertyTile(5, 6, 350));
+            break;
 
-
-        // Of course, if we've never heard of this board before...
-        } else {
+        default:
             throw new IllegalArgumentException("I don't know how to make a "+boardName+" Board!");
         }
 

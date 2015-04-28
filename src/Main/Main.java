@@ -5,15 +5,14 @@ package Main;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import model.MatchFactory;
 import view.ControlledScreen;
 import view.MatchView;
 import view.MenuScreenView;
 import controller.ScreenSwitcher;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import model.Match;
-import model.MatchFactory;
 
 public class Main extends Application {
 
@@ -21,16 +20,20 @@ public class Main extends Application {
      * Feel free to change these, they are arbitrary (for now).
      */
     public final static int MAX_NUMBER_OF_PLAYERS = 4;
-    public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
-                                HashMap<String, Integer>();
-    public final static String[] BOARD_STRING_OPTIONS = {"Default"};
+    private final static int DEFAULT_CASH_GOAL_LOW    = 3000;
+    private final static int DEFAULT_CASH_GOAL_MEDIUM = 5000;
+    private final static int DEFAULT_CASH_GOAL_HIGH   = 7000;
     public final static String MENU_SCREEN = "menu";
     public final static String GAME_SCREEN = "command board";
-    
+    public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
+                                HashMap<String, Integer>();
+    public final static String[] PLAYABLE_BOARDS = {"Default"};
+
+
     //private static Logger logger =  Logger.getLogger(PegSolitaire.class);
 
     public final static MatchFactory theMatchFactory = new MatchFactory();
-    
+
     public final static int MAIN_WINDOW_HEIGHT = 600;
     public final static int MAIN_WINDOW_WIDTH = 800;
 
@@ -71,13 +74,12 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        CASH_GOAL_OPTIONS.put("Low", 3000);
-        CASH_GOAL_OPTIONS.put("Medium", 5000);
-        CASH_GOAL_OPTIONS.put("High", 7000);
-        
+        CASH_GOAL_OPTIONS.put(("Low ("    + DEFAULT_CASH_GOAL_LOW    + ")"), DEFAULT_CASH_GOAL_LOW);
+        CASH_GOAL_OPTIONS.put(("Medium (" + DEFAULT_CASH_GOAL_MEDIUM + ")"), DEFAULT_CASH_GOAL_MEDIUM);
+        CASH_GOAL_OPTIONS.put(("High ("   + DEFAULT_CASH_GOAL_HIGH   + ")"), DEFAULT_CASH_GOAL_HIGH);
         primaryStage.setTitle("Command Board");
         primaryStage.setScene(initGameScene());
-        primaryStage.show();        
+        primaryStage.show();
         //logger.info("JavaFx game started");
     }
 }

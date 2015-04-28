@@ -120,7 +120,7 @@ public class MenuScreenView implements ControlledScreen {
         // is only one board option.
         ObservableList boardChoices = FXCollections.
                 observableArrayList();
-        boardChoices.addAll(Main.BOARD_STRING_OPTIONS);
+        boardChoices.addAll(Main.PLAYABLE_BOARDS);
         ChoiceBox boardCB = new ChoiceBox(boardChoices);
         boardCB.setTooltip(new Tooltip("Boop3!"));
         

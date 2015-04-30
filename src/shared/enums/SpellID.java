@@ -10,7 +10,9 @@ public enum SpellID {
     SPELL5  ("Spell 5"),
     SPELL6  ("Spell 6"),
     SPELL7  ("Spell 7"),
-    SPELL8  ("Spell 8");
+    SPELL8  ("Spell 8"),
+    SPELL9  ("Spell 9"),
+    SPELL10 ("Spell 10");
 
     private final String myName;
     private SpellID(String name) {

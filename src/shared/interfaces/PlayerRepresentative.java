@@ -2,6 +2,7 @@ package shared.interfaces;
 
 import model.tile.PropertyTile;
 import model.tile.Tile;
+import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
@@ -47,6 +48,29 @@ public interface PlayerRepresentative {
      * @return Which direction the Player chose to move in.
      */
     public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections);
+
+    /** The Model needs to know whether the Player wants to buy a Tile!
+     *
+     * @param tileForPurchase The Tile the Player has the option of buying
+     * (Note: this tile could belong to an opponent!)
+     * @return Whether or not the Player would like to buy it.
+     */
+    public boolean buyThisTile(PropertyTile tileForPurchase);
+
+    /** The Model needs to know whether the Player wants to swap out cards on this tile!
+     *
+     * @param tileForSwapping The PropertyTile the Player can swap cards with.
+     * @return Which CardShape to place onto the Tile.
+     * Return NOCARD if the Player does not wish to swap cards!
+     */
+    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping);
+
+    /** The Model needs to which Tile the Player wants to swap cards with!
+     *
+     * @return NullTile if the Player does not wish to swap cards with a Tile,
+     *         or which PropertyTile the Player wishes to upgrade.
+     */
+    public Tile swapCardOnWhichTile();
 
     /** The Model needs to know which Tile the Player wants to upgrade!
      *

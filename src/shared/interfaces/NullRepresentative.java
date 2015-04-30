@@ -8,6 +8,7 @@ import model.Player;
 import model.tile.NullTile;
 import model.tile.PropertyTile;
 import model.tile.Tile;
+import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
@@ -48,5 +49,14 @@ public class NullRepresentative implements PlayerRepresentative {
         ArrayList<PropertyTile> tiles = p.getTilesOwned();
         return tiles.get(0);
     }
+
+    @Override
+    public boolean buyThisTile(PropertyTile tileForPurchase) { return false; }
+
+    @Override
+    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) { return CardShape.NOCARD; }
+
+    @Override
+    public Tile swapCardOnWhichTile() { return new NullTile(); }
 
 }

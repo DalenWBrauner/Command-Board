@@ -54,6 +54,18 @@ public class Match extends Observable {
         playerReps.replace(thisPlayer, thisRep);
     }
 
+    /** Returns the representative for the given player.
+     *
+     * The idea is that objects inside the Match can ask the Match for the rep,
+     * so that the Match doesn't have to try to hold any of the functions.
+     *
+     * @param thisPlayer The ID of the Player we need to ask a question.
+     * @return The Representative for the given PlayerID.
+     */
+    public PlayerRepresentative getRepresentative(PlayerID thisPlayer) {
+        return playerReps.get(thisPlayer);
+    }
+
     /** Starts the game. */
     public void start() {
         System.out.println("Match.start(); START");

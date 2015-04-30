@@ -71,7 +71,7 @@ public class Match extends Observable {
         return currentPlayer;
     }
 
-    /** Return which turn is being taken
+    /** Return which turn is being taken.
      * (the number of turns taken by all players + 1)
     */
     public int getNumberOfTurns() {
@@ -79,7 +79,6 @@ public class Match extends Observable {
     }
 
     /** Returns whether or not the Match has ended.
-     *
      * @return true if the Match is over.
      */
     public boolean isTheMatchOver() {

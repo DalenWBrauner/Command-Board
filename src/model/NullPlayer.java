@@ -8,6 +8,21 @@ import shared.enums.PlayerID;
 public class NullPlayer implements Player {
 
     @Override
+    public int getX() { return 0; }
+
+    @Override
+    public int getY() { return 0; }
+
+    @Override
+    public void setX(int x) {}
+
+    @Override
+    public void setY(int y) {}
+
+    @Override
+    public void setPosition(int x, int y) {}
+
+    @Override
     public Hand getHand() { return null; }
 
     @Override
@@ -24,4 +39,5 @@ public class NullPlayer implements Player {
 
     @Override
     public void removeTile(PropertyTile oldTile) {}
+
 }

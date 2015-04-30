@@ -15,7 +15,7 @@ public class BoardFactory {
         switch(boardName) {
         case "Default":
             // Add the Start Tile
-            theBoard.addTile(new StartTile(3, 2));
+            theBoard.addStartingTile(new StartTile(3, 2));
 
             // Add the Checkpoint Tiles
             theBoard.addTile(new CheckpointTile(5, 0, CheckpointColor.RED));

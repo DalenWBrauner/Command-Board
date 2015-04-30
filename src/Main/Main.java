@@ -12,6 +12,7 @@ import model.MatchFactory;
 import view.ControlledScreen;
 import view.MatchView;
 import view.MenuScreenView;
+import view.VictoryView;
 import controller.ScreenSwitcher;
 
 public class Main extends Application {
@@ -25,6 +26,7 @@ public class Main extends Application {
     private final static int DEFAULT_CASH_GOAL_HIGH   = 7000;
     public final static String MENU_SCREEN = "menu";
     public final static String GAME_SCREEN = "command board";
+    public final static String VICTORY_SCREEN = "victory";
     public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
                                 HashMap<String, Integer>();
     public final static String[] PLAYABLE_BOARDS = {"Default"};
@@ -52,10 +54,18 @@ public class Main extends Application {
         ScreenSwitcher mainContainer = new ScreenSwitcher();
         
         // Add our screens to the stack.
-        MatchView gameMap = new MatchView();
+        ControlledScreen gameMap = new MatchView();
         mainContainer.registerScreen(GAME_SCREEN, gameMap);
-        ControlledScreen menuScreen = new MenuScreenView(gameMap);
+        
+        ControlledScreen victoryScreen = new VictoryView(MENU_SCREEN);
+        mainContainer.registerScreen(VICTORY_SCREEN, victoryScreen);
+
+        ControlledScreen menuScreen = new MenuScreenView(
+                (MatchView) gameMap, (VictoryView) victoryScreen);
         mainContainer.registerScreen(MENU_SCREEN, menuScreen);
+        
+        
+        
         
         
         // The game is just starting, so let's turn on the Menu screen.

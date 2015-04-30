@@ -33,7 +33,7 @@ public class MenuScreenView implements ControlledScreen {
             new Image(MenuScreenView.class.getResource(
                     "/images/Menu Screen Background.jpg").toString());*/
 
-    public MenuScreenView(MatchView gameScreen) {
+    public MenuScreenView(MatchView gameScreen, VictoryView victoryScreen) {
         mainGroup = new Group();
         
         // Our background image.
@@ -145,12 +145,18 @@ public class MenuScreenView implements ControlledScreen {
                                                 getValue());
                     String whichBoard = (String)boardCB.getValue();
 
+                    // Create the match object with our parameters.
                     Match theMatch = Main.theMatchFactory.createMatch(numberOfPlayers, cashGoal, whichBoard);
                     
+                    // Pass our match object so that our game screen can load
                     gameScreen.loadMatch(theMatch);
-                    
+     
                     myController.setActiveScreen(Main.GAME_SCREEN);
                     theMatch.start();
+             
+                    // Show the victory screen, showing who won.
+                    victoryScreen.loadMatch(theMatch);
+                    myController.setActiveScreen(Main.VICTORY_SCREEN);
                 }
             }
         });

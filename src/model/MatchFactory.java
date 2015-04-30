@@ -41,6 +41,11 @@ public class MatchFactory {
         // Create Board Object
         Board theBoard = boardFactory.getBoard(whichBoard);
 
+        // Assign the Players to the Start position
+        for (Player player : thePlayers) {
+            player.setPosition(theBoard.getStartX(), theBoard.getStartY());
+        }
+
         // Create Match Object
         Match theMatch = new Match(theBoard, thePlayers);
 

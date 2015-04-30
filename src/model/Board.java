@@ -1,12 +1,16 @@
 package model;
 
 import model.tile.NullTile;
+import model.tile.StartTile;
 import model.tile.Tile;
 
 public class Board {
 
     private final static int BOARD_WIDTH = 15;
     private final static int BOARD_HEIGHT = 15;
+
+    private int startX = 0;
+    private int startY = 0;
 
     private boolean finished;
     private String boardName = "untitled";
@@ -45,6 +49,13 @@ public class Board {
         tiles[tile.getX()][tile.getY()] = tile;
     }
 
+    public void addStartingTile(StartTile startTile) {
+        assert(!finished);
+        startX = startTile.getX();
+        startY = startTile.getY();
+        tiles[startX][startY] = startTile;
+    }
+
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
@@ -60,4 +71,15 @@ public class Board {
     public String getName() {
         return boardName;
     }
+
+    public int getStartX() {
+        assert(finished);
+        return startX;
+    }
+
+    public int getStartY() {
+        assert(finished);
+        return startY;
+    }
 }
+

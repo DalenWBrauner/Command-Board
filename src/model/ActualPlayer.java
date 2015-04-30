@@ -7,6 +7,8 @@ import shared.enums.PlayerID;
 
 public class ActualPlayer implements Player {
 
+    private int xPos;
+    private int yPos;
     private Hand myHand;
     private Wallet myWallet;
     private ArrayList<PropertyTile> myTiles;
@@ -18,6 +20,34 @@ public class ActualPlayer implements Player {
         myWallet = new Wallet();
         myTiles = new ArrayList<PropertyTile>();
         myID = id;
+        xPos = 0;
+        yPos = 0;
+    }
+
+    @Override
+    public int getX() {
+        return xPos;
+    }
+
+    @Override
+    public int getY() {
+        return yPos;
+    }
+
+    @Override
+    public void setX(int x) {
+        xPos = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        yPos = y;
+    }
+
+    @Override
+    public void setPosition(int x, int y) {
+        xPos = x;
+        yPos = y;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 
 import model.tile.CheckpointTile;
@@ -10,11 +11,15 @@ import shared.enums.CardShape;
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.enums.TileType;
+import shared.interfaces.NullRepresentative;
+import shared.interfaces.PlayerRepresentative;
 
 public class Match extends Observable {
 
     private Board theBoard;
-    private ArrayList<Player> players;
+    private ArrayList<PlayerID> turnOrder                      = new ArrayList<>();
+    private HashMap<PlayerID, Player> players                  = new HashMap<>();
+    private HashMap<PlayerID, PlayerRepresentative> playerReps = new HashMap<>();
     private PlayerID currentPlayer;
     private PlayerID winner;
     private boolean matchIsOver;
@@ -23,9 +28,30 @@ public class Match extends Observable {
     public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder) {
         System.out.println("new Match();");
         theBoard = requestedBoard;
-        players = playersInTurnOrder;
+
+        // Fills the maps with info from playersInTurnOrder.
+        for (int i = 0; i < playersInTurnOrder.size(); i++) {
+            Player eachPlayer = playersInTurnOrder.get(i);
+            PlayerID id       = eachPlayer.getID();
+
+            turnOrder.add(id);
+            players.put(id, eachPlayer);
+            playerReps.put(id, new NullRepresentative(this));
+            // These are just placeholder PlayerRepresentatives!
+            // Real ones need to be assigned ASAP through setPlayerRepresentative()!
+        }
+
         winner = PlayerID.NOPLAYER;
         matchIsOver = false;
+    }
+
+    /** Sets the representative for a given player.
+     * Make sure to set these before the match starts!
+     * (That said, this could easily be set later if Users, say, wanted their
+     * Player to be replaced by AI.)
+     */
+    public void setRepresentative(PlayerID thisPlayer, PlayerRepresentative thisRep) {
+        playerReps.replace(thisPlayer, thisRep);
     }
 
     /** Starts the game. */
@@ -36,7 +62,7 @@ public class Match extends Observable {
         while (!matchIsOver) {
             // Setup the next player to start
             turnNumber++;
-            currentPlayer = players.get((turnNumber - 1)  % players.size()).getID();
+            currentPlayer = turnOrder.get((turnNumber - 1) % turnOrder.size());
 
             // Take that player's turn.
             matchIsOver = takeTurn();
@@ -59,6 +85,12 @@ public class Match extends Observable {
             return true;
         }
         return false;
+    }
+
+    /** Returns the Player given its ID.
+     */
+    public Player getPlayer(PlayerID thisPlayer) {
+        return players.get(thisPlayer);
     }
 
     /** Returns the Tile object at a given position on the board. */

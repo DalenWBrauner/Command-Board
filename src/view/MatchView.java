@@ -20,6 +20,8 @@ public class MatchView implements ControlledScreen {
         // within.
         
         // TODO: Create joystick UI.
+        //Joystick joystick = new Joystick();
+        //mainGroup.getChildren().add(joystick.getMainGroup());
     }
     
     public void loadMatch(Match m) {
@@ -51,6 +53,12 @@ public class MatchView implements ControlledScreen {
     public int getUsersRoll(){
     	Random rand = new Random();
     	return rand.nextInt(6) + 1;
+    }
+    
+    //Loads joystick
+    public Group getJoystick(){
+    	Group joystick = new Group();
+    	return joystick;
     }
     
     

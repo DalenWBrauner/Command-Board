@@ -84,7 +84,7 @@ public interface PlayerRepresentative {
      *
      * @return The new Level the Player wants to upgrade their Tile to.
      */
-    public int upgradeToWhatLevel();
+    public int upgradeToWhatLevel(PropertyTile upgradingTile);
 
     /** The Model needs to know what Tile the Player has chosen to sell!
      *

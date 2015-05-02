@@ -36,7 +36,7 @@ public class NullRepresentative implements PlayerRepresentative {
     public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) { return new NullTile(); }
 
     @Override
-    public int upgradeToWhatLevel() { return 1; }
+    public int upgradeToWhatLevel(PropertyTile upgradingTile) { return 1; }
 
     @Override
     public PropertyTile sellWhichTile(PlayerID sellingPlayer) { return thePlayer.getTilesOwned().get(0); }

@@ -36,7 +36,7 @@ public class Match extends Observable {
 
             turnOrder.add(id);
             players.put(id, eachPlayer);
-            playerReps.put(id, new NullRepresentative(this));
+            playerReps.put(id, new NullRepresentative(this, id));
             // These are just placeholder PlayerRepresentatives!
             // Real ones need to be assigned ASAP through setPlayerRepresentative()!
         }

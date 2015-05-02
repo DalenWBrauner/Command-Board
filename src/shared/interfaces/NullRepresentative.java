@@ -1,6 +1,5 @@
 package shared.interfaces;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import model.Match;
@@ -16,10 +15,12 @@ import shared.enums.SpellID;
 public class NullRepresentative implements PlayerRepresentative {
 
     private Match theMatch;
+    private Player thePlayer;
     private static Random r = new Random();
 
-    public NullRepresentative(Match match) {
+    public NullRepresentative(Match match, PlayerID myPlayersID) {
         theMatch = match;
+        thePlayer = theMatch.getPlayer(myPlayersID);
     }
 
     @Override
@@ -29,26 +30,16 @@ public class NullRepresentative implements PlayerRepresentative {
     public int getUsersRoll() { return r.nextInt(6) + 1; }
 
     @Override
-    public CardinalDirection forkInTheRoad( CardinalDirection[] availableDirections) {
-        return availableDirections[0];
-    }
+    public CardinalDirection forkInTheRoad( CardinalDirection[] availableDirections) { return availableDirections[0]; }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
-        return new NullTile();
-    }
+    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) { return new NullTile(); }
 
     @Override
-    public int upgradeToWhatLevel() {
-        return 1;
-    }
+    public int upgradeToWhatLevel() { return 1; }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
-        Player p = theMatch.getPlayer(sellingPlayer);
-        ArrayList<PropertyTile> tiles = p.getTilesOwned();
-        return tiles.get(0);
-    }
+    public PropertyTile sellWhichTile(PlayerID sellingPlayer) { return thePlayer.getTilesOwned().get(0); }
 
     @Override
     public boolean buyThisTile(PropertyTile tileForPurchase) { return false; }

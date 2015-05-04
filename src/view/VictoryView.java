@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import shared.enums.PlayerID;
 import model.Match;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -49,8 +50,12 @@ public class VictoryView implements ControlledScreen {
         }
         grid.add(victoryText, 0, 0);
         
+        Label playAgain = new Label();
+        playAgain.setText("Play Again?");
+        grid.add(playAgain, 0, 2);
+        
         Button playAgainBtn = new Button();
-        playAgainBtn.setText("Play Again?");
+        playAgainBtn.setText("Yes");
         playAgainBtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -66,11 +71,22 @@ public class VictoryView implements ControlledScreen {
                 }
             }
         });
-        HBox hbBtn = new HBox(10);
-        //hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(playAgainBtn);
-        grid.add(hbBtn, 0, 2);
+//        HBox hbBtn = new HBox(10);
+//        //hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+//        hbBtn.getChildren().add(playAgainBtn);
+        grid.add(playAgainBtn, 0, 3);
 
+        Button quitBtn = new Button();
+        quitBtn.setText("No");
+        quitBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // End the application
+                Platform.exit();
+            }
+        });
+        grid.add(quitBtn, 1, 3);
+        
         mainGroup.getChildren().add(grid);
     }
     

@@ -9,6 +9,8 @@ public class ActualPlayer implements Player {
 
     private int xPos;
     private int yPos;
+    private int xLast;
+    private int yLast;
     private Hand myHand;
     private Wallet myWallet;
     private ArrayList<PropertyTile> myTiles;
@@ -22,6 +24,8 @@ public class ActualPlayer implements Player {
         myID = id;
         xPos = 0;
         yPos = 0;
+        xLast = 0;
+        yLast = 0;
     }
 
     @Override
@@ -72,13 +76,29 @@ public class ActualPlayer implements Player {
     }
 
     @Override
-    public void giveTile(PropertyTile newTile) {
+    public void gainTile(PropertyTile newTile) {
         myTiles.add(newTile);
         newTile.setOwner(myID);
     }
 
     @Override
-    public void removeTile(PropertyTile oldTile) {
+    public void loseTile(PropertyTile oldTile) {
         myTiles.remove(oldTile);
+    }
+
+    @Override
+    public int getLastX() {
+        return xLast;
+    }
+
+    @Override
+    public int getLastY() {
+        return yLast;
+    }
+
+    @Override
+    public void setLastPosition(int x, int y) {
+        xLast = x;
+        yLast = y;
     }
 }

@@ -25,9 +25,9 @@ public class MatchView implements ControlledScreen,
     private ScreenSwitcher myController;
     //private Match match;
     
-    private final static Image BACKGROUND_IMAGE = new Image(
-            MatchView.class.getResource("/images/gameBackground.png")
-            .toString());
+//    private final static Image BACKGROUND_IMAGE = new Image(
+//            MatchView.class.getResource("/images/gameBackground.png")
+//            .toString());
     
     public MatchView() {
         mainGroup = new Group();
@@ -41,9 +41,12 @@ public class MatchView implements ControlledScreen,
     
     public void loadMatch(Match m) {
         //match = m;
+        // Set this view as the "player representative" for
+        // all of the players.
+        m.setAllRepresentatives(this);
         
-        ImageView backgroundView = new ImageView(BACKGROUND_IMAGE);
-        mainGroup.getChildren().add(backgroundView);
+//        ImageView backgroundView = new ImageView(BACKGROUND_IMAGE);
+//        mainGroup.getChildren().add(backgroundView);
         
         // A temporary label.
         Label temp = new Label();

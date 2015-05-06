@@ -19,9 +19,9 @@ public class Bro extends Application {
 	final Rectangle wut = new Tile(1,1).getTile();
 	
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Command Board Prototype");
+		
 		Group root = new Group();
-		Scene scene = new Scene(root, 500, 500, Color.BLACK);
+		
 		
 		
 		Rectangle tile2 = new Rectangle(10, 60, 50, 50);
@@ -38,6 +38,8 @@ public class Bro extends Application {
 		s1.setPrefSize(40, 40);
 		
 		root.getChildren().addAll(wut, tile2, tile3, tile4, s1);
+		Scene scene = new Scene(root, 500, 500, Color.BLACK);
+		
 		primaryStage.setTitle("BRO");
 		primaryStage.setScene(scene);
 		primaryStage.show();

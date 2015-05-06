@@ -1,18 +1,33 @@
 package view;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
+import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
+import shared.enums.PlayerID;
+import shared.enums.SpellID;
+import shared.interfaces.PlayerRepresentative;
 import model.Match;
+import model.tile.PropertyTile;
+import model.tile.Tile;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import controller.ScreenSwitcher;
+import de.ohmen.fxgame.view.CrossGameMap;
 
-public class MatchView implements ControlledScreen {
+public class MatchView implements ControlledScreen,
+        PlayerRepresentative, Observer {
 
-    Group mainGroup;
-    ScreenSwitcher myController;
-    Match match;
+    private Group mainGroup;
+    private ScreenSwitcher myController;
+    private Match match;
+    
+    private final static Image BACKGROUND_IMAGE = new Image(
+            MatchView.class.getResource("/images/background.png")
+            .toString());
     
     public MatchView() {
         mainGroup = new Group();
@@ -59,6 +74,55 @@ public class MatchView implements ControlledScreen {
     public Group getJoystick(){
     	Group joystick = new Group();
     	return joystick;
+    }
+
+    @Override
+    public SpellID getSpellCast(SpellID[] availableSpells) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean buyThisTile(PropertyTile tileForPurchase) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Tile swapCardOnWhichTile() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int upgradeToWhatLevel(PropertyTile upgradingTile) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    // Arg will be null.
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub
+        
     }
     
     

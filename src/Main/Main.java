@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.MatchFactory;
 import view.ControlledScreen;
@@ -24,11 +26,12 @@ public class Main extends Application {
     private final static int DEFAULT_CASH_GOAL_LOW    = 3000;
     private final static int DEFAULT_CASH_GOAL_MEDIUM = 5000;
     private final static int DEFAULT_CASH_GOAL_HIGH   = 7000;
+    public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
+            HashMap<String, Integer>();
     public final static String MENU_SCREEN = "menu";
     public final static String GAME_SCREEN = "command board";
     public final static String VICTORY_SCREEN = "victory";
-    public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
-                                HashMap<String, Integer>();
+    
     public final static String[] PLAYABLE_BOARDS = {"Default"};
 
 
@@ -87,6 +90,15 @@ public class Main extends Application {
         CASH_GOAL_OPTIONS.put(("Low ("    + DEFAULT_CASH_GOAL_LOW    + ")"), DEFAULT_CASH_GOAL_LOW);
         CASH_GOAL_OPTIONS.put(("Medium (" + DEFAULT_CASH_GOAL_MEDIUM + ")"), DEFAULT_CASH_GOAL_MEDIUM);
         CASH_GOAL_OPTIONS.put(("High ("   + DEFAULT_CASH_GOAL_HIGH   + ")"), DEFAULT_CASH_GOAL_HIGH);
+        
+        //set Stage boundaries to visible bounds of the main screen
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
+        
         primaryStage.setTitle("Command Board");
         primaryStage.setScene(initGameScene());
         primaryStage.show();

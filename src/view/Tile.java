@@ -22,7 +22,7 @@ class Tile{
 	
 		
 	public Tile(int xcor, int ycor){
-		Rectangle tile = new Rectangle(10 * xcor, 10 * ycor, 50, 50);
+		tile = new Rectangle(10 * xcor, 10 * ycor, 50, 50);
 		this.xcor = xcor;
 		this.ycor = ycor;
 	}

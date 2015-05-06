@@ -10,6 +10,7 @@ import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
+import shared.enums.SpellID;
 import shared.enums.TileType;
 import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
@@ -52,6 +53,13 @@ public class Match extends Observable {
      */
     public void setRepresentative(PlayerID thisPlayer, PlayerRepresentative thisRep) {
         playerReps.replace(thisPlayer, thisRep);
+    }
+
+    /** Sets the representative for all current players. */
+    public void setAllRepresentatives(PlayerRepresentative thisRep) {
+        for (PlayerID id : playerReps.keySet()) {
+            playerReps.replace(id, thisRep);
+        }
     }
 
     /** Returns the representative for the given player.
@@ -254,5 +262,18 @@ public class Match extends Observable {
             }
         }
         System.out.println();
+    }
+
+    /** Temporary function for casting spells */
+    private void cast(SpellID spellCast) {
+        if (spellCast == SpellID.NOSPELL) {
+            return;
+        }
+    }
+
+
+    /** Returns the current Board. */
+    public Board getBoard() {
+        return theBoard;
     }
 }

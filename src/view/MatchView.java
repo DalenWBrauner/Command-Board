@@ -15,18 +15,18 @@ import model.tile.Tile;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import controller.ScreenSwitcher;
-import de.ohmen.fxgame.view.CrossGameMap;
 
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
 
     private Group mainGroup;
     private ScreenSwitcher myController;
-    private Match match;
+    //private Match match;
     
     private final static Image BACKGROUND_IMAGE = new Image(
-            MatchView.class.getResource("/images/background.png")
+            MatchView.class.getResource("/images/gameBackground.png")
             .toString());
     
     public MatchView() {
@@ -40,7 +40,11 @@ public class MatchView implements ControlledScreen,
     }
     
     public void loadMatch(Match m) {
-        match = m;
+        //match = m;
+        
+        ImageView backgroundView = new ImageView(BACKGROUND_IMAGE);
+        mainGroup.getChildren().add(backgroundView);
+        
         // A temporary label.
         Label temp = new Label();
         temp.setText("LOOK AT THEM GRAPHICS!");

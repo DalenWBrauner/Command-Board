@@ -2,7 +2,7 @@ package controller;
 
 import java.util.HashMap;
 
-import view.ControlledScreen;
+import view.interfaces.ControlledScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -18,7 +18,7 @@ public class ScreenSwitcher extends StackPane {
     private HashMap<String, Node> registeredScreens = new HashMap();
     
     public void registerScreen(String screenName, ControlledScreen screen) {
-        registeredScreens.put(screenName, screen.getMainGroup());
+        registeredScreens.put(screenName, screen.getRoot());
         screen.setScreenParent(this);
     }
     

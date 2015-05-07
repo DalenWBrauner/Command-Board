@@ -4,6 +4,7 @@ import Main.Main;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import shared.enums.PlayerID;
+import view.interfaces.ControlledScreen;
 import model.Match;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import controller.ScreenSwitcher;
@@ -97,7 +99,7 @@ public class VictoryView implements ControlledScreen {
     }
 
     @Override
-    public Group getMainGroup() {
+    public Parent getRoot() {
         // TODO Auto-generated method stub
         return mainGroup;
     }

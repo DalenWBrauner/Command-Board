@@ -1,5 +1,6 @@
 package view;
 
+import view.interfaces.ControlledScreen;
 import model.Match;
 import controller.ScreenSwitcher;
 import Main.Main;
@@ -12,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -179,7 +181,7 @@ public class MenuScreenView implements ControlledScreen {
      * 
      * @return Group
      */
-    public Group getMainGroup() {
+    public Parent getRoot() {
         return mainGroup;
     }
     

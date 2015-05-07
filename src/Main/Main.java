@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.MatchFactory;
-import view.ControlledScreen;
+import view.interfaces.ControlledScreen;
 import view.MatchView;
 import view.MenuScreenView;
 import view.VictoryView;

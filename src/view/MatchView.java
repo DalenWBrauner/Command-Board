@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -17,6 +18,7 @@ import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
+import view.interfaces.ControlledScreen;
 import controller.ScreenSwitcher;
 
 public class MatchView implements ControlledScreen,
@@ -108,7 +110,7 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public Group getMainGroup() {
+    public Parent getRoot() {
         return mainGroup;
     }
 

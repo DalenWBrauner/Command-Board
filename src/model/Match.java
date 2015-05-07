@@ -87,12 +87,6 @@ public class Match extends Observable {
             // Take that player's turn.
             matchIsOver = takeTurn();
         }
-        
-        try {
-            Thread.sleep(10000);    //10000 milliseconds is ten seconds.
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
 
         // The Match is over!
         System.out.println("The match is over! " + winner.toString() + " wins!");

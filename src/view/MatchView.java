@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -14,6 +15,7 @@ import model.tile.PropertyTile;
 import model.tile.Tile;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import controller.ScreenSwitcher;
@@ -21,18 +23,54 @@ import controller.ScreenSwitcher;
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
 
+    private final static int GRID_SIZE = 15;
     private Group mainGroup;
     private ScreenSwitcher myController;
-    //private Match match;
+    private TileView[][] tileViews;
     
-//    private final static Image BACKGROUND_IMAGE = new Image(
-//            MatchView.class.getResource("/images/gameBackground.png")
+    //private Match match;
+
+    private final static Image BACKGROUND_IMAGE = new Image(
+            new File("/home/noah/workspace/Command-Board/images/gameBackground.jpg").toURI().toString(), true);
+//            MatchView.class.getResource("/images/gameBackground.jpg")
 //            .toString());
     
     public MatchView() {
         mainGroup = new Group();
         // TODO: Create scrollpane with grid of tiles
         // within.
+        
+        
+        Group tileGroup = new Group();
+        tileViews = new TileView[GRID_SIZE][GRID_SIZE];
+        
+        /* Create tile grid */
+        for (int x = 0; x < GRID_SIZE; x++) {
+            for (int y = 0; y < GRID_SIZE; y++) {
+                tileViews[x][y] = new TileView(x, y);    
+            }
+        }
+        
+        /* Set the position of all the tiles and add all the tiles to a group */
+        for (int x = 0; x < GRID_SIZE; x++) {
+            for (int y = 0; y < GRID_SIZE; y++) {
+                if (tileViews[x][y] != null) {
+                    tileViews[x][y].setTranslateX(x * TileView.TILE_PIX_WIDTH);
+                    tileViews[x][y].setTranslateY(y * TileView.TILE_PIX_HEIGHT);  
+                    tileGroup.getChildren().add(tileViews[x][y]);
+                }
+            }
+        }
+        
+        // Put this grid inside our scrollpane.
+        ScrollPane sp = new ScrollPane();
+        //sp.setVmax(arg0);
+        //sp.setPrefSize(arg0, arg1);
+        sp.setContent(tileGroup);
+        
+        // Add our scrollpane.
+        mainGroup.getChildren().add(sp);
+        
         
         // TODO: Create joystick UI.
         //Joystick joystick = new Joystick();
@@ -45,14 +83,23 @@ public class MatchView implements ControlledScreen,
         // all of the players.
         m.setAllRepresentatives(this);
         
+        // Set the background. This could change based on the map.
 //        ImageView backgroundView = new ImageView(BACKGROUND_IMAGE);
 //        mainGroup.getChildren().add(backgroundView);
+        
+        // Set the states of each tile in our grid based on the
+        // map.
+        for (int x = 0; x < GRID_SIZE; x++) {
+            for (int y = 0; y < GRID_SIZE; y++) {
+                Tile t = m.getTile(x, y);
+                tileViews[x][y].setCurrentState(t.getTileType());
+            }
+        } 
         
         // A temporary label.
         Label temp = new Label();
         temp.setText("LOOK AT THEM GRAPHICS!");
         mainGroup.getChildren().add(temp);
-        // ... do setup stuff (activate tiles)
     }
 
     @Override

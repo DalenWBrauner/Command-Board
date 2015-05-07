@@ -32,7 +32,7 @@ public class MatchView implements ControlledScreen,
     //private Match match;
 
     private final static Image BACKGROUND_IMAGE = new Image(
-            new File("/home/noah/workspace/Command-Board/images/gameBackground.jpg").toURI().toString(), true);
+            new File("images/gameBackground.jpg").toURI().toString(), true);
 //            MatchView.class.getResource("/images/gameBackground.jpg")
 //            .toString());
 

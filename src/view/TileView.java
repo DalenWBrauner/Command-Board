@@ -10,11 +10,11 @@ import shared.enums.TileType;
 public class TileView extends ImageView {
     
     public final static Image PROPERTY_TILE_IMAGE = new Image(
-            new File("/home/noah/workspace/Command-Board/images/Property.png").toURI().toString());
+            new File("images/Property.png").toURI().toString());
     public final static Image CHECKPOINT_TILE_IMAGE = new Image(
-            new File("/home/noah/workspace/Command-Board/images/Checkpoint.png").toURI().toString());
+            new File("images/Checkpoint.png").toURI().toString());
     public final static Image START_TILE_IMAGE = new Image(
-            new File("/home/noah/workspace/Command-Board/images/Start.png").toURI().toString());
+            new File("images/Start.png").toURI().toString());
     
     public final static int TILE_PIX_HEIGHT = 20;
     public final static int TILE_PIX_WIDTH = 20;

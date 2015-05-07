@@ -99,7 +99,7 @@ public class Match extends Observable {
     private boolean takeTurn() {
 
         // Setup
-        System.out.print("TURN  " + turnNumber + ":\t");
+        System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
         boolean winCondition = false;
 
@@ -122,9 +122,20 @@ public class Match extends Observable {
         return winCondition;
     }
 
+    /** Returns the list of PlayerIDs (in turn order). */
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlayerID> getAllPlayerIDs() {
+        return (ArrayList<PlayerID>) turnOrder.clone();
+    }
+
     /** Returns the Player given its ID.*/
     public Player getPlayer(PlayerID thisPlayer) {
         return players.get(thisPlayer);
+    }
+
+    /** Returns the current Board. */
+    public Board getBoard() {
+        return theBoard;
     }
 
     /** Returns the Tile object at a given position on the board. */
@@ -279,9 +290,4 @@ public class Match extends Observable {
         }
     }
 
-
-    /** Returns the current Board. */
-    public Board getBoard() {
-        return theBoard;
-    }
 }

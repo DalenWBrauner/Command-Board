@@ -36,12 +36,15 @@ public class BoardIterator extends Observable {
         boolean playerWon = false;
         PlayerRepresentative currentRep = theMatch.getRepresentative(movingPlayerID);
 
-        System.out.println(movingPlayerID+" is moving!");
+        System.out.println(movingPlayerID+" is moving from ("+
+        movingPlayer.getX()+", "+movingPlayer.getY()+")");
 
         // Get the player's dice roll
         int diceRoll = currentRep.getUsersRoll();
         assert(diceRoll > 0);
         assert(diceRoll < 7);
+
+        System.out.println(movingPlayerID+" rolled a "+diceRoll+"!");
 
         // While we're still passing by tiles
         boolean passingBy = true;
@@ -108,8 +111,6 @@ public class BoardIterator extends Observable {
         // Get the player's position
         int xPos = movingPlayer.getX();
         int yPos = movingPlayer.getY();
-
-        System.out.println("Player is at ("+xPos+", "+yPos+")");
 
         // Get the player's last position
         int lastX = movingPlayer.getLastX();

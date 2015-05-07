@@ -4,18 +4,16 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import javafx.scene.Group;
+import javafx.scene.control.Label;
+import model.Match;
+import model.tile.PropertyTile;
+import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
-import model.Match;
-import model.tile.PropertyTile;
-import model.tile.Tile;
-import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import controller.ScreenSwitcher;
 
 public class MatchView implements ControlledScreen,
@@ -24,30 +22,33 @@ public class MatchView implements ControlledScreen,
     private Group mainGroup;
     private ScreenSwitcher myController;
     //private Match match;
-    
+
 //    private final static Image BACKGROUND_IMAGE = new Image(
 //            MatchView.class.getResource("/images/gameBackground.png")
 //            .toString());
-    
+
     public MatchView() {
         mainGroup = new Group();
         // TODO: Create scrollpane with grid of tiles
         // within.
-        
+
         // TODO: Create joystick UI.
         //Joystick joystick = new Joystick();
         //mainGroup.getChildren().add(joystick.getMainGroup());
     }
-    
+
     public void loadMatch(Match m) {
         //match = m;
         // Set this view as the "player representative" for
         // all of the players.
-        m.setAllRepresentatives(this);
-        
+        for (PlayerID pID : m.getAllPlayerIDs()) {
+            //m.setRepresentative(pID, new AIEasy(m, pID));
+            m.setRepresentative(pID, this);
+        }
+
 //        ImageView backgroundView = new ImageView(BACKGROUND_IMAGE);
 //        mainGroup.getChildren().add(backgroundView);
-        
+
         // A temporary label.
         Label temp = new Label();
         temp.setText("LOOK AT THEM GRAPHICS!");
@@ -64,19 +65,19 @@ public class MatchView implements ControlledScreen,
     public Group getMainGroup() {
         return mainGroup;
     }
-    
+
     //Skeleton functions to fill in for Dalen
-    
+
     public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections){
     	return availableDirections[0];
     }
-    
+
     //Random roll between 1 and 6
     public int getUsersRoll(){
     	Random rand = new Random();
     	return rand.nextInt(6) + 1;
     }
-    
+
     //Loads joystick
     public Group getJoystick(){
     	Group joystick = new Group();
@@ -129,9 +130,9 @@ public class MatchView implements ControlledScreen,
     @Override
     public void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
-        
+
     }
-    
-    
-    
+
+
+
 }

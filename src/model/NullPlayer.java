@@ -35,9 +35,18 @@ public class NullPlayer implements Player {
     public PlayerID getID() { return PlayerID.NOPLAYER; }
 
     @Override
-    public void giveTile(PropertyTile newTile) { newTile.reset(); }
+    public void gainTile(PropertyTile newTile) { newTile.reset(); }
 
     @Override
-    public void removeTile(PropertyTile oldTile) {}
+    public void loseTile(PropertyTile oldTile) {}
+
+    @Override
+    public int getLastX() { return 0; }
+
+    @Override
+    public int getLastY() { return 0; }
+
+    @Override
+    public void setLastPosition(int x, int y) { }
 
 }

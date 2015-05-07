@@ -29,4 +29,14 @@ public abstract class Tile {
     }
 
     abstract public TileType getTileType();
+
+    // Super bootleg and temporary
+    public boolean onPass() {
+        return false;
+    }
+
+    // Super bootleg and temporary
+    public boolean onLand() {
+        return false;
+    }
 }

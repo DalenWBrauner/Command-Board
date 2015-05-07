@@ -10,6 +10,7 @@ import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
+import shared.enums.SpellID;
 import shared.enums.TileType;
 import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
@@ -54,6 +55,13 @@ public class Match extends Observable {
         playerReps.replace(thisPlayer, thisRep);
     }
 
+    /** Sets the representative for all current players. */
+    public void setAllRepresentatives(PlayerRepresentative thisRep) {
+        for (PlayerID id : playerReps.keySet()) {
+            playerReps.replace(id, thisRep);
+        }
+    }
+
     /** Returns the representative for the given player.
      *
      * The idea is that objects inside the Match can ask the Match for the rep,
@@ -89,20 +97,45 @@ public class Match extends Observable {
      * @return true if and only if the game is over.
      */
     private boolean takeTurn() {
-        System.out.print("TURN  " + turnNumber + ":\t");
-        System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
 
-        if (turnNumber >= 20) {
-            winner = currentPlayer;
-            return true;
-        }
-        return false;
+        // Setup
+        System.out.print("\nTURN  " + turnNumber + ":\t");
+        System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
+        boolean winCondition = false;
+
+        // SpellCasting
+        // First, determine the spells the player can cast.
+        SpellID[] castableSpells = getPlayer(currentPlayer).getHand().getCastableSpells();
+
+        // Second, ask that player which of those spells they'd like to cast.
+        SpellID spellCast = playerReps.get(currentPlayer).getSpellCast(castableSpells);
+
+        // Third, cast that spell.
+        cast(spellCast);
+
+        // Move the player!
+        BoardIterator itr = new BoardIterator(this);
+        winCondition = itr.go();
+
+        // Be prepared if someone won
+        if (winCondition) winner = currentPlayer;
+        return winCondition;
     }
 
-    /** Returns the Player given its ID.
-     */
+    /** Returns the list of PlayerIDs (in turn order). */
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlayerID> getAllPlayerIDs() {
+        return (ArrayList<PlayerID>) turnOrder.clone();
+    }
+
+    /** Returns the Player given its ID.*/
     public Player getPlayer(PlayerID thisPlayer) {
         return players.get(thisPlayer);
+    }
+
+    /** Returns the current Board. */
+    public Board getBoard() {
+        return theBoard;
     }
 
     /** Returns the Tile object at a given position on the board. */
@@ -149,27 +182,27 @@ public class Match extends Observable {
         Tile tileA = theBoard.getTile(2,2);
         if (tileA.getTileType() == TileType.PROPERTY) {
             ((PropertyTile) tileA).setCard(CardShape.SHAPE1);
-            players.get(0).giveTile((PropertyTile) tileA);
+            players.get(0).gainTile((PropertyTile) tileA);
         } else { assert(false); }
         System.out.println("Player 1 now owns the tile at (2,2)...");
 
         Tile tileB = theBoard.getTile(3,3);
         if (tileB.getTileType() == TileType.PROPERTY) {
-            players.get(1).giveTile((PropertyTile) tileB);
+            players.get(1).gainTile((PropertyTile) tileB);
             ((PropertyTile) tileB).setCard(CardShape.SHAPE2);
         } else { assert(false); }
         System.out.println("Player 2 now owns the tile at (3,3)...");
 
         Tile tileC = theBoard.getTile(5,4);
         if (tileC.getTileType() == TileType.PROPERTY) {
-            players.get(2).giveTile((PropertyTile) tileC);
+            players.get(2).gainTile((PropertyTile) tileC);
             ((PropertyTile) tileC).setCard(CardShape.SHAPE3);
         } else { assert(false); }
         System.out.println("Player 3 now owns the tile at (5,4)...");
 
         Tile tileD = theBoard.getTile(2,7);
         if (tileD.getTileType() == TileType.PROPERTY) {
-            players.get(3).giveTile((PropertyTile) tileD);
+            players.get(3).gainTile((PropertyTile) tileD);
             ((PropertyTile) tileD).setCard(CardShape.SHAPE1);
         } else { assert(false); }
         System.out.println("Player 4 now owns the tile at (2,7)...");
@@ -249,4 +282,12 @@ public class Match extends Observable {
         }
         System.out.println();
     }
+
+    /** Temporary function for casting spells */
+    private void cast(SpellID spellCast) {
+        if (spellCast == SpellID.NOSPELL) {
+            return;
+        }
+    }
+
 }

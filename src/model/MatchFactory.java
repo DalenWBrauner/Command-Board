@@ -44,6 +44,7 @@ public class MatchFactory {
         // Assign the Players to the Start position
         for (Player player : thePlayers) {
             player.setPosition(theBoard.getStartX(), theBoard.getStartY());
+            player.setLastPosition(player.getX(), player.getY());
         }
 
         // Create Match Object

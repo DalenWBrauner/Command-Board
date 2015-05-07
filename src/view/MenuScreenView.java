@@ -155,8 +155,8 @@ public class MenuScreenView implements ControlledScreen {
                     theMatch.start();
              
                     // Show the victory screen, showing who won.
-                    victoryScreen.loadMatch(theMatch);
-                    myController.setActiveScreen(Main.VICTORY_SCREEN);
+//                    victoryScreen.loadMatch(theMatch);
+//                    myController.setActiveScreen(Main.VICTORY_SCREEN);
                 }
             }
         });

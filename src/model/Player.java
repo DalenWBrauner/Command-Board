@@ -11,10 +11,13 @@ public interface Player {
     public void setX(int x);
     public void setY(int y);
     public void setPosition(int x, int y);
+    public int getLastX();
+    public int getLastY();
+    public void setLastPosition(int x, int y);
+    public PlayerID getID();
     public Hand getHand();
     public Wallet getWallet();
     public ArrayList<PropertyTile> getTilesOwned();
-    public PlayerID getID();
-    public void giveTile(PropertyTile newTile);
-    void removeTile(PropertyTile oldTile);
+    public void gainTile(PropertyTile newTile);
+    public void loseTile(PropertyTile oldTile);
 }

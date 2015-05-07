@@ -31,9 +31,10 @@ public class Main extends Application {
     public final static String MENU_SCREEN = "menu";
     public final static String GAME_SCREEN = "command board";
     public final static String VICTORY_SCREEN = "victory";
-
     public final static String[] PLAYABLE_BOARDS = {
         "Rings","Keyblade","Snailshell","Butterfly","Honeypot"};
+    //public final int STAGE_HEIGHT;
+    //public final int STAGE_WIDTH;
 
 
     //private static Logger logger =  Logger.getLogger(PegSolitaire.class);

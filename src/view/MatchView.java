@@ -117,7 +117,9 @@ public class MatchView implements ControlledScreen,
     //Skeleton functions to fill in for Dalen
 
     public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections){
-    	return availableDirections[0];
+        Random rand = new Random();
+        int randInt =  rand.nextInt(availableDirections.length);
+    	return availableDirections[randInt];
     }
 
     //Random roll between 1 and 6

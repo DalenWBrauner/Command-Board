@@ -57,7 +57,14 @@ public class Board {
     }
 
     public Tile getTile(int x, int y) {
-        return tiles[x][y];
+        // If out-of-bounds, return a null tile
+        if (x >= tiles.length || y >= tiles[0].length || x < 0 || y < 0) {
+            return new NullTile();
+
+        // Otherwise return the tile
+        } else {
+            return tiles[x][y];
+        }
     }
 
     public int getWidth() {

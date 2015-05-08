@@ -72,8 +72,12 @@ public class MatchView implements ControlledScreen,
         mainGroup.getChildren().add(sp);
 
         // TODO: Create joystick UI.
-        //Joystick joystick = new Joystick();
-        //mainGroup.getChildren().add(joystick.getMainGroup());
+        Joystick joystick = new Joystick();
+        Group stick = joystick.getMainGroup();
+        mainGroup.getChildren().add(stick);
+        
+        mainGroup.getChildren().get(1).setLayoutY(300);
+        mainGroup.getChildren().get(1).setLayoutX(0);
     }
 
     public void loadMatch(Match m) {

@@ -14,13 +14,11 @@ import shared.interfaces.PlayerRepresentative;
 
 public class AIEasy implements PlayerRepresentative {
 
-    private Match theMatch;
     private Player thePlayer;
     private static Random r = new Random();
 
-    public AIEasy(Match match, PlayerID myPlayersID) {
-        theMatch = match;
-        thePlayer = theMatch.getPlayer(myPlayersID);
+    public AIEasy(Player player) {
+        thePlayer = player;
     }
 
     /** Easy AI doesn't cast spells. */

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.tile.PropertyTile;
 import shared.enums.PlayerID;
+import shared.interfaces.PlayerRepresentative;
 
 public interface Player {
     public int getX();
@@ -20,4 +21,6 @@ public interface Player {
     public ArrayList<PropertyTile> getTilesOwned();
     public void gainTile(PropertyTile newTile);
     public void loseTile(PropertyTile oldTile);
+    public void setRepresentative(PlayerRepresentative myRep);
+    public PlayerRepresentative getRepresentative();
 }

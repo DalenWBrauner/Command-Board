@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import model.tile.PropertyTile;
 import shared.enums.PlayerID;
+import shared.interfaces.NullRepresentative;
+import shared.interfaces.PlayerRepresentative;
 
 public class NullPlayer implements Player {
 
@@ -49,4 +51,11 @@ public class NullPlayer implements Player {
     @Override
     public void setLastPosition(int x, int y) { }
 
+    @Override
+    public void setRepresentative(PlayerRepresentative myRep) { }
+
+    @Override
+    public PlayerRepresentative getRepresentative() {
+        return new NullRepresentative(this);
+    }
 }

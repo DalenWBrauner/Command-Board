@@ -2,7 +2,6 @@ package shared.interfaces;
 
 import java.util.Random;
 
-import model.Match;
 import model.Player;
 import model.tile.NullTile;
 import model.tile.PropertyTile;
@@ -14,13 +13,11 @@ import shared.enums.SpellID;
 
 public class NullRepresentative implements PlayerRepresentative {
 
-    private Match theMatch;
     private Player thePlayer;
     private static Random r = new Random();
 
-    public NullRepresentative(Match match, PlayerID myPlayersID) {
-        theMatch = match;
-        thePlayer = theMatch.getPlayer(myPlayersID);
+    public NullRepresentative(Player player) {
+        thePlayer = player;
     }
 
     @Override

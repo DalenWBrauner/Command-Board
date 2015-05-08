@@ -75,7 +75,7 @@ public class MatchView implements ControlledScreen,
         Joystick joystick = new Joystick();
         Group stick = joystick.getMainGroup();
         mainGroup.getChildren().add(stick);
-        
+
         mainGroup.getChildren().get(1).setLayoutY(300);
         mainGroup.getChildren().get(1).setLayoutX(0);
     }
@@ -85,7 +85,7 @@ public class MatchView implements ControlledScreen,
         // Set this view as the "player representative" for
         // all of the players.
         for (PlayerID pID : m.getAllPlayerIDs()) {
-            //m.setRepresentative(pID, new AIEasy(m, pID));
+            //m.setRepresentative(pID, new AIEasy(m.getPlayer(pID)));
             m.setRepresentative(pID, this);
         }
 

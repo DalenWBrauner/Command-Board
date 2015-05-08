@@ -20,7 +20,6 @@ public class Match extends Observable {
     private Board theBoard;
     private ArrayList<PlayerID> turnOrder                      = new ArrayList<>();
     private HashMap<PlayerID, Player> players                  = new HashMap<>();
-    private HashMap<PlayerID, PlayerRepresentative> playerReps = new HashMap<>();
     private PlayerID currentPlayer;
     private PlayerID winner;
     private boolean matchIsOver;
@@ -37,31 +36,29 @@ public class Match extends Observable {
 
             turnOrder.add(id);
             players.put(id, eachPlayer);
-            playerReps.put(id, new NullRepresentative(this, id));
-            // These are just placeholder PlayerRepresentatives!
-            // Real ones need to be assigned ASAP through setPlayerRepresentative()!
+
+            // Assign a placeholder PlayerRepresentative
+            eachPlayer.setRepresentative(new NullRepresentative(eachPlayer));
         }
 
         winner = PlayerID.NOPLAYER;
         matchIsOver = false;
     }
 
+
+    // I would like to deprecate this method
+    // The Match is no longer in charge of representatives
     /** Sets the representative for a given player.
      * Make sure to set these before the match starts!
      * (That said, this could easily be set later if Users, say, wanted their
      * Player to be replaced by AI.)
      */
     public void setRepresentative(PlayerID thisPlayer, PlayerRepresentative thisRep) {
-        playerReps.replace(thisPlayer, thisRep);
+        getPlayer(thisPlayer).setRepresentative(thisRep);
     }
 
-    /** Sets the representative for all current players. */
-    public void setAllRepresentatives(PlayerRepresentative thisRep) {
-        for (PlayerID id : playerReps.keySet()) {
-            playerReps.replace(id, thisRep);
-        }
-    }
-
+    // I would like to deprecate this method
+    // The Match is no longer in charge of representatives
     /** Returns the representative for the given player.
      *
      * The idea is that objects inside the Match can ask the Match for the rep,
@@ -71,7 +68,7 @@ public class Match extends Observable {
      * @return The Representative for the given PlayerID.
      */
     public PlayerRepresentative getRepresentative(PlayerID thisPlayer) {
-        return playerReps.get(thisPlayer);
+        return getPlayer(thisPlayer).getRepresentative();
     }
 
     /** Starts the game. */
@@ -110,13 +107,14 @@ public class Match extends Observable {
         SpellID[] castableSpells = getPlayer(currentPlayer).getHand().getCastableSpells();
 
         // Second, ask that player which of those spells they'd like to cast.
-        SpellID spellCast = playerReps.get(currentPlayer).getSpellCast(castableSpells);
+        PlayerRepresentative currentRep = players.get(currentPlayer).getRepresentative();
+        SpellID spellCast = currentRep.getSpellCast(castableSpells);
 
         // Third, cast that spell.
         cast(spellCast);
 
         // Move the player!
-        BoardIterator itr = new BoardIterator(this);
+        BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard);
         winCondition = itr.go();
 
         // Be prepared if someone won

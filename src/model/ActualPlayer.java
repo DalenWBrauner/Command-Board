@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import model.tile.PropertyTile;
 import shared.enums.PlayerID;
+import shared.interfaces.NullRepresentative;
+import shared.interfaces.PlayerRepresentative;
 
 public class ActualPlayer implements Player {
 
@@ -15,6 +17,7 @@ public class ActualPlayer implements Player {
     private Wallet myWallet;
     private ArrayList<PropertyTile> myTiles;
     private PlayerID myID;
+    private PlayerRepresentative myRep;
 
     public ActualPlayer(PlayerID id) {
         System.out.println("new ActualPlayer("+id.toString()+");");
@@ -26,6 +29,7 @@ public class ActualPlayer implements Player {
         yPos = 0;
         xLast = 0;
         yLast = 0;
+        myRep = new NullRepresentative(this);
     }
 
     @Override
@@ -100,5 +104,15 @@ public class ActualPlayer implements Player {
     public void setLastPosition(int x, int y) {
         xLast = x;
         yLast = y;
+    }
+
+    @Override
+    public void setRepresentative(PlayerRepresentative newRep) {
+        myRep = newRep;
+    }
+
+    @Override
+    public PlayerRepresentative getRepresentative() {
+        return myRep;
     }
 }

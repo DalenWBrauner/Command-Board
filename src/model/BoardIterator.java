@@ -17,16 +17,14 @@ public class BoardIterator extends Observable {
     private final static int westX  = -1;
     private final static int eastX  = +1;
 
-    private final Match    theMatch;
     private final Board    theBoard;
     private final PlayerID movingPlayerID;
     private final Player   movingPlayer;
 
-    public BoardIterator(Match currentMatch) {
-        theMatch = currentMatch;
-        theBoard = currentMatch.getBoard();
-        movingPlayerID = currentMatch.getCurrentPlayerID();
-        movingPlayer = currentMatch.getPlayer(currentMatch.getCurrentPlayerID());
+    public BoardIterator(Player currentPlayer, Board currentBoard) {
+        theBoard = currentBoard;
+        movingPlayer = currentPlayer;
+        movingPlayerID = currentPlayer.getID();
     }
 
     /** Physically moves the player across the board until their turn is over.
@@ -34,7 +32,7 @@ public class BoardIterator extends Observable {
      */
     public boolean go() {
         boolean playerWon = false;
-        PlayerRepresentative currentRep = theMatch.getRepresentative(movingPlayerID);
+        PlayerRepresentative currentRep = movingPlayer.getRepresentative();
 
         System.out.println(movingPlayerID+" is moving from ("+
         movingPlayer.getX()+", "+movingPlayer.getY()+")");
@@ -56,9 +54,9 @@ public class BoardIterator extends Observable {
             // Move the player in that direction
             playerWon = moveTo(chosenPath, passingBy);
 
-            // Update the Board
-            theMatch.hasChanged();
-            theMatch.notifyObservers();
+            // Update the Observers
+            hasChanged();
+            notifyObservers();
 
             // Decrement the dice roll
             diceRoll--;
@@ -78,9 +76,9 @@ public class BoardIterator extends Observable {
 
         System.out.println(movingPlayerID+" is done moving!");
 
-        // Update the Board
-        theMatch.hasChanged();
-        theMatch.notifyObservers();
+        // Update the Observers
+        hasChanged();
+        notifyObservers();
 
         // The player's turn is over!
         return playerWon;
@@ -116,23 +114,11 @@ public class BoardIterator extends Observable {
         int lastX = movingPlayer.getLastX();
         int lastY = movingPlayer.getLastY();
 
-//        System.out.println("Player was last at ("+lastX+", "+lastY+")");
-
-//        System.out.println("I believe the tile north of me is at ("+xPos+", "+(yPos + northY)+")");
-//        System.out.println("I believe the tile south of me is at ("+xPos+", "+(yPos + southY)+")");
-//        System.out.println("I believe the tile  east of me is at ("+(xPos + eastX)+", "+yPos+")");
-//        System.out.println("I believe the tile  west of me is at ("+(xPos + westX)+", "+yPos+")");
-
         // Get the types of each adjacent tile
         TileType northType = theBoard.getTile(xPos, yPos + northY).getTileType();
         TileType southType = theBoard.getTile(xPos, yPos + southY).getTileType();
         TileType eastType  = theBoard.getTile(xPos + eastX,  yPos).getTileType();
         TileType westType  = theBoard.getTile(xPos + westX,  yPos).getTileType();
-
-//        System.out.println("Tile northType: "+northType);
-//        System.out.println("Tile southType: "+southType);
-//        System.out.println("Tile  eastType: "+ eastType);
-//        System.out.println("Tile  westType: "+ westType);
 
         // Get which direction you just came from
         boolean wasLastNorth = (xPos == lastX && yPos + northY == lastY);
@@ -140,46 +126,26 @@ public class BoardIterator extends Observable {
         boolean wasLastEast  = (xPos + eastX  == lastX && yPos == lastY);
         boolean wasLastWest  = (xPos + westX  == lastX && yPos == lastY);
 
-//        System.out.println("wasLastNorth: "+wasLastNorth);
-//        System.out.println("wasLastSouth: "+wasLastSouth);
-//        System.out.println("wasLastEast:  "+wasLastEast );
-//        System.out.println("wasLastWest:  "+wasLastWest );
-
         // Add each available direction
-        if        (northType != TileType.NONE && !wasLastNorth) {
+        if (!wasLastNorth && northType != TileType.NONE) {
             availablePaths.add(CardinalDirection.NORTH);
-//            System.out.println("The player can move north!");
-        } else {
-//            System.out.println("The player cannot move north!");
         }
-        if (southType != TileType.NONE && !wasLastSouth) {
+        if (!wasLastSouth && southType != TileType.NONE) {
             availablePaths.add(CardinalDirection.SOUTH);
-//            System.out.println("The player can move south!");
-        } else {
-//            System.out.println("The player cannot move south!");
         }
-        if (eastType  != TileType.NONE && !wasLastEast ) {
+        if (!wasLastEast  && eastType  != TileType.NONE) {
             availablePaths.add(CardinalDirection.EAST );
-//            System.out.println("The player can move east!");
-        } else {
-//            System.out.println("The player cannot move east!");
         }
-        if (westType  != TileType.NONE && !wasLastWest ) {
+        if (!wasLastWest  && westType  != TileType.NONE) {
             availablePaths.add(CardinalDirection.WEST );
-//            System.out.println("The player can move west!");
-        } else {
-//            System.out.println("The player cannot move west!");
         }
 
         // Convert to array
         assert(availablePaths.size() > 0);
-        CardinalDirection[] retVal = new CardinalDirection[availablePaths.size()];
-//        for (int i = 0; i < availablePaths.size(); i++) {
-//            retVal[i] = availablePaths.get(i);
-//        }
-        availablePaths.toArray(retVal);
-        assert(retVal.length > 0);
-        return retVal;
+        CardinalDirection[] asArray = new CardinalDirection[availablePaths.size()];
+        availablePaths.toArray(asArray);
+        assert(asArray.length > 0);
+        return asArray;
     }
 
     /** Physically moves the player in the given direction.
@@ -210,7 +176,7 @@ public class BoardIterator extends Observable {
 
         System.out.println("Moved to ("+xPos+", "+yPos+")");
 
-        // Bootleg victory condition
+        // TODO: Remove temporary victory condition
         if (movedTo.getTileType() == TileType.START) wonYet = true;
 
         // Return if we've won

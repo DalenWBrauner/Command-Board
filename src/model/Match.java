@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
 
 import model.tile.CheckpointTile;
 import model.tile.PropertyTile;
@@ -12,14 +13,13 @@ import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.enums.TileType;
-import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
 
-public class Match extends Observable {
+public class Match extends Observable implements Observer {
 
     private Board theBoard;
-    private ArrayList<PlayerID> turnOrder                      = new ArrayList<>();
-    private HashMap<PlayerID, Player> players                  = new HashMap<>();
+    private ArrayList<PlayerID> turnOrder     = new ArrayList<>();
+    private HashMap<PlayerID, Player> players = new HashMap<>();
     private PlayerID currentPlayer;
     private PlayerID winner;
     private boolean matchIsOver;
@@ -36,9 +36,6 @@ public class Match extends Observable {
 
             turnOrder.add(id);
             players.put(id, eachPlayer);
-
-            // Assign a placeholder PlayerRepresentative
-            eachPlayer.setRepresentative(new NullRepresentative(eachPlayer));
         }
 
         winner = PlayerID.NOPLAYER;
@@ -115,6 +112,7 @@ public class Match extends Observable {
 
         // Move the player!
         BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard);
+        itr.addObserver(this); // We want to be notified when the BoardIterator moves players
         winCondition = itr.go();
 
         // Be prepared if someone won
@@ -238,6 +236,13 @@ public class Match extends Observable {
         if (spellCast == SpellID.NOSPELL) {
             return;
         }
+    }
+
+    /** Simply passes on the update to its own observers. */
+    @Override
+    public void update(Observable o, Object arg) {
+        hasChanged();
+        notifyObservers();
     }
 
 }

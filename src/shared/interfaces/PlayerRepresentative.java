@@ -57,6 +57,13 @@ public interface PlayerRepresentative {
      */
     public boolean buyThisTile(PropertyTile tileForPurchase);
 
+    /** The Model needs to know which Card the Player wants to place on their Tile!
+     *
+     * @return A Card the Player has in their Hand that they're willing to give up
+     * in order to purchase the Tile they're standing on.
+     */
+    public CardShape placeWhichCard();
+
     /** The Model needs to know whether the Player wants to swap out cards on this tile!
      *
      * @param tileForSwapping The PropertyTile the Player can swap cards with.

@@ -23,49 +23,55 @@ public class AIEasy implements PlayerRepresentative {
         thePlayer = theMatch.getPlayer(myPlayersID);
     }
 
+    /** Easy AI doesn't cast spells. */
     @Override
-    /** Easy AI doesn't cast spells */
     public SpellID getSpellCast(SpellID[] availableSpells) { return SpellID.NOSPELL; }
 
+    /** Easy AI doesn't cheat the dice roll. */
     @Override
-    /** Easy AI doesn't cheat the dice roll */
     public int getUsersRoll() { return r.nextInt(6) + 1; }
 
-    @Override
     /** Easy AI will move randomly (for now). */
+    @Override
     public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
         return availableDirections[r.nextInt(availableDirections.length)];
     }
 
+    /** Easy AI will buy any Tile it can. */
     @Override
-    /** Easy AI will buy any Tile it can */
     public boolean buyThisTile(PropertyTile tileForPurchase) { return true; }
 
+    /** Easy AI will place a card at random. */
     @Override
-    /** Easy AI won't bother to swap cards */
+    public CardShape placeWhichCard() {
+        Hand playersHand = thePlayer.getHand();
+        return playersHand.getAllCards()[r.nextInt(playersHand.size())];
+    }
+
+    /** Easy AI won't bother to swap cards. */
+    @Override
     public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) { return CardShape.NOCARD; }
 
+    /** Easy AI won't bother to swap cards. */
     @Override
-    /** Easy AI won't bother to swap cards */
     public Tile swapCardOnWhichTile() { return new NullTile(); }
 
+    /** Easy AI will upgrade a Tile at random. */
     @Override
-    /** Easy AI will upgrade a Tile at random */
     public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
         return upgradeableTiles[r.nextInt(upgradeableTiles.length)];
     }
 
+    /** Easy AI upgrades each Tile by 1. */
     @Override
-    /** Easy AI upgrades each Tile by 1 */
     public int upgradeToWhatLevel(PropertyTile upgradingTile) {
         return upgradingTile.getLevel() + 1;
     }
 
+    /** Easy AI sells a tile at random. */
     @Override
-    /** Easy AI sells a tile at random */
     public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
         ArrayList<PropertyTile> tilesOwned = thePlayer.getTilesOwned();
         return tilesOwned.get(r.nextInt(tilesOwned.size()));
     }
-
 }

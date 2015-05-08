@@ -151,6 +151,12 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
+    public CardShape placeWhichCard() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
         // TODO Auto-generated method stub
         return null;
@@ -186,7 +192,5 @@ public class MatchView implements ControlledScreen,
         // TODO Auto-generated method stub
 
     }
-
-
 
 }

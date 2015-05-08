@@ -45,6 +45,9 @@ public class NullRepresentative implements PlayerRepresentative {
     public boolean buyThisTile(PropertyTile tileForPurchase) { return false; }
 
     @Override
+    public CardShape placeWhichCard() { return thePlayer.getHand().getAllCards()[0]; }
+
+    @Override
     public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) { return CardShape.NOCARD; }
 
     @Override

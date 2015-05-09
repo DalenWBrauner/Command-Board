@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import model.tile.Tile;
+
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
 import shared.enums.TileType;
@@ -20,11 +23,13 @@ public class BoardIterator extends Observable {
     private final Board    theBoard;
     private final PlayerID movingPlayerID;
     private final Player   movingPlayer;
+    private final MutableBoolean  matchIsOver;
 
-    public BoardIterator(Player currentPlayer, Board currentBoard) {
+    public BoardIterator(Player currentPlayer, Board currentBoard, MutableBoolean isOver) {
         theBoard = currentBoard;
         movingPlayer = currentPlayer;
         movingPlayerID = currentPlayer.getID();
+        matchIsOver = isOver;
     }
 
     /** Physically moves the player across the board until their turn is over.
@@ -55,6 +60,9 @@ public class BoardIterator extends Observable {
 
             // Decrement the dice roll
             diceRoll--;
+
+            // Short-circuit if someone wins
+            if (matchIsOver.booleanValue()) return;
         }
 
         // Now we're going to land on a tile

@@ -6,6 +6,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.tile.Tile;
+
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
+import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
@@ -17,7 +21,7 @@ public class Match extends Observable implements Observer {
     private HashMap<PlayerID, Player> players = new HashMap<>();
     private PlayerID currentPlayer;
     private PlayerID winner;
-    private boolean matchIsOver;
+    private MutableBoolean matchIsOver;
     private int turnNumber;
 
     public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder) {
@@ -34,7 +38,7 @@ public class Match extends Observable implements Observer {
         }
 
         winner = PlayerID.NOPLAYER;
-        matchIsOver = false;
+        matchIsOver = new MutableBoolean(false);
     }
 
     /** Starts the game. */
@@ -42,7 +46,7 @@ public class Match extends Observable implements Observer {
         System.out.println("Match.start(); START");
 
         turnNumber = 0;
-        while (!matchIsOver) {
+        while (!matchIsOver.booleanValue()) {
             // Setup the next player to start
             turnNumber++;
             currentPlayer = turnOrder.get((turnNumber - 1) % turnOrder.size());
@@ -79,7 +83,7 @@ public class Match extends Observable implements Observer {
         cast(spellCast);
 
         // Move the player!
-        BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard);
+        BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard, matchIsOver);
         itr.addObserver(this); // We want to be notified when the BoardIterator moves players
         itr.go();
     }
@@ -133,7 +137,7 @@ public class Match extends Observable implements Observer {
     /** Sets the given player as the winner and ends the Match! */
     private void declareWinner(PlayerID winningPlayer) {
         winner = winningPlayer;
-        matchIsOver = true;
+        matchIsOver.setTrue();
     }
 
     /** Temporary function for casting spells. */
@@ -191,7 +195,7 @@ public class Match extends Observable implements Observer {
      * @return true if the Match is over.
      */
     public boolean isTheMatchOver() {
-        return matchIsOver;
+        return matchIsOver.booleanValue();
     }
 
     /** Returns the winner of the game!
@@ -199,7 +203,7 @@ public class Match extends Observable implements Observer {
      * @return The PlayerID of the winning Player.
      */
     public PlayerID whoWon() {
-        if (matchIsOver) {
+        if (matchIsOver.isTrue()) {
             return winner;
         } else {
             return PlayerID.NOPLAYER;

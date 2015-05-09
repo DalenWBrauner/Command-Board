@@ -82,9 +82,6 @@ public class Match extends Observable implements Observer {
         BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard);
         itr.addObserver(this); // We want to be notified when the BoardIterator moves players
         itr.go();
-
-        // Update yourself to be safe!
-        update();
     }
 
     /** Passes news of an update onto its observers. */
@@ -99,7 +96,7 @@ public class Match extends Observable implements Observer {
     private void update() {
         System.out.println("Match.update()");
         checkForVictory();
-        hasChanged();
+        setChanged();
         notifyObservers();
     }
 

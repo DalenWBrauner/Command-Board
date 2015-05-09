@@ -172,7 +172,7 @@ public class BoardIterator extends Observable {
     /** Notifies the observers of an update. */
     private void update() {
         System.out.println("BoardIterator.update()");
-        hasChanged();
+        setChanged();
         notifyObservers();
     }
 }

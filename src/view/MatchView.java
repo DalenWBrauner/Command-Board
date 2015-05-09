@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import model.Match;
+import model.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
 import shared.enums.CardShape;
@@ -85,8 +86,9 @@ public class MatchView implements ControlledScreen,
         // Set this view as the "player representative" for
         // all of the players.
         for (PlayerID pID : m.getAllPlayerIDs()) {
-            //m.setRepresentative(pID, new AIEasy(m.getPlayer(pID)));
-            m.setRepresentative(pID, this);
+            Player eachPlayer = m.getPlayer(pID);
+            eachPlayer.setRepresentative(this);
+            //eachPlayer.setRepresentative(new AIEasy(m.getPlayer(pID)));
         }
 
         // Set the background. This could change based on the map.

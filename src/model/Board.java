@@ -1,8 +1,14 @@
 package model;
 
+import model.tile.CheckpointTile;
 import model.tile.NullTile;
+import model.tile.PropertyTile;
 import model.tile.StartTile;
 import model.tile.Tile;
+import shared.enums.CardShape;
+import shared.enums.CheckpointColor;
+import shared.enums.PlayerID;
+import shared.enums.TileType;
 
 public class Board {
 
@@ -88,5 +94,70 @@ public class Board {
         assert(finished);
         return startY;
     }
+
+    /** Returns detailed information about the current board. */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Command Board '"+boardName+"'.\n");
+
+        // For each tile on the board,
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                Tile thisTile = getTile(x,y);
+
+                // If the tile exists,
+                TileType tileType = thisTile.getTileType();
+                if (tileType != TileType.NONE) {
+
+                    // Print it out!
+                    sb.append("The Tile at (" + x + ", " + y + ") is ");
+
+                    if (tileType == TileType.CHECKPOINT) {
+                        // If you're a checkpoint, print out your color!
+                        CheckpointColor whichColor = ((CheckpointTile) thisTile).getColor();
+                        sb.append("the " + whichColor.toString() + " Checkpoint!\n");
+
+                    } else if (tileType == TileType.PROPERTY) {
+
+                        // Display Tile Level
+                        sb.append("a Level " + ((PropertyTile) thisTile).getLevel()
+                                + " Property Tile");
+
+                        // Display Tile Owner
+                        PlayerID tileOwner = ((PropertyTile) thisTile).getOwner();
+                        sb.append(" owned by " + tileOwner.toString());
+
+                        // Display Card
+                        sb.append(" with");
+                        CardShape tileCard = ((PropertyTile) thisTile).getCard();
+
+                        if (tileCard == CardShape.NOCARD) {
+                            sb.append(" no card");
+                        } else if (tileCard == CardShape.SHAPE1) {
+                            sb.append(" a Shape1 card");
+                        } else if (tileCard == CardShape.SHAPE2) {
+                            sb.append(" a Shape2 card");
+                        } else if (tileCard == CardShape.SHAPE3) {
+                            sb.append(" a Shape3 card");
+                        }
+
+                        // Display Tile Value
+                        sb.append(" and with a value of $");
+                        sb.append( ((PropertyTile) thisTile).getValue()  );
+
+                        // End of sentence
+                        sb.append(".\n");
+
+                    } else if (tileType == TileType.START) {
+                        sb.append("the START!\n");
+                    }
+                }
+            }
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
+
 }
 

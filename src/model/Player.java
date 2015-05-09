@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import model.tile.PropertyTile;
+import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.interfaces.PlayerRepresentative;
 
@@ -21,6 +22,8 @@ public interface Player {
     public ArrayList<PropertyTile> getTilesOwned();
     public void gainTile(PropertyTile newTile);
     public void loseTile(PropertyTile oldTile);
+    public void setPassed(CheckpointColor color, boolean passedOrNot);
+    public boolean hasPassed(CheckpointColor color);
     public void setRepresentative(PlayerRepresentative myRep);
     public PlayerRepresentative getRepresentative();
 }

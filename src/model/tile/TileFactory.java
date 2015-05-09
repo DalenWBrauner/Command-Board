@@ -1,6 +1,7 @@
 package model.tile;
 
 import model.command.Command;
+import model.command.MarkCheckpointCommand;
 import model.command.PrintCommand;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;
@@ -26,7 +27,7 @@ public class TileFactory {
 
     public CheckpointTile makeCheckpoint(int x, int y, CheckpointColor color) {
         CheckpointTile tile = new CheckpointTile(x, y, color);
-        Command onPass = new PrintCommand("You passed the "+color+" Checkpoint!");
+        Command onPass = new MarkCheckpointCommand(color);
         Command onLand = new PrintCommand("You landed on the "+color+" Checkpoint!");
         onPass.addObserver(currentTower);
         onLand.addObserver(currentTower);

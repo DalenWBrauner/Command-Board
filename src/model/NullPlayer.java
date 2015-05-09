@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import model.tile.PropertyTile;
+import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
@@ -50,6 +51,12 @@ public class NullPlayer implements Player {
 
     @Override
     public void setLastPosition(int x, int y) { }
+
+    @Override
+    public void setPassed(CheckpointColor color, boolean passedOrNot) { }
+
+    @Override
+    public boolean hasPassed(CheckpointColor color) { return false; }
 
     @Override
     public void setRepresentative(PlayerRepresentative myRep) { }

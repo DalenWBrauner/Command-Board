@@ -39,7 +39,7 @@ public class WatchTower extends Observable implements Observer {
     /** Passes on its updates to its own observers. */
     @Override
     public void update(Observable arg0, Object arg1) {
-        System.out.println("WatchTower.update()");
+        //System.out.println("WatchTower.update()");
         setChanged();
         notifyObservers();
     }

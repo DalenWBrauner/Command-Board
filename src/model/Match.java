@@ -94,7 +94,7 @@ public class Match extends Observable implements Observer {
      * but checks if anyone has won, first!
      */
     private void update() {
-        System.out.println("Match.update()");
+        //System.out.println("Match.update()");
         checkForVictory();
         setChanged();
         notifyObservers();
@@ -112,9 +112,19 @@ public class Match extends Observable implements Observer {
 
             // Check if any player is at the start
             for (Player p : getAllPlayers()) {
-                if (p.getX() == startX && p.getY() == startY) {
-                    declareWinner(p.getID());
-                    return;
+                if (p.getX() == startX &&
+                    p.getY() == startY) {
+
+                    // If that player has passed all the checkpoints
+                    if (p.hasPassed(CheckpointColor.RED) &&
+                        p.hasPassed(CheckpointColor.BLU) &&
+                        p.hasPassed(CheckpointColor.GRN) &&
+                        p.hasPassed(CheckpointColor.YLW)) {
+
+                        // They win!
+                        declareWinner(p.getID());
+                        return;
+                    }
                 }
             }
         }

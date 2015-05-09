@@ -1,5 +1,7 @@
 package model.command;
 
+import model.Player;
+
 /** Does nothing when executed!
  *
  * @author Dalen W. Brauner
@@ -7,6 +9,6 @@ package model.command;
 public class NullCommand implements Command {
 
     @Override
-    public void execute() {}
+    public void execute(Player sourcePlayer) {}
 
 }

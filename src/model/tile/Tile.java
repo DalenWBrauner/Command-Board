@@ -1,11 +1,15 @@
 package model.tile;
 
+import model.Player;
+import model.command.Command;
 import shared.enums.TileType;
 
 public abstract class Tile {
 
     private int xPos;
     private int yPos;
+    protected Command onLand;
+    protected Command onPass;
 
     public Tile(int x, int y) {
         setX(x);
@@ -30,13 +34,21 @@ public abstract class Tile {
 
     abstract public TileType getTileType();
 
-    // Super bootleg and temporary
-    public boolean onPass() {
+    public void setOnLandCommand(Command command) {
+        onLand = command;
+    }
+
+    public void setOnPassCommand(Command command) {
+        onPass = command;
+    }
+
+    public boolean onPass(Player movingPlayer) {
+        onPass.execute(movingPlayer);
         return false;
     }
 
-    // Super bootleg and temporary
-    public boolean onLand() {
+    public boolean onLand(Player movingPlayer) {
+        onLand.execute(movingPlayer);
         return false;
     }
 }

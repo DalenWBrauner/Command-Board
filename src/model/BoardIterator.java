@@ -45,14 +45,14 @@ public class BoardIterator extends Observable {
         System.out.println(movingPlayerID+" rolled a "+diceRoll+"!");
 
         // While we're still passing by tiles
-        boolean passingBy = true;
+        boolean justPassingBy = true;
         while (diceRoll > 1) {
 
             // Choose which way we're going
             final CardinalDirection chosenPath = pickAPath(currentRep);
 
             // Move the player in that direction
-            playerWon = moveTo(chosenPath, passingBy);
+            playerWon = moveTo(chosenPath, justPassingBy);
 
             // Update the Observers
             hasChanged();
@@ -66,13 +66,13 @@ public class BoardIterator extends Observable {
         }
 
         // Now we're going to land on a tile
-        passingBy = false;
+        justPassingBy = false;
 
         // Choose which way we're going
         final CardinalDirection chosenPath = pickAPath(currentRep);
 
         // Move the player in that direction
-        playerWon = moveTo(chosenPath, passingBy);
+        playerWon = moveTo(chosenPath, justPassingBy);
 
         System.out.println(movingPlayerID+" is done moving!");
 
@@ -150,7 +150,7 @@ public class BoardIterator extends Observable {
 
     /** Physically moves the player in the given direction.
      * Calls the Tile's onPass() or onLand() functions */
-    private boolean moveTo(CardinalDirection chosenPath, boolean passingBy) {
+    private boolean moveTo(CardinalDirection chosenPath, boolean justPassingBy) {
         boolean wonYet = false;
 
         int xPos = movingPlayer.getX();
@@ -159,7 +159,7 @@ public class BoardIterator extends Observable {
         int lastY = yPos;
 
         // Get the coordinates of the new tile
-        if (chosenPath == CardinalDirection.NORTH)      yPos--;
+        if      (chosenPath == CardinalDirection.NORTH) yPos--;
         else if (chosenPath == CardinalDirection.SOUTH) yPos++;
         else if (chosenPath == CardinalDirection.EAST)  xPos++;
         else if (chosenPath == CardinalDirection.WEST)  xPos--;
@@ -171,10 +171,13 @@ public class BoardIterator extends Observable {
         movingPlayer.setLastPosition(lastX, lastY);
 
         Tile movedTo = theBoard.getTile(xPos, yPos);
-        if (passingBy)      wonYet = movedTo.onPass();
-        else                wonYet = movedTo.onLand();
+        if (justPassingBy)  wonYet = movedTo.onPass(movingPlayer);
+        else {
+            movedTo.onPass(movingPlayer);
+            movedTo.onLand(movingPlayer);
+        }
 
-        System.out.println("Moved to ("+xPos+", "+yPos+")");
+        System.out.println("Finished moving to ("+xPos+", "+yPos+")!");
 
         // TODO: Remove temporary victory condition
         if (movedTo.getTileType() == TileType.START) wonYet = true;

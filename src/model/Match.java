@@ -97,6 +97,7 @@ public class Match extends Observable implements Observer {
      * but checks if anyone has won, first!
      */
     private void update() {
+        System.out.println("Match.update()");
         checkForVictory();
         hasChanged();
         notifyObservers();

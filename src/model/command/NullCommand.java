@@ -6,7 +6,7 @@ import model.Player;
  *
  * @author Dalen W. Brauner
  */
-public class NullCommand implements Command {
+public class NullCommand extends Command {
 
     @Override
     public void execute(Player sourcePlayer) {}

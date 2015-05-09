@@ -2,7 +2,7 @@ package model.command;
 
 import model.Player;
 
-public class PrintCommand implements Command {
+public class PrintCommand extends Command {
     String output;
 
     public PrintCommand(String printThis) {

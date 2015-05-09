@@ -2,7 +2,7 @@ package model.command;
 
 import model.Player;
 
-public class MacroCommand implements Command {
+public class MacroCommand extends Command {
     private Command[] macro;
 
     public MacroCommand(Command[] commands) {

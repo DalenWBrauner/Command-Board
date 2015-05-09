@@ -1,6 +1,5 @@
 package model.tile;
 
-import model.command.PrintCommand;
 import shared.enums.CardShape;
 import shared.enums.PlayerID;
 import shared.enums.TileType;
@@ -21,16 +20,12 @@ public class PropertyTile extends Tile {
         super(x, y);
         baseValue = DEFAULT_BASE_VALUE;
         updateValue();
-        setOnPassCommand(new PrintCommand("You passed a Property Tile!"));
-        setOnLandCommand(new PrintCommand("You landed on a Property Tile!"));
     }
 
     public PropertyTile(int x, int y, int theBaseValue) {
         super(x, y);
         baseValue = theBaseValue;
         updateValue();
-        setOnPassCommand(new PrintCommand("You passed a Property Tile!"));
-        setOnLandCommand(new PrintCommand("You landed on a Property Tile!"));
     }
 
     @Override

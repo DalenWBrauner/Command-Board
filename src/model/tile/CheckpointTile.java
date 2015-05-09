@@ -1,6 +1,5 @@
 package model.tile;
 
-import model.command.PrintCommand;
 import shared.enums.CheckpointColor;
 import shared.enums.TileType;
 
@@ -11,10 +10,6 @@ public class CheckpointTile extends Tile {
     public CheckpointTile(int x, int y, CheckpointColor color) {
         super(x, y);
         myColor = color;
-        setOnPassCommand(new PrintCommand(
-                "You passed the "+color+" checkpoint!"));
-        setOnLandCommand(new PrintCommand(
-                "You landed on the "+color+" checkpoint!"));
     }
 
     @Override

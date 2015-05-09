@@ -10,7 +10,9 @@ public class PrintCommand extends Command {
     }
 
     public void execute(Player sourcePlayer) {
+        setChanged();
+        notifyObservers();
         System.out.println("PrintCommand invoked by " +
-                           sourcePlayer.getID() + ": " + output);
+                sourcePlayer.getID() + ": " + output);
     }
 }

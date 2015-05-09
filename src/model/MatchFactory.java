@@ -3,11 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import shared.WatchTower;
 import shared.enums.PlayerID;
 
 public class MatchFactory {
 
-    private static BoardFactory boardFactory = new BoardFactory();
+    private final BoardFactory boardFactory = new BoardFactory();
 
     public Match createMatch(int numberOfPlayers, int cashGoal, String whichBoard) {
         System.out.println("MatchFactory.createMatch(); START");
@@ -38,7 +39,11 @@ public class MatchFactory {
         System.out.println("We're playing on the "+whichBoard+" Board!");
         System.out.println("First one back to the start with $"+cashGoal+" wins!");
 
+        // Instantiate the WatchTower
+        WatchTower tower = new WatchTower();
+
         // Create Board Object
+        boardFactory.setWatchTower(tower);
         Board theBoard = boardFactory.getBoard(whichBoard);
 
         // Assign the Players to the Start position
@@ -49,6 +54,7 @@ public class MatchFactory {
 
         // Create Match Object
         Match theMatch = new Match(theBoard, thePlayers);
+        tower.addObserver(theMatch);
 
         System.out.println("MatchFactory.createMatch() END");
 

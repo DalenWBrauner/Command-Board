@@ -42,13 +42,11 @@ public abstract class Tile {
         onPass = command;
     }
 
-    public boolean onPass(Player movingPlayer) {
+    public void onPass(Player movingPlayer) {
         onPass.execute(movingPlayer);
-        return false;
     }
 
-    public boolean onLand(Player movingPlayer) {
+    public void onLand(Player movingPlayer) {
         onLand.execute(movingPlayer);
-        return false;
     }
 }

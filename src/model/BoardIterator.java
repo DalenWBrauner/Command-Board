@@ -136,11 +136,13 @@ public class BoardIterator extends Observable {
      * Calls the Tile's onPass() or onLand() functions. */
     private void moveTo(CardinalDirection chosenPath, boolean justPassingBy) {
 
-        // Get where the Player is
+        // Get where the Player is & was
         int xPos = movingPlayer.getX();
         int yPos = movingPlayer.getY();
+        int movedFromX = xPos;
+        int movedFromY = yPos;
 
-        // Get the coordinates of the new tile
+        // Adjust the coordinates to that of the new tile
         if      (chosenPath == CardinalDirection.NORTH) yPos--;
         else if (chosenPath == CardinalDirection.SOUTH) yPos++;
         else if (chosenPath == CardinalDirection.EAST)  xPos++;
@@ -148,8 +150,6 @@ public class BoardIterator extends Observable {
         else assert(false); // This should never happen (EVER)
 
         // Actually move to that tile
-        int movedFromX = xPos;
-        int movedFromY = yPos;
         movingPlayer.setX(xPos);
         movingPlayer.setY(yPos);
         movingPlayer.setLastPosition(movedFromX, movedFromY);

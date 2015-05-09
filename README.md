@@ -1,8 +1,4 @@
 # Command-Board
-A recreation of the KH board game "Command Board" for PC
+A recreation of the board game "Command Board" for PC.
 
-This is Dalen's Test Commit!
-#shane caldwell is all about commitment 
-
-
-I can commit things! -Noah
+Check out [our requirements document](https://docs.google.com/document/d/1qcNk5Pl_JLIH8znumiAmaemJT3cuclAUip5W9G49OMI/edit?usp=sharing)!

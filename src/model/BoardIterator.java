@@ -38,15 +38,14 @@ public class BoardIterator extends Observable {
     public void go() {
         PlayerRepresentative currentRep = movingPlayer.getRepresentative();
 
-        System.out.println(movingPlayerID+" is moving from ("+
-        movingPlayer.getX()+", "+movingPlayer.getY()+")");
-
         // Get the player's dice roll
         int diceRoll = currentRep.getUsersRoll();
         assert(diceRoll > 0);
         assert(diceRoll < 7);
-
         System.out.println(movingPlayerID+" rolled a "+diceRoll+"!");
+
+        System.out.println("Moving from ("+
+        movingPlayer.getX()+", "+movingPlayer.getY()+")...");
 
         // While we're still passing by tiles
         boolean justPassingBy = true;

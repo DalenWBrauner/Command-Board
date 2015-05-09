@@ -9,7 +9,6 @@ import model.tile.Tile;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
-import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
@@ -111,24 +110,14 @@ public class Match extends Observable implements Observer {
         final int startY = theBoard.getStartY();
 
         // TODO: Implement real victory condition
-        // If every player has taken at least one turn
-        if (turnNumber > turnOrder.size()) {
+        // Check if any player is at the start
+        for (Player p : getAllPlayers()) {
+            if (p.getX() == startX &&
+                p.getY() == startY) {
 
-            // Check if any player is at the start
-            for (Player p : getAllPlayers()) {
-                if (p.getX() == startX &&
-                    p.getY() == startY) {
-
-                    // If that player has passed all the checkpoints
-                    if (p.hasPassed(CheckpointColor.RED) &&
-                        p.hasPassed(CheckpointColor.BLU) &&
-                        p.hasPassed(CheckpointColor.GRN) &&
-                        p.hasPassed(CheckpointColor.YLW)) {
-
-                        // They win!
-                        declareWinner(p.getID());
-                        return;
-                    }
+                // If that player has a full hand
+                if (p.getHand().size() == Hand.maxSize()) {
+                    declareWinner(p.getID());
                 }
             }
         }
@@ -138,6 +127,8 @@ public class Match extends Observable implements Observer {
     private void declareWinner(PlayerID winningPlayer) {
         winner = winningPlayer;
         matchIsOver.setTrue();
+        setChanged();
+        notifyObservers();
     }
 
     /** Temporary function for casting spells. */

@@ -46,10 +46,13 @@ public class MatchFactory {
         boardFactory.setWatchTower(tower);
         Board theBoard = boardFactory.getBoard(whichBoard);
 
-        // Assign the Players to the Start position
         for (Player player : thePlayers) {
+            // Assign the Players to the Start position
             player.setPosition(theBoard.getStartX(), theBoard.getStartY());
             player.setLastPosition(player.getX(), player.getY());
+
+            // Fill their hands with random cards
+            player.getHand().clear();
         }
 
         // Create Match Object

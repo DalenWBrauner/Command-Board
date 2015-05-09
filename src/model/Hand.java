@@ -95,19 +95,23 @@ public class Hand {
         }
     }
 
+    /** Adds a random card to the hand. */
+    public void addRandomCard() {
+        switch(r.nextInt(3) + 1) {
+        case 1: add(CardShape.SHAPE1);
+                break;
+        case 2: add(CardShape.SHAPE2);
+                break;
+        case 3: add(CardShape.SHAPE3);
+                break;
+        }
+    }
+
     /** Fills the hand with random card shapes. */
     public void fillRandomly() {
-        // While we still have slots open
+        // Add randomly until our hand is full
         while (size() < MAX_CARDS) {
-            //
-            switch(r.nextInt(3) + 1) {
-            case 1: add(CardShape.SHAPE1);
-                    break;
-            case 2: add(CardShape.SHAPE2);
-                    break;
-            case 3: add(CardShape.SHAPE3);
-                    break;
-            }
+            addRandomCard();
         }
     }
 

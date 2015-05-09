@@ -5,14 +5,9 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.tile.CheckpointTile;
-import model.tile.PropertyTile;
 import model.tile.Tile;
-import shared.enums.CardShape;
-import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
-import shared.enums.TileType;
 import shared.interfaces.PlayerRepresentative;
 
 public class Match extends Observable implements Observer {
@@ -42,7 +37,6 @@ public class Match extends Observable implements Observer {
         matchIsOver = false;
     }
 
-
     /** Starts the game. */
     public void start() {
         System.out.println("Match.start(); START");
@@ -54,7 +48,7 @@ public class Match extends Observable implements Observer {
             currentPlayer = turnOrder.get((turnNumber - 1) % turnOrder.size());
 
             // Take that player's turn.
-            matchIsOver = takeTurn();
+            takeTurn();
         }
 
         // The Match is over!
@@ -65,12 +59,11 @@ public class Match extends Observable implements Observer {
     /** Takes the current player's turn.
      * @return true if and only if the game is over.
      */
-    private boolean takeTurn() {
+    private void takeTurn() {
 
         // Setup
         System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
-        boolean winCondition = false;
 
         // SpellCasting
         // TODO Replace this section with a call to a SpellCaster object
@@ -88,23 +81,61 @@ public class Match extends Observable implements Observer {
         // Move the player!
         BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard);
         itr.addObserver(this); // We want to be notified when the BoardIterator moves players
-        winCondition = itr.go();
+        itr.go();
 
-        // Be prepared if someone won
-        if (winCondition) winner = currentPlayer;
-        return winCondition;
+        // Update yourself to be safe!
+        update();
     }
 
-    /** Returns the list of PlayerIDs (in turn order). */
-    @SuppressWarnings("unchecked")
-    public ArrayList<PlayerID> getAllPlayerIDs() {
-        return (ArrayList<PlayerID>) turnOrder.clone();
+    /** Passes news of an update onto its observers. */
+    @Override
+    public void update(Observable o, Object arg) {
+        update();
     }
 
-    /** Returns the Player given its ID.*/
-    public Player getPlayer(PlayerID thisPlayer) {
-        return players.get(thisPlayer);
+    /** Passes news of an update onto its observers,
+     * but checks if anyone has won, first!
+     */
+    private void update() {
+        checkForVictory();
+        hasChanged();
+        notifyObservers();
     }
+
+    /** Checks if any Player has won the Match.
+     * If so, declares that Player the winner! */
+    private void checkForVictory() {
+        final int startX = theBoard.getStartX();
+        final int startY = theBoard.getStartY();
+
+        // TODO: Implement real victory condition
+        // If every player has taken at least one turn
+        if (turnNumber > turnOrder.size()) {
+
+            // Check if any player is at the start
+            for (Player p : getAllPlayers()) {
+                if (p.getX() == startX && p.getY() == startY) {
+                    declareWinner(p.getID());
+                    return;
+                }
+            }
+        }
+    }
+
+    /** Sets the given player as the winner and ends the Match! */
+    private void declareWinner(PlayerID winningPlayer) {
+        winner = winningPlayer;
+        matchIsOver = true;
+    }
+
+    /** Temporary function for casting spells. */
+    private void cast(SpellID spellCast) {
+        if (spellCast == SpellID.NOSPELL) {
+            return;
+        }
+    }
+
+    // Getters
 
     /** Returns the current Board. */
     public Board getBoard() {
@@ -121,12 +152,32 @@ public class Match extends Observable implements Observer {
         return currentPlayer;
     }
 
+    /** Returns the list of PlayerIDs (in turn order). */
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlayerID> getAllPlayerIDs() {
+        return (ArrayList<PlayerID>) turnOrder.clone();
+    }
+
+    /** Returns the Player given its ID.*/
+    public Player getPlayer(PlayerID thisPlayer) {
+        return players.get(thisPlayer);
+    }
+
+    /** Returns the list of Player objects (in turn order). */
+    public ArrayList<Player> getAllPlayers() {
+        ArrayList<Player> allPlayers = new ArrayList<>();
+        for (PlayerID pID : getAllPlayerIDs()) {
+            allPlayers.add(getPlayer(pID));
+        }
+        return allPlayers;
+    }
+
     /** Return which turn is being taken.
-     * (the number of turns taken by all players + 1)
-    */
-    public int getNumberOfTurns() {
+     * (the number of turns taken by all players + 1) */
+    public int getTurnNumber() {
         return turnNumber;
     }
+
 
     /** Returns whether or not the Match has ended.
      * @return true if the Match is over.
@@ -146,4 +197,5 @@ public class Match extends Observable implements Observer {
             return PlayerID.NOPLAYER;
         }
     }
+
 }

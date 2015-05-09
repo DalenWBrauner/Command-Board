@@ -85,10 +85,9 @@ public class MatchView implements ControlledScreen,
 
         // Set this view as the "player representative" for
         // all of the players.
-        for (PlayerID pID : m.getAllPlayerIDs()) {
-            Player eachPlayer = m.getPlayer(pID);
+        for (Player eachPlayer : m.getAllPlayers()) {
             eachPlayer.setRepresentative(this);
-            //eachPlayer.setRepresentative(new AIEasy(m.getPlayer(pID)));
+            //eachPlayer.setRepresentative(new AIEasy(eachPlayer));
         }
 
         // Set the background. This could change based on the map.

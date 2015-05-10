@@ -13,7 +13,7 @@ import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
 
-public class Match extends Observable implements Observer {
+public class Match extends Observable implements Observer, Runnable {
 
     private Board theBoard;
     private ArrayList<PlayerID> turnOrder     = new ArrayList<>();
@@ -41,7 +41,8 @@ public class Match extends Observable implements Observer {
     }
 
     /** Starts the game. */
-    public void start() {
+    @Override
+    public void run() {
         System.out.println("Match.start(); START");
 
         turnNumber = 0;

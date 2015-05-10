@@ -52,8 +52,10 @@ public class BoardIterator extends Observable {
         while (diceRoll > 1) {
 
             // Choose which way we're going
+
             final CardinalDirection chosenPath = pickAPath(currentRep);
 
+            
             // Move the player in that direction
             moveTo(chosenPath, justPassingBy);
 
@@ -84,9 +86,9 @@ public class BoardIterator extends Observable {
         assert(availablePaths.length > 0);
         if (availablePaths.length == 1) {
             chosenPath = availablePaths[0];
-
         // Otherwise, ask the representative
         } else {
+        	System.out.println();
             chosenPath =  currentRep.forkInTheRoad(availablePaths);
         }
 

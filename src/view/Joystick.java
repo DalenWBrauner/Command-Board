@@ -37,7 +37,10 @@ public class Joystick implements Observer  {
 	Button right;
 	Button up;
 	Button down;
+	
 	Button select;
+	Button spells;
+
 	
 	Label money;
 	Label netVal;
@@ -101,7 +104,7 @@ public class Joystick implements Observer  {
 		select = new Button("SELECT");
 		select.setPadding(new Insets(10));
 
-		Button spells = new Button("SPELLS");
+		spells = new Button("SPELLS");
 		spells.setPadding(new Insets(10));
 
 		Button cancel = new Button("CANCEL");
@@ -274,13 +277,24 @@ public class Joystick implements Observer  {
 				System.out.println("USER ROLLED A " + answer);
 				//they rolled the dice, now give the poor kid his control back
 				MenuScreenView.modelThread.resume();
+			}	
+		});
+	    spells.setEffect(shadow);
+	    spells.setOnAction(new EventHandler<ActionEvent>(){
+
+			@SuppressWarnings("deprecation")
+			public void handle(ActionEvent arg0) {
+				// call method that launches start
+				MenuScreenView.modelThread.resume();
 			}
-				
-			});
+	    	
+	    });
 	}
+
 	
 	public void turnStartOff(){
 		select.setEffect(null);
+		spells.setEffect(null);
 	}
 
 	public int getRollResult(){
@@ -299,10 +313,10 @@ public class Joystick implements Observer  {
 		currentWallet.getCashOnHand();
 		money.setText("ON HAND: $" + currentWallet.getCashOnHand());
 		netVal.setText("NET VALUE: $" + currentWallet.getNetValue());
-		
-//		
+			
 		
 	}
+	
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {

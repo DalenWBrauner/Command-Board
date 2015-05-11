@@ -3,6 +3,7 @@ package view;
 import java.util.Arrays;
 import java.util.Random;
 
+import model.Match;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -36,6 +37,8 @@ public class Joystick  {
 	
 	private int answer;
 
+	private Match myMatch;
+	
 	CardinalDirection chosenDirection = CardinalDirection.NONE;
 
 	public Joystick(){
@@ -246,7 +249,7 @@ public class Joystick  {
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.initOwner(Main.Main.prim);
 		VBox dialogVbox = new VBox(20);
-		dialogVbox.getChildren().add(new Text("PLAYER #[FILL IN] TURN IS STARTING"));
+		dialogVbox.getChildren().add(new Text(myMatch.getCurrentPlayerID() + "'s TURN IS STARTING"));
 		Scene dialogScene = new Scene (dialogVbox, 200, 50);
 		dialog.setScene(dialogScene);
 		dialog.show();
@@ -275,6 +278,10 @@ public class Joystick  {
 
 	public int getRollResult(){
 		return answer;
+	}
+	
+	public void registerMatch(Match m){
+		myMatch = m;
 	}
 }
 		

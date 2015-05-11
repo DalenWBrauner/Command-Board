@@ -105,7 +105,7 @@ public class MatchView implements ControlledScreen,
 
     // TODO: Decide if this should be synchronized
     public void loadMatch(Match m) {
-
+    	joystick.registerMatch(m);
         // Set this view as the "player representative" for
         // all of the players.
         for (Player eachPlayer : m.getAllPlayers()) {

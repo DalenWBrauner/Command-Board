@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import model.Match;
+import model.Wallet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -293,7 +294,12 @@ public class Joystick implements Observer  {
 
 	public void setWalletText(){
 		PlayerID id = myMatch.getCurrentPlayerID();
-		myMatch.getPlayer(id).getWallet();
+		Wallet currentWallet = myMatch.getPlayer(id).getWallet();
+		currentWallet.getNetValue();
+		currentWallet.getCashOnHand();
+		money.setText("ON HAND: $" + currentWallet.getCashOnHand());
+		netVal.setText("NET VALUE: $" + currentWallet.getNetValue());
+		
 //		
 		
 	}

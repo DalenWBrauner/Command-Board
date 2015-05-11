@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
+import java.util.Scanner;
 
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -30,6 +31,10 @@ public class MatchView implements ControlledScreen,
     private ScreenSwitcher myController;
     private TileView[][] tileViews;
     private Joystick joystick;
+
+    
+    //for testing
+    Scanner scan = new Scanner(System.in);
 
     //private Match match;
 
@@ -134,6 +139,7 @@ public class MatchView implements ControlledScreen,
     @Override
     public int getUsersRoll(){
     	Random rand = new Random();
+    	scan.next();
     	return rand.nextInt(6) + 1;
     }
 

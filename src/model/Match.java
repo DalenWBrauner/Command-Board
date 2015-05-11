@@ -52,12 +52,7 @@ public class Match extends Observable implements Observer, Runnable {
             currentPlayer = turnOrder.get((turnNumber - 1) % turnOrder.size());
 
             // Take that player's turn.
-            try {
-				takeTurn();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            takeTurn();
         }
 
         // The Match is over!
@@ -67,9 +62,9 @@ public class Match extends Observable implements Observer, Runnable {
 
     /** Takes the current player's turn.
      * @return true if and only if the game is over.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
-    private void takeTurn() throws InterruptedException {
+    private void takeTurn() {
 
         // Setup
         System.out.print("\nTURN  " + turnNumber + ":\t");

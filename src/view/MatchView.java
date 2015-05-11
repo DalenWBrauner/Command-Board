@@ -122,14 +122,16 @@ public class MatchView implements ControlledScreen,
 
     //Skeleton functions to fill in for Dalen
 
+    @Override
     @SuppressWarnings("deprecation")
-	public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) throws InterruptedException{
+	public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
     	joystick.chooseDirection(availableDirections);
     	MenuScreenView.modelThread.suspend();
     	return joystick.getDirection();
     }
 
     //Random roll between 1 and 6
+    @Override
     public int getUsersRoll(){
     	Random rand = new Random();
     	return rand.nextInt(6) + 1;

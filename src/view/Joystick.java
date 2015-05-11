@@ -1,5 +1,10 @@
 package view;
 
+import java.util.Arrays;
+
+import shared.enums.CardinalDirection;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -9,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 public class Joystick  {
 	
 	private Group directionGroup;
@@ -16,6 +22,13 @@ public class Joystick  {
 	private Group wallet;
 	
 	private Group mainGroup;
+	
+	Button left;
+	Button right;
+	Button up;
+	Button down;
+	
+	CardinalDirection chosenDirection = CardinalDirection.NONE;
 	
 	public Joystick(){
 		initJoystick();
@@ -33,13 +46,13 @@ public class Joystick  {
 		dButtons.setPrefHeight(40);
 		
 		//Fill direction group with buttons
-		Button left = new Button("LEFT");
+		left = new Button("LEFT");
 		left.setPadding(new Insets(10));
-		Button right = new Button("RIGHT");
+		right = new Button("RIGHT");
 		right.setPadding(new Insets(10));
-		Button down = new Button("DOWN");
+		down = new Button("DOWN");
 		down.setPadding(new Insets(10));
-		Button up = new Button("UP");
+		up = new Button("UP");
 		up.setPadding(new Insets(10));
 		
 		left.setMinWidth(dButtons.getPrefWidth());
@@ -129,6 +142,58 @@ public class Joystick  {
 	
 	Group getMainGroup(){
 		return mainGroup;
+	}
+	
+	void chooseDirection(CardinalDirection[] availableDirections) throws InterruptedException{
+		
+			
+		left.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e) {
+				System.out.println("CLICKED LEFT");
+				if(Arrays.asList(availableDirections).contains(CardinalDirection.WEST)){
+				chosenDirection = CardinalDirection.WEST;
+				MenuScreenView.modelThread.resume();
+				}
+			}
+		});
+		
+		right.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e) {
+				System.out.println("CLICKED RIGHT");
+				if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
+				chosenDirection = CardinalDirection.EAST;
+				MenuScreenView.modelThread.resume();
+				}
+			}
+		});
+		
+		up.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e) {
+				System.out.println("CLICKED UP");
+				if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
+				chosenDirection = CardinalDirection.NORTH;
+				MenuScreenView.modelThread.resume();
+				}
+			}
+		});
+		
+		
+		down.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e) {
+				System.out.println("CLICKED DOWN");
+				if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
+				chosenDirection = CardinalDirection.SOUTH;
+				MenuScreenView.modelThread.resume();
+				}
+			}
+		});
+	
+	}
+		
+		
+
+	public CardinalDirection getDirection() {
+		return chosenDirection;
 	}
 
 }

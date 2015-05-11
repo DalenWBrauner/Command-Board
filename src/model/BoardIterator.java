@@ -34,8 +34,9 @@ public class BoardIterator extends Observable {
 
     /** Physically moves the player across the board until their turn is over.
      * @return Whether or not the current player has won
+     * @throws InterruptedException 
      */
-    public void go() {
+    public void go() throws InterruptedException {
         PlayerRepresentative currentRep = movingPlayer.getRepresentative();
 
         // Get the player's dice roll
@@ -75,8 +76,9 @@ public class BoardIterator extends Observable {
         System.out.println(movingPlayerID+" is done moving!");
     }
 
-    /** Discern which of the available paths the Player is going to move in. */
-    private CardinalDirection pickAPath(PlayerRepresentative currentRep) {
+    /** Discern which of the available paths the Player is going to move in. 
+     * @throws InterruptedException */
+    private CardinalDirection pickAPath(PlayerRepresentative currentRep) throws InterruptedException {
         CardinalDirection chosenPath;
         CardinalDirection[] availablePaths = getAvailablePaths();
 

@@ -29,6 +29,7 @@ public class MatchView implements ControlledScreen,
     private Group mainGroup;
     private ScreenSwitcher myController;
     private TileView[][] tileViews;
+    private Joystick joystick;
 
     //private Match match;
 
@@ -73,7 +74,7 @@ public class MatchView implements ControlledScreen,
         mainGroup.getChildren().add(sp);
 
         // TODO: Create joystick UI.
-        Joystick joystick = new Joystick();
+        joystick = new Joystick();
         Group stick = joystick.getMainGroup();
         mainGroup.getChildren().add(stick);
 
@@ -121,10 +122,11 @@ public class MatchView implements ControlledScreen,
 
     //Skeleton functions to fill in for Dalen
 
-    public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections){
-        Random rand = new Random();
-        int randInt =  rand.nextInt(availableDirections.length);
-    	return availableDirections[randInt];
+    @SuppressWarnings("deprecation")
+	public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) throws InterruptedException{
+    	joystick.chooseDirection(availableDirections);
+    	MenuScreenView.modelThread.suspend();
+    	return joystick.getDirection();
     }
 
     //Random roll between 1 and 6

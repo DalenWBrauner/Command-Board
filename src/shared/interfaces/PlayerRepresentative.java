@@ -46,8 +46,9 @@ public interface PlayerRepresentative {
      *
      * @param availableDirections All directions the Player is able to move in.
      * @return Which direction the Player chose to move in.
+     * @throws InterruptedException 
      */
-    public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections);
+    public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) throws InterruptedException;
 
     /** The Model needs to know whether the Player wants to buy a Tile!
      *

@@ -275,6 +275,15 @@ public class Joystick implements Observer  {
 				Random random = new Random();
 				answer = random.nextInt(6) + 1;
 				System.out.println("USER ROLLED A " + answer);
+				final Stage rollResult = new Stage();
+				rollResult.initModality(Modality.APPLICATION_MODAL);
+				rollResult.initOwner(Main.Main.prim);
+				VBox dialogVbox = new VBox(20);
+				dialogVbox.getChildren().add(new Text(myMatch.getCurrentPlayerID() + " rolled a " + answer + "!"));
+				Scene dialogScene = new Scene (dialogVbox, 100, 50);
+				rollResult.setScene(dialogScene);
+				rollResult.show();
+
 				//they rolled the dice, now give the poor kid his control back
 				MenuScreenView.modelThread.resume();
 			}	

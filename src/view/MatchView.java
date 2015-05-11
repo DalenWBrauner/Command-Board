@@ -148,8 +148,20 @@ public class MatchView implements ControlledScreen,
     @Override
     @SuppressWarnings("deprecation")
 	public synchronized CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
-    	joystick.chooseDirection(availableDirections);
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.chooseDirection(availableDirections);
+    		}
+    	});
     	MenuScreenView.modelThread.suspend();
+    	
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    				joystick.turnDirectionsOff();
+    			}
+    		});
     	return joystick.getDirection();
     }
 
@@ -169,7 +181,14 @@ public class MatchView implements ControlledScreen,
     			joystick.activateDiceRoll();
     		}
     	});
+    	System.out.println("\nHIT SELECT TO ROLL DICE\n");
     	MenuScreenView.modelThread.suspend();
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.turnStartOff();
+    		}
+    	});
     	return joystick.getRollResult();
     }
 

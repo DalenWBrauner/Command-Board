@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -152,6 +153,14 @@ public class Joystick  {
 	}
 
 	void chooseDirection(CardinalDirection[] availableDirections) {
+		DropShadow shadow = new DropShadow();
+
+		//Shadow effects.
+		if(Arrays.asList(availableDirections).contains(CardinalDirection.WEST)){
+				left.setEffect(shadow);
+		}else{
+				left.setEffect(null);
+		}
 
 
 		left.setOnAction(new EventHandler<ActionEvent>(){
@@ -163,6 +172,14 @@ public class Joystick  {
 				}
 			}
 		});
+		
+		//Shadow effects.
+		if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
+				right.setEffect(shadow);
+		}else{
+				right.setEffect(null);
+		}
+
 
 		right.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e) {
@@ -174,6 +191,13 @@ public class Joystick  {
 			}
 		});
 
+		//Shadow effects.
+		if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
+			up.setEffect(shadow);
+		}else{
+			up.setEffect(null);
+		}
+
 		up.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e) {
 				System.out.println("CLICKED UP");
@@ -184,7 +208,12 @@ public class Joystick  {
 			}
 		});
 
-
+		
+		if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
+			down.setEffect(shadow);
+		}else{
+			down.setEffect(null);
+		}
 		down.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e) {
 				System.out.println("CLICKED DOWN");
@@ -195,6 +224,15 @@ public class Joystick  {
 			}
 		});
 
+	}
+	
+	void turnDirectionsOff(){
+		//Turns directions off so they dont stay highlighted.
+		left.setEffect(null);
+		right.setEffect(null);
+		up.setEffect(null);
+		down.setEffect(null);
+		
 	}
 
 
@@ -216,6 +254,8 @@ public class Joystick  {
 	}
 	public void activateDiceRoll(){
 			
+		DropShadow shadow = new DropShadow();
+		select.setEffect(shadow);
 		select.setOnAction(new EventHandler<ActionEvent>(){
 			@SuppressWarnings("deprecation")
 			@Override public void handle(ActionEvent e){
@@ -227,6 +267,10 @@ public class Joystick  {
 			}
 				
 			});
+	}
+	
+	public void turnStartOff(){
+		select.setEffect(null);
 	}
 
 	public int getRollResult(){

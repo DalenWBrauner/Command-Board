@@ -4,11 +4,8 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-import java.util.Scanner;
 
-import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -32,12 +29,9 @@ public class MatchView implements ControlledScreen,
     private Group mainGroup;
     private ScreenSwitcher myController;
     private TileView[][] tileViews;
-    private Joystick joystick;
-	Scanner reader = new Scanner(System.in);
 
     //private Match match;
 
-    int i = 0;
     private final static Image BACKGROUND_IMAGE = new Image(
             new File("images/gameBackground.jpg").toURI().toString(), true);
 //            MatchView.class.getResource("/images/gameBackground.jpg")
@@ -79,9 +73,9 @@ public class MatchView implements ControlledScreen,
         mainGroup.getChildren().add(sp);
 
         // TODO: Create joystick UI.
-        joystick = new Joystick();
-        Group joystickGroup = joystick.getMainGroup();
-        mainGroup.getChildren().add(joystickGroup);
+        Joystick joystick = new Joystick();
+        Group stick = joystick.getMainGroup();
+        mainGroup.getChildren().add(stick);
 
         mainGroup.getChildren().get(1).setLayoutY(300);
         mainGroup.getChildren().get(1).setLayoutX(0);
@@ -128,18 +122,21 @@ public class MatchView implements ControlledScreen,
     //Skeleton functions to fill in for Dalen
 
     public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections){
-    	//Activate buttons
-    	joystick.chooseDirection(availableDirections);  
-    	//Let it go when the click occurs.     	
-    	return joystick.getDirection();
-    	
-
+        Random rand = new Random();
+        int randInt =  rand.nextInt(availableDirections.length);
+    	return availableDirections[randInt];
     }
 
     //Random roll between 1 and 6
     public int getUsersRoll(){
     	Random rand = new Random();
     	return rand.nextInt(6) + 1;
+    }
+
+    //Loads joystick
+    public Group getJoystick(){
+    	Group joystick = new Group();
+    	return joystick;
     }
 
     @Override

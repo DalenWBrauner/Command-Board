@@ -1,19 +1,11 @@
 package view;
 
-import java.util.Scanner;
-
-import shared.enums.CardinalDirection;
-import model.Match;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -24,15 +16,6 @@ public class Joystick  {
 	private Group wallet;
 	
 	private Group mainGroup;
-	
-	private Button left;
-	
-
-	
-
-	
-	CardinalDirection chosenDirection = CardinalDirection.NONE;
-	
 	
 	public Joystick(){
 		initJoystick();
@@ -50,7 +33,7 @@ public class Joystick  {
 		dButtons.setPrefHeight(40);
 		
 		//Fill direction group with buttons
-		left = new Button("LEFT");
+		Button left = new Button("LEFT");
 		left.setPadding(new Insets(10));
 		Button right = new Button("RIGHT");
 		right.setPadding(new Insets(10));
@@ -140,30 +123,6 @@ public class Joystick  {
 		mainGroup.getChildren().get(1).setLayoutX(30);
 		mainGroup.getChildren().get(1).setLayoutY(60);
 		
-	}
-	
-	void chooseDirection(CardinalDirection[] availableDirections){
-		//No ones picked anything yet, so set it to null
-		chosenDirection = CardinalDirection.NONE;
-		if (availableDirections.equals(null)){
-			//Do nothing, change nothing. 
-		}else{				
-			left.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-				@Override
-				public void handle(MouseEvent arg0) {
-					System.out.println("CLICKED LEFT");
-					chosenDirection = CardinalDirection.EAST;
-				}
-			});
-			
-			System.out.println();
-		}
-		//return after button has been pressed
-	    }
-	
-	CardinalDirection getDirection(){
-		
-		return chosenDirection;
 	}
 	
 	

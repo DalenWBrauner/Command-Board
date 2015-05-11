@@ -5,9 +5,7 @@ public enum CardinalDirection {
     NORTH ("North"),
     SOUTH ("South"),
     EAST  ("East"),
-    WEST  ("West"),
-    //Helps JavaFX avoid null pointers.
-    NONE ("None");
+    WEST  ("West");
 
     private final String myName;
     private CardinalDirection(String name) {

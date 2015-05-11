@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
 
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -136,11 +137,23 @@ public class MatchView implements ControlledScreen,
     }
 
     //Random roll between 1 and 6
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public int getUsersRoll(){
-    	Random rand = new Random();
-    	scan.next();
-    	return rand.nextInt(6) + 1;
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.meetNGreet();
+    		}
+    	});
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.activateDiceRoll();
+    		}
+    	});
+    	MenuScreenView.modelThread.suspend();
+    	return joystick.getRollResult();
     }
 
     //Loads joystick

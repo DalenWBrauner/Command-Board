@@ -43,6 +43,7 @@ public class Main extends Application {
 
     public final static int MAIN_WINDOW_HEIGHT = 600;
     public final static int MAIN_WINDOW_WIDTH = 800;
+    public static Stage prim;
 
     public static void main(String[] args) {
         launch(args);
@@ -89,6 +90,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+    	prim = primaryStage;
         CASH_GOAL_OPTIONS.put(("Low ("    + DEFAULT_CASH_GOAL_LOW    + ")"), DEFAULT_CASH_GOAL_LOW);
         CASH_GOAL_OPTIONS.put(("Medium (" + DEFAULT_CASH_GOAL_MEDIUM + ")"), DEFAULT_CASH_GOAL_MEDIUM);
         CASH_GOAL_OPTIONS.put(("High ("   + DEFAULT_CASH_GOAL_HIGH   + ")"), DEFAULT_CASH_GOAL_HIGH);

@@ -1,16 +1,21 @@
 package view;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import shared.enums.CardinalDirection;
 
 
@@ -26,6 +31,9 @@ public class Joystick  {
 	Button right;
 	Button up;
 	Button down;
+	Button select;
+	
+	private int answer;
 
 	CardinalDirection chosenDirection = CardinalDirection.NONE;
 
@@ -79,7 +87,7 @@ public class Joystick  {
 		cButtons.setPrefWidth(80);
 		cButtons.setPrefHeight(40);
 
-		Button select = new Button("SELECT");
+		select = new Button("SELECT");
 		select.setPadding(new Insets(10));
 
 		Button spells = new Button("SPELLS");
@@ -194,5 +202,37 @@ public class Joystick  {
 	public CardinalDirection getDirection() {
 		return chosenDirection;
 	}
+	
+	public void meetNGreet(){
+		final Stage dialog = new Stage();
+		dialog.initModality(Modality.APPLICATION_MODAL);
+		dialog.initOwner(Main.Main.prim);
+		VBox dialogVbox = new VBox(20);
+		dialogVbox.getChildren().add(new Text("PLAYER #[FILL IN] TURN IS STARTING"));
+		Scene dialogScene = new Scene (dialogVbox, 200, 50);
+		dialog.setScene(dialogScene);
+		dialog.show();
+		
+	}
+	public void activateDiceRoll(){
+			
+		select.setOnAction(new EventHandler<ActionEvent>(){
+			@SuppressWarnings("deprecation")
+			@Override public void handle(ActionEvent e){
+				Random random = new Random();
+				answer = random.nextInt(6) + 1;
+				System.out.println("USER ROLLED A " + answer);
+				//they rolled the dice, now give the poor kid his control back
+				MenuScreenView.modelThread.resume();
+			}
+				
+			});
+	}
 
+	public int getRollResult(){
+		return answer;
+	}
 }
+		
+
+

@@ -88,6 +88,13 @@ public class BoardIterator extends Observable {
         // Otherwise, ask the representative
         } else {
             chosenPath =  currentRep.forkInTheRoad(availablePaths);
+
+            // Assert this matches a valid option
+            boolean validOption = false;
+            for (CardinalDirection validPath : availablePaths) {
+                if (chosenPath == validPath) validOption = true;
+            }
+            assert(validOption);
         }
 
         return chosenPath;

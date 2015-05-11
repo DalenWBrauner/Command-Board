@@ -287,12 +287,9 @@ public class Joystick implements Observer  {
 				final Stage spellView = new Stage();
 				spellView.initModality(Modality.APPLICATION_MODAL);
 				spellView spell = new spellView();
-				Scene spellScene = new Scene (spell.getMainGroup(), 200, 50);
+				Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
 				spellView.setScene(spellScene);
 				spellView.show();
-
-				
-				
 
 			}
 	    	

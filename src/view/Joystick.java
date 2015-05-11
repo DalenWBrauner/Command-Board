@@ -1,6 +1,8 @@
 package view;
 
 import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import model.Match;
@@ -19,9 +21,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.enums.CardinalDirection;
+import shared.enums.PlayerID;
 
 
-public class Joystick  {
+public class Joystick implements Observer  {
 
 	private Group directionGroup;
 	private Group commandGroup;
@@ -34,6 +37,9 @@ public class Joystick  {
 	Button up;
 	Button down;
 	Button select;
+	
+	Label money;
+	Label netVal;
 	
 	private int answer;
 
@@ -123,8 +129,8 @@ public class Joystick  {
 		commandGroup.getChildren().add(cButtons);
 
 		//Add labels for On hand and and net Value
-		Label money = new Label("ON HAND:              ");
-		Label netVal = new Label("NET VALUE:           ");
+		money = new Label("ON HAND:              ");
+		netVal = new Label("NET VALUE:           ");
 		money.setAlignment(Pos.BOTTOM_RIGHT);
 		VBox walletbox = new VBox();
 		walletbox.setSpacing(20);
@@ -282,6 +288,20 @@ public class Joystick  {
 	
 	public void registerMatch(Match m){
 		myMatch = m;
+		m.addObserver(this);
+	}
+
+	public void setWalletText(){
+		PlayerID id = myMatch.getCurrentPlayerID();
+		myMatch.getPlayer(id).getWallet();
+//		
+		
+	}
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		setWalletText();
+		
 	}
 }
 		

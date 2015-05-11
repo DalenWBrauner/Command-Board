@@ -3,7 +3,6 @@ package view;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 import java.util.Scanner;
 
 import javafx.application.Platform;
@@ -24,6 +23,22 @@ import shared.interfaces.PlayerRepresentative;
 import view.interfaces.ControlledScreen;
 import controller.ScreenSwitcher;
 
+/* TODO: Watch this class like a hawk!
+ * Pay attention to which methods need to be synchronized and which do not!
+ *
+ * HINT: (Maybe this will help!)
+ * Let's pretend that this class had a "main" function, something that runs for
+ * a long period of time and calls other functions inside this class.
+ * The goal then is to NOT synchronize the main function itself,
+ * but any methods it calls instead. (Or if it's just a lot of chunks of code,
+ * break up those chunks into separate synchronized(this) blocks!)
+ * The idea is that we don't want to interrupt the subroutines that modify
+ * values, but if we have a subroutine that modifies values X, Y and Z,
+ * and then we have a subroutine right after that modifies values A, B and C,
+ * then it's probably okay to have our threads interrupt in-between those
+ * subroutines. So our first subroutine would be synchronized and so would our
+ * second, leaving a gap in-between.
+ */
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
 
@@ -33,7 +48,7 @@ public class MatchView implements ControlledScreen,
     private TileView[][] tileViews;
     private Joystick joystick;
 
-    
+
     //for testing
     Scanner scan = new Scanner(System.in);
 
@@ -88,6 +103,7 @@ public class MatchView implements ControlledScreen,
         mainGroup.getChildren().get(1).setLayoutX(0);
     }
 
+    // TODO: Decide if this should be synchronized
     public void loadMatch(Match m) {
 
         // Set this view as the "player representative" for
@@ -117,10 +133,11 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public void setScreenParent(ScreenSwitcher scSw) {
+    public synchronized void setScreenParent(ScreenSwitcher scSw) {
         myController = scSw;
     }
 
+    // TODO: Decide if this should be synchronized
     @Override
     public Parent getRoot() {
         return mainGroup;
@@ -130,7 +147,7 @@ public class MatchView implements ControlledScreen,
 
     @Override
     @SuppressWarnings("deprecation")
-	public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
+	public synchronized CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
     	joystick.chooseDirection(availableDirections);
     	MenuScreenView.modelThread.suspend();
     	return joystick.getDirection();
@@ -139,7 +156,7 @@ public class MatchView implements ControlledScreen,
     //Random roll between 1 and 6
     @SuppressWarnings("deprecation")
 	@Override
-    public int getUsersRoll(){
+    public synchronized int getUsersRoll(){
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -156,6 +173,7 @@ public class MatchView implements ControlledScreen,
     	return joystick.getRollResult();
     }
 
+    // TODO: Decide if this should be synchronized
     //Loads joystick
     public Group getJoystick(){
     	Group joystick = new Group();
@@ -163,56 +181,56 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public SpellID getSpellCast(SpellID[] availableSpells) {
+    public synchronized SpellID getSpellCast(SpellID[] availableSpells) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public boolean buyThisTile(PropertyTile tileForPurchase) {
+    public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public CardShape placeWhichCard() {
+    public synchronized CardShape placeWhichCard() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
+    public synchronized CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Tile swapCardOnWhichTile() {
+    public synchronized Tile swapCardOnWhichTile() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
+    public synchronized Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile) {
+    public synchronized int upgradeToWhatLevel(PropertyTile upgradingTile) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
+    public synchronized PropertyTile sellWhichTile(PlayerID sellingPlayer) {
         // TODO Auto-generated method stub
         return null;
     }
 
     // Arg will be null.
     @Override
-    public void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
 
     }

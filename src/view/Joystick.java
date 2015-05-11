@@ -284,8 +284,16 @@ public class Joystick implements Observer  {
 
 			@SuppressWarnings("deprecation")
 			public void handle(ActionEvent arg0) {
-				// call method that launches start
-				MenuScreenView.modelThread.resume();
+				final Stage spellView = new Stage();
+				spellView.initModality(Modality.APPLICATION_MODAL);
+				spellView spell = new spellView();
+				Scene spellScene = new Scene (spell.getMainGroup(), 200, 50);
+				spellView.setScene(spellScene);
+				spellView.show();
+
+				
+				
+
 			}
 	    	
 	    });

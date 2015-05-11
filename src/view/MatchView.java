@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -169,6 +170,9 @@ public class MatchView implements ControlledScreen,
     @SuppressWarnings("deprecation")
 	@Override
     public synchronized int getUsersRoll(){
+    	//Change color
+    	//there's css style for this sort of thing. 
+    
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){

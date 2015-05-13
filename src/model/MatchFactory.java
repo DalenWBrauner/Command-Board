@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import shared.WatchTower;
 import shared.enums.PlayerID;
@@ -13,28 +14,33 @@ public class MatchFactory {
     public Match createMatch(int numberOfPlayers, int cashGoal, String whichBoard) {
         System.out.println("MatchFactory.createMatch(); START");
 
-        // Create Player Objects
-        ArrayList<Player> thePlayers = new ArrayList<>();
+        // Create player objects
+        HashMap<PlayerID, Player> playerMap = new HashMap<>();
         if (numberOfPlayers > 0) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER1));
+            playerMap.put(PlayerID.PLAYER1,
+                        new ActualPlayer(PlayerID.PLAYER1));
         }
         if (numberOfPlayers > 1) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER2));
+            playerMap.put(PlayerID.PLAYER2,
+                    new ActualPlayer(PlayerID.PLAYER2));
         }
         if (numberOfPlayers > 2) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER3));
+            playerMap.put(PlayerID.PLAYER3,
+                    new ActualPlayer(PlayerID.PLAYER3));
         }
         if (numberOfPlayers > 3) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER4));
+            playerMap.put(PlayerID.PLAYER4,
+                    new ActualPlayer(PlayerID.PLAYER4));
         }
 
         // Shuffle the Turn Order
-        Collections.shuffle(thePlayers);
+        ArrayList<PlayerID> turnOrder = new ArrayList<>(playerMap.keySet());
+        Collections.shuffle(turnOrder);
 
         // Print some stuff
         System.out.println("The " + numberOfPlayers + " players play in this order:");
-        for (Player player : thePlayers) {
-            System.out.println(player.getID().toString());
+        for (PlayerID id : turnOrder) {
+            System.out.println(id);
         }
         System.out.println("We're playing on the "+whichBoard+" Board!");
         System.out.println("First one back to the start with $"+cashGoal+" wins!");
@@ -44,22 +50,21 @@ public class MatchFactory {
 
         // Create Board Object
         boardFactory.setWatchTower(tower);
+        boardFactory.setPlayerMap(playerMap);
         Board theBoard = boardFactory.getBoard(whichBoard);
 
-        for (Player player : thePlayers) {
-            // Assign the Players to the Start position
+        // Assign the Players to the Start position
+        for (PlayerID id : turnOrder) {
+            Player player = playerMap.get(id);
             player.setPosition(theBoard.getStartX(), theBoard.getStartY());
             player.setLastPosition(player.getX(), player.getY());
-
-            // Fill their hands with random cards
-            player.getHand().clear();
         }
 
         // Create the SpellCaster
-        SpellCaster yensid = new SpellCaster(theBoard, tower);
+        SpellCaster yensid = new SpellCaster(tower, theBoard, playerMap);
 
         // Create Match Object
-        Match theMatch = new Match(theBoard, thePlayers, yensid);
+        Match theMatch = new Match(theBoard, yensid, turnOrder, playerMap);
         tower.addObserver(theMatch);
 
         System.out.println("MatchFactory.createMatch() END");

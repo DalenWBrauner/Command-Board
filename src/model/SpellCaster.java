@@ -7,11 +7,15 @@ import model.command.Command;
 import model.command.EnableWalkBackwardsCommand;
 import shared.WatchTower;
 import shared.enums.CardShape;
+import shared.enums.PlayerID;
 import shared.enums.SpellID;
 
 public class SpellCaster {
 
     private final Board theBoard;
+    private final HashMap<PlayerID, Player> playerMap;
+    // The spellbook isn't static only because each command
+    // is dependent on that match's watchtower
     private final HashMap<SpellID, Command> spellBook = new HashMap<>();
     private static final HashMap<SpellID, HashMap<CardShape, Integer>> spellCosts;
     static {
@@ -35,8 +39,10 @@ public class SpellCaster {
     }
 
     /** Creates a SpellCaster unique to this match. */
-    public SpellCaster(Board board, WatchTower tower) {
+    public SpellCaster(WatchTower tower, Board board,
+                       HashMap<PlayerID, Player> players) {
         theBoard = board;
+        playerMap = players;
         spellCraft(tower);
     }
 

@@ -1,8 +1,11 @@
 package model;
 
+import java.util.HashMap;
+
 import model.tile.TileFactory;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;
+import shared.enums.PlayerID;
 
 public class BoardFactory {
 
@@ -12,11 +15,19 @@ public class BoardFactory {
         tf.setWatchTower(tower);
     }
 
+    public void setPlayerMap(HashMap<PlayerID, Player> playerMap) {
+        tf.setPlayerMap(playerMap);
+    }
+
     public Board getBoard(String boardName) throws IllegalArgumentException {
         System.out.println("BoardFactory.getBoard("+boardName+"); START");
+
+        // Instantiate the board object
         Board theBoard = new Board();
         theBoard.setName(boardName);
+        tf.setBoard(theBoard);
 
+        // Fill it with tiles depending on the given layout
         switch(boardName) {
         case "Rings":      createRingsBoard(theBoard);
             break;

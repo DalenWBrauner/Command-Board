@@ -1,5 +1,9 @@
 package model.tile;
 
+import java.util.HashMap;
+
+import model.Board;
+import model.Player;
 import model.command.Command;
 import model.command.CompleteLapCommand;
 import model.command.FillHandRandomlyCommand;
@@ -10,13 +14,24 @@ import model.command.NullCommand;
 import model.command.PrintCommand;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;
+import shared.enums.PlayerID;
 
 public class TileFactory {
 
     private WatchTower currentTower;
+    private Board theBoard;
+    private HashMap<PlayerID, Player> currentPlayers;
 
     public void setWatchTower(WatchTower tower) {
         currentTower = tower;
+    }
+
+    public void setPlayerMap(HashMap<PlayerID, Player> playerMap) {
+        currentPlayers = playerMap;
+    }
+
+    public void setBoard(Board board) {
+        theBoard = board;
     }
 
     public StartTile createStart(int x, int y) {

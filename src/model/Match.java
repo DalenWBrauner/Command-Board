@@ -10,33 +10,25 @@ import model.tile.Tile;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import shared.enums.PlayerID;
-import shared.enums.SpellID;
 
 public class Match extends Observable implements Observer, Runnable {
 
     private final Board theBoard;
     private final SpellCaster donald;
-    private final ArrayList<PlayerID> turnOrder     = new ArrayList<>();
-    private final HashMap<PlayerID, Player> players = new HashMap<>();
+    private final ArrayList<PlayerID> turnOrder;
+    private final HashMap<PlayerID, Player> players;
     private final MutableBoolean matchIsOver;
     private PlayerID currentPlayer;
     private PlayerID winner;
     private int turnNumber;
 
-    public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder, SpellCaster caster) {
+    public Match(Board requestedBoard, SpellCaster caster,
+            ArrayList<PlayerID> playerIDsInTurnOrder, HashMap<PlayerID, Player> idMap) {
         System.out.println("new Match();");
         theBoard = requestedBoard;
         donald = caster;
-
-        // Fills the maps with info from playersInTurnOrder.
-        for (int i = 0; i < playersInTurnOrder.size(); i++) {
-            Player eachPlayer = playersInTurnOrder.get(i);
-            PlayerID id       = eachPlayer.getID();
-
-            turnOrder.add(id);
-            players.put(id, eachPlayer);
-        }
-
+        players = idMap;
+        turnOrder = playerIDsInTurnOrder;
         winner = PlayerID.NOPLAYER;
         matchIsOver = new MutableBoolean(false);
     }
@@ -120,13 +112,6 @@ public class Match extends Observable implements Observer, Runnable {
         matchIsOver.setTrue();
         setChanged();
         notifyObservers();
-    }
-
-    /** Temporary function for casting spells. */
-    private void cast(SpellID spellCast) {
-        if (spellCast == SpellID.NOSPELL) {
-            return;
-        }
     }
 
     // Getters

@@ -69,13 +69,16 @@ public class MatchFactory {
 
             // ...wallet the onNegativeCommand
             player.getWallet().setOnNegativeCommand(onNegativeCommand);
+
+            // ...wallet $1000 to start with
+            player.getWallet().addFunds(1000);
         }
 
         // Create the SpellCaster
         SpellCaster yensid = new SpellCaster(tower, theBoard, playerMap);
 
         // Create Match Object
-        Match theMatch = new Match(theBoard, yensid, turnOrder, playerMap);
+        Match theMatch = new Match(cashGoal, theBoard, yensid, turnOrder, playerMap);
         tower.addObserver(theMatch);
 
         System.out.println("MatchFactory.createMatch() END");

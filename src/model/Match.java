@@ -13,6 +13,7 @@ import shared.enums.PlayerID;
 
 public class Match extends Observable implements Observer, Runnable {
 
+    private final int cashGoal;
     private final Board theBoard;
     private final SpellCaster donald;
     private final ArrayList<PlayerID> turnOrder;
@@ -22,9 +23,10 @@ public class Match extends Observable implements Observer, Runnable {
     private PlayerID winner;
     private int turnNumber;
 
-    public Match(Board requestedBoard, SpellCaster caster,
-            ArrayList<PlayerID> playerIDsInTurnOrder, HashMap<PlayerID, Player> idMap) {
+    public Match(int theCashGoal, Board requestedBoard, SpellCaster caster,
+                 ArrayList<PlayerID> playerIDsInTurnOrder, HashMap<PlayerID, Player> idMap) {
         System.out.println("new Match();");
+        cashGoal = theCashGoal;
         theBoard = requestedBoard;
         donald = caster;
         players = idMap;
@@ -60,6 +62,10 @@ public class Match extends Observable implements Observer, Runnable {
     private void takeTurn() {
         System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
+        System.out.println("They have in their wallet: $" +
+                           getPlayer(currentPlayer).getWallet().getCashOnHand() + "!");
+        System.out.println("They have a net value of:  $" +
+                           getPlayer(currentPlayer).getWallet().getNetValue() + "!");
 
         // Let the Player cast a spell!
         donald.performMagic(getPlayer(currentPlayer));
@@ -92,14 +98,13 @@ public class Match extends Observable implements Observer, Runnable {
         final int startX = theBoard.getStartX();
         final int startY = theBoard.getStartY();
 
-        // TODO: Implement real victory condition
         // Check if any player is at the start
         for (Player p : getAllPlayers()) {
             if (p.getX() == startX &&
                 p.getY() == startY) {
 
-                // If that player has a full hand
-                if (p.getHand().size() == Hand.maxSize()) {
+                // If that player has more $$ than the Cash Goal, they win!
+                if (p.getWallet().getNetValue() > cashGoal) {
                     declareWinner(p.getID());
                 }
             }

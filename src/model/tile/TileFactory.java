@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import model.Board;
 import model.Player;
+import model.command.AddFundsCommand;
 import model.command.Command;
 import model.command.CompleteLapCommand;
 import model.command.FillHandRandomlyCommand;
@@ -37,8 +38,17 @@ public class TileFactory {
     public StartTile createStart(int x, int y) {
         StartTile tile = new StartTile(x, y);
 
+        // Create a macro for:
+        // When a player passes the start after passing all 4 checkpoints
+        Command[] completeLapMacro = new Command[2];
+        completeLapMacro[0] = new AddFundsCommand(3000);
+        completeLapMacro[1] = new FillHandRandomlyCommand();
+        completeLapMacro[0].addObserver(currentTower);
+        completeLapMacro[1].addObserver(currentTower);
+        Command onLapCompletion = new MacroCommand(completeLapMacro);
+
         // Create the onPass Command
-        Command onPass = new CompleteLapCommand(new FillHandRandomlyCommand());
+        Command onPass = new CompleteLapCommand(onLapCompletion);
         onPass.addObserver(currentTower);
 
         // Create the onLand Command
@@ -56,9 +66,10 @@ public class TileFactory {
 
         // Create a macro for:
         // First time a player passes a checkpoint in a given lap
-        Command[] ifNotYetPassedMacro = new Command[2];
+        Command[] ifNotYetPassedMacro = new Command[3];
         ifNotYetPassedMacro[0] = new GiveRandomCardCommand();
-        ifNotYetPassedMacro[1] = new PrintCommand("First time this lap!");
+        ifNotYetPassedMacro[1] = new AddFundsCommand(500);
+        ifNotYetPassedMacro[2] = new PrintCommand("First time this lap!");
         ifNotYetPassedMacro[0].addObserver(currentTower);
         ifNotYetPassedMacro[1].addObserver(currentTower);
         Command ifNotYetPassed = new MacroCommand(ifNotYetPassedMacro);

@@ -40,18 +40,9 @@ public class SpellCaster {
         spellCraft(tower);
     }
 
-    /** Creates each spell and places them into the spellbook. */
-    private void spellCraft(WatchTower tower) {
-        spellBook.put(SpellID.SPELL1, craftNavigator(tower));
-        spellBook.put(SpellID.SPELL2, craftNavigator(tower));
-        spellBook.put(SpellID.SPELL3, craftNavigator(tower));
-    }
-
-    /** Returns the Navigator Spell */
-    private Command craftNavigator(WatchTower tower) {
-        Command navigator = new EnableWalkBackwardsCommand();
-        navigator.addObserver(tower);
-        return navigator;
+    /** Returns the number of each cardshape it costs to cast the spell. */
+    public static HashMap<CardShape, Integer> getCost(SpellID spell) {
+        return spellCosts.get(spell);
     }
 
     /** Prepares the Player to cast a spell if they can and they wish! */
@@ -125,5 +116,19 @@ public class SpellCaster {
             // Then execute the comman- err, perform feats of magic!
             spellBook.get(spellCast).execute(player);
         }
+    }
+
+    /** Creates each spell and places them into the spellbook. */
+    private void spellCraft(WatchTower tower) {
+        spellBook.put(SpellID.SPELL1, craftNavigator(tower));
+        spellBook.put(SpellID.SPELL2, craftNavigator(tower));
+        spellBook.put(SpellID.SPELL3, craftNavigator(tower));
+    }
+
+    /** Returns the Navigator Spell */
+    private Command craftNavigator(WatchTower tower) {
+        Command navigator = new EnableWalkBackwardsCommand();
+        navigator.addObserver(tower);
+        return navigator;
     }
 }

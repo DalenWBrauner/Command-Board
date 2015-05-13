@@ -11,21 +11,22 @@ import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
-import shared.interfaces.PlayerRepresentative;
 
 public class Match extends Observable implements Observer, Runnable {
 
-    private Board theBoard;
-    private ArrayList<PlayerID> turnOrder     = new ArrayList<>();
-    private HashMap<PlayerID, Player> players = new HashMap<>();
+    private final Board theBoard;
+    private final SpellCaster donald;
+    private final ArrayList<PlayerID> turnOrder     = new ArrayList<>();
+    private final HashMap<PlayerID, Player> players = new HashMap<>();
+    private final MutableBoolean matchIsOver;
     private PlayerID currentPlayer;
     private PlayerID winner;
-    private MutableBoolean matchIsOver;
     private int turnNumber;
 
-    public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder) {
+    public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder, SpellCaster caster) {
         System.out.println("new Match();");
         theBoard = requestedBoard;
+        donald = caster;
 
         // Fills the maps with info from playersInTurnOrder.
         for (int i = 0; i < playersInTurnOrder.size(); i++) {
@@ -65,25 +66,13 @@ public class Match extends Observable implements Observer, Runnable {
      * @throws InterruptedException
      */
     private void takeTurn() {
-
-        // Setup
         System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
 
-        // SpellCasting
-        // TODO Replace this section with a call to a SpellCaster object
-        // e.g. SpellCaster.prepare(currentPlayer);
-        // First, determine the spells the player can cast.
-        SpellID[] castableSpells = getPlayer(currentPlayer).getHand().getCastableSpells();
+        // Let the Player cast a spell!
+        donald.performMagic(getPlayer(currentPlayer));
 
-        // Second, ask that player which of those spells they'd like to cast.
-        PlayerRepresentative currentRep = players.get(currentPlayer).getRepresentative();
-        SpellID spellCast = currentRep.getSpellCast(castableSpells);
-
-        // Third, cast that spell.
-        cast(spellCast);
-
-        // Move the player!
+        // Move the Player!
         BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard, matchIsOver);
         itr.addObserver(this); // We want to be notified when the BoardIterator moves players
         itr.go();

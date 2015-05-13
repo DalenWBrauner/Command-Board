@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import shared.enums.CardShape;
-import shared.enums.SpellID;
 
 public class Hand {
 
@@ -32,18 +31,37 @@ public class Hand {
 
     /** Adds the card of this cardshape to the hand. */
     public void add(CardShape card) {
-        // We don't add if it's the NOCARD or if we're already full
-        if (size() < 5 && card != CardShape.NOCARD) {
-            // Increment the counter of that card by 1
-            counters.replace(card, counters.get(card) + 1);
+        add(card, 1);
+    }
+
+    /** Adds a certain number of the card of this cardshape to the hand. */
+    public void add(CardShape card, int amount) {
+        // We won't add if it's the NOCARD
+        if (card != CardShape.NOCARD) {
+
+            // And we won't add more than we can hold
+            int canHold = maxSize() - size();
+            int newAmount = counters.get(card) + Math.min(amount, canHold);
+
+            counters.replace(card, newAmount);
         }
     }
 
     /** Removes the card of this cardshape from the hand. */
     public void remove(CardShape card) {
-        if (counters.get(card) > 0) {
-            // Decrement the counter of that card by 1
-            counters.replace(card, counters.get(card) - 1);
+        remove(card, 1);
+    }
+
+    /** Removes a certain number of the card of this cardshape from the hand. */
+    public void remove(CardShape card, int amount) {
+        // We won't subtract if it's the NOCARD
+        if (card != CardShape.NOCARD) {
+
+            // And we won't subtract more than we have
+            int weHave = counters.get(card);
+            int newAmount = counters.get(card) - Math.min(amount, weHave);
+
+            counters.replace(card, newAmount);
         }
     }
 
@@ -113,16 +131,5 @@ public class Hand {
         while (size() < MAX_CARDS) {
             addRandomCard();
         }
-    }
-
-    /** Returns an array of all spells that can possibly be cast. */
-    public SpellID[] getCastableSpells() {
-        ArrayList<SpellID> castableSpells = new ArrayList<>();
-        castableSpells.add(SpellID.NOSPELL);
-
-        // Convert to an array
-        SpellID[] retVal = new SpellID[castableSpells.size()];
-        castableSpells.toArray(retVal);
-        return retVal;
     }
 }

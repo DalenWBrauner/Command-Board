@@ -55,8 +55,11 @@ public class MatchFactory {
             player.getHand().clear();
         }
 
+        // Create the SpellCaster
+        SpellCaster yensid = new SpellCaster(theBoard, tower);
+
         // Create Match Object
-        Match theMatch = new Match(theBoard, thePlayers);
+        Match theMatch = new Match(theBoard, thePlayers, yensid);
         tower.addObserver(theMatch);
 
         System.out.println("MatchFactory.createMatch() END");

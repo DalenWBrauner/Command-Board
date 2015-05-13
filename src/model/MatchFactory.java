@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import model.command.Command;
+import model.command.PrintCommand;
 import shared.WatchTower;
 import shared.enums.PlayerID;
 
@@ -53,11 +55,20 @@ public class MatchFactory {
         boardFactory.setPlayerMap(playerMap);
         Board theBoard = boardFactory.getBoard(whichBoard);
 
-        // Assign the Players to the Start position
+        // Instantiate the command executed when a Player's balance falls below zero
+        Command onNegativeCommand = new PrintCommand("balance fell below zero!");
+        onNegativeCommand.addObserver(tower);
+
+        // Assign each Player's...
         for (PlayerID id : turnOrder) {
             Player player = playerMap.get(id);
+
+            // ..position to the Start
             player.setPosition(theBoard.getStartX(), theBoard.getStartY());
             player.setLastPosition(player.getX(), player.getY());
+
+            // ...wallet the onNegativeCommand
+            player.getWallet().setOnNegativeCommand(onNegativeCommand);
         }
 
         // Create the SpellCaster

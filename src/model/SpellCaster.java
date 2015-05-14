@@ -3,8 +3,17 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.command.AddFundsCommand;
+import model.command.CastOnPlayerCommand;
 import model.command.Command;
 import model.command.EnableWalkBackwardsCommand;
+import model.command.SellAnyTileCommand;
+import model.command.SellTileCommand;
+import model.command.SubtractFundsCommand;
+import model.command.SwapCardAnyTileCommand;
+import model.command.SwapCardCommand;
+import model.command.UpgradeAnyTileCommand;
+import model.command.UpgradeTileCommand;
 import shared.WatchTower;
 import shared.enums.CardShape;
 import shared.enums.PlayerID;
@@ -25,25 +34,39 @@ public class SpellCaster {
         spellCosts.put(SpellID.SPELL2, new HashMap<>());
         spellCosts.put(SpellID.SPELL3, new HashMap<>());
 
+        // (SHAPE1) Circle   Cards are seen as "Help" cards
+        // (SHAPE2) Square   Cards are seen as "Wild" cards
+        // (SHAPE3) Triangle Cards are seen as "Harm" cards
+
         // The 'NoSpell' doesn't cost anything.
         spellCosts.get(SpellID.NOSPELL).put(CardShape.SHAPE1, 0);
         spellCosts.get(SpellID.NOSPELL).put(CardShape.SHAPE2, 0);
         spellCosts.get(SpellID.NOSPELL).put(CardShape.SHAPE3, 0);
 
-        // Spell 1 costs one Shape1 card
+        // Navigator costs one Circle card
         spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE1, 1);
         spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE2, 0);
         spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE3, 0);
 
-        // Spell 2 costs two Shape2 cards
+        // Foreclosure costs three Triangle cards
         spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE1, 0);
-        spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE2, 2);
-        spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE3, 0);
+        spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE2, 0);
+        spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE3, 3);
 
-        // Spell 3 costs one Shape2 and one Shape3 card
-        spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE1, 0);
-        spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE2, 1);
-        spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE3, 1);
+        // Upgrade costs three Circle cards
+        spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE1, 3);
+        spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE2, 0);
+        spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE3, 0);
+
+        // Card Swap costs one Square card
+        spellCosts.get(SpellID.SPELL4).put(CardShape.SHAPE1, 0);
+        spellCosts.get(SpellID.SPELL4).put(CardShape.SHAPE2, 1);
+        spellCosts.get(SpellID.SPELL4).put(CardShape.SHAPE3, 0);
+    }
+
+    /** Returns the number of each cardshape it costs to cast the spell. */
+    public static HashMap<CardShape, Integer> getCost(SpellID spell) {
+        return spellCosts.get(spell);
     }
 
     /** Creates a SpellCaster unique to this match. */
@@ -52,11 +75,6 @@ public class SpellCaster {
         theBoard = board;
         playerMap = players;
         spellCraft(tower);
-    }
-
-    /** Returns the number of each cardshape it costs to cast the spell. */
-    public static HashMap<CardShape, Integer> getCost(SpellID spell) {
-        return spellCosts.get(spell);
     }
 
     /** Prepares the Player to cast a spell if they can and they wish! */
@@ -135,8 +153,9 @@ public class SpellCaster {
     /** Creates each spell and places them into the spellbook. */
     private void spellCraft(WatchTower tower) {
         spellBook.put(SpellID.SPELL1, craftNavigator(tower));
-        spellBook.put(SpellID.SPELL2, craftNavigator(tower));
-        spellBook.put(SpellID.SPELL3, craftNavigator(tower));
+        spellBook.put(SpellID.SPELL2, craftForeclosure(tower));
+        spellBook.put(SpellID.SPELL3, craftUpgrade(tower));
+        spellBook.put(SpellID.SPELL4, craftCardSwap(tower));
     }
 
     /** Returns the Navigator Spell */
@@ -144,5 +163,41 @@ public class SpellCaster {
         Command navigator = new EnableWalkBackwardsCommand();
         navigator.addObserver(tower);
         return navigator;
+    }
+
+    /** Returns the Foreclosure Spell */
+    private Command craftForeclosure(WatchTower tower) {
+        AddFundsCommand afc = new AddFundsCommand();
+        SellTileCommand stc = new SellTileCommand(afc);
+        Command foreclose = new SellAnyTileCommand(stc);
+        Command foreclosureSpell = new CastOnPlayerCommand(SpellID.SPELL2, foreclose, playerMap);
+
+        foreclosureSpell.addObserver(tower);
+        foreclose.addObserver(tower);
+        stc.addObserver(tower);
+        afc.addObserver(tower);
+        return foreclosureSpell;
+    }
+
+    /** Returns the Upgrade Spell */
+    private Command craftUpgrade(WatchTower tower) {
+        SubtractFundsCommand sfc = new SubtractFundsCommand();
+        UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
+        Command spell = new UpgradeAnyTileCommand(utc);
+
+        sfc.addObserver(tower);
+        utc.addObserver(tower);
+        spell.addObserver(tower);
+        return spell;
+    }
+
+    /** Returns the Card Swap Spell */
+    private Command craftCardSwap(WatchTower tower) {
+        SwapCardCommand scc = new SwapCardCommand();
+        Command spell = new SwapCardAnyTileCommand(scc);
+
+        scc.addObserver(tower);
+        spell.addObserver(tower);
+        return spell;
     }
 }

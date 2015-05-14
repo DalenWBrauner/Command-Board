@@ -152,9 +152,7 @@ public class Joystick implements Observer  {
 		
 		//Bind label to property value, so you can change that and have the label update
 
-		mainGroup = new Group(directionGroup, commandGroup, wallet);
-		mainGroup.getChildren().get(2).setLayoutX(500);
-		mainGroup.getChildren().get(2).setLayoutY(90);
+		mainGroup = new Group(directionGroup, commandGroup);
 
 		//Interesting note: The x coordinates can be exactly the same for the dbuttons and select buttons and they won'tline up.
 		mainGroup.getChildren().get(0).setLayoutX(10);
@@ -332,16 +330,14 @@ public class Joystick implements Observer  {
 		myMatch = m;
 		m.addObserver(this);
 		groupWallet = new walletView(myMatch);
+		mainGroup.getChildren().add(groupWallet.getWallGroup());
+		mainGroup.getChildren().get(2).setLayoutX(500);
+		mainGroup.getChildren().get(2).setLayoutY(90);
 
 	}
 
 	public void setWalletText(){
-		PlayerID id = myMatch.getCurrentPlayerID();
-		Wallet currentWallet = myMatch.getPlayer(id).getWallet();
-		currentWallet.getNetValue();
-		currentWallet.getCashOnHand();
-		money.setText("ON HAND: $" + currentWallet.getCashOnHand());
-		netVal.setText("NET VALUE: $" + currentWallet.getNetValue());
+		groupWallet.update();
 	}
 	
 	

@@ -101,4 +101,10 @@ public interface PlayerRepresentative {
      */
     public PropertyTile sellWhichTile(PlayerID sellingPlayer);
 
+    /** The Model needs to know which Player is on the receiving end of a spell!
+     *
+     * @param spellCast The ID of the Spell the Player wanted to cast.
+     * @return Which player receives the effect of the Spell.
+     */
+    public PlayerID castOnPlayer(SpellID spellCast);
 }

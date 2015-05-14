@@ -257,4 +257,10 @@ public class MatchView implements ControlledScreen,
 
     }
 
+    @Override
+    public PlayerID castOnPlayer(SpellID spellCast) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

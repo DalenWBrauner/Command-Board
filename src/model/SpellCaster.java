@@ -26,14 +26,22 @@ public class SpellCaster {
         spellCosts.put(SpellID.SPELL3, new HashMap<>());
 
         // The 'NoSpell' doesn't cost anything.
+        spellCosts.get(SpellID.NOSPELL).put(CardShape.SHAPE1, 0);
+        spellCosts.get(SpellID.NOSPELL).put(CardShape.SHAPE2, 0);
+        spellCosts.get(SpellID.NOSPELL).put(CardShape.SHAPE3, 0);
 
         // Spell 1 costs one Shape1 card
         spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE1, 1);
+        spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE2, 0);
+        spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE3, 0);
 
         // Spell 2 costs two Shape2 cards
+        spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE1, 0);
         spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE2, 2);
+        spellCosts.get(SpellID.SPELL2).put(CardShape.SHAPE3, 0);
 
         // Spell 3 costs one Shape2 and one Shape3 card
+        spellCosts.get(SpellID.SPELL1).put(CardShape.SHAPE1, 0);
         spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE2, 1);
         spellCosts.get(SpellID.SPELL3).put(CardShape.SHAPE3, 1);
     }

@@ -178,6 +178,7 @@ public class MatchView implements ControlledScreen,
     			joystick.meetNGreet();
     		}
     	});
+    	MenuScreenView.modelThread.suspend();
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){

@@ -52,6 +52,9 @@ public class Joystick implements Observer  {
 
 	private Match myMatch;
 	
+	walletView groupWallet;
+
+	
 	CardinalDirection chosenDirection = CardinalDirection.NONE;
 
 	public Joystick(){
@@ -146,6 +149,8 @@ public class Joystick implements Observer  {
 		wallet.getChildren().add(walletbox);
 
 
+		groupWallet = new walletView(myMatch);
+		
 		//Bind label to property value, so you can change that and have the label update
 
 		mainGroup = new Group(directionGroup, commandGroup, wallet);
@@ -160,7 +165,9 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().get(1).setLayoutX(30);
 		mainGroup.getChildren().get(1).setLayoutY(60);
 		
+		//spell view launches.
 		spell = new spellView();
+		
 
 
 	}

@@ -1,13 +1,18 @@
 package view;
 
+import model.Match;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class spellView {
 	
@@ -17,16 +22,22 @@ public class spellView {
 	
 	Button cast;
 	Button cancel;
-
 	
-	public spellView(){
+	Label Cost;
+	
+	Label Description;
+	
+	Match myMatch;
+	
+	public spellView(Match myMatch){
+		this.myMatch = myMatch;
 		initSpellView();
 		
 	}
 	
 	public void initSpellView(){
 		spellList = new ListView<String>();
-		ObservableList<String> spells = FXCollections.observableArrayList("Spell1", "Spell2", "Spell3");
+		ObservableList<String> spells = FXCollections.observableArrayList("Spell1", "Spell2", "Spell3", "Spell4", "Spell5", "Spell6", "Spell7");
 		spellList.setItems(spells);
 		
 		spellList.setPrefWidth(400);
@@ -64,10 +75,34 @@ public class spellView {
 		
 		mainGroup.getChildren().get(1).setLayoutX(100);
 		mainGroup.getChildren().get(1).setLayoutY(350);
+		
+		Cost = new Label("");
+		
+		Description = new Label("");
+		
+		spellList.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
-
-
-
+			@Override
+			public void handle(MouseEvent arg0) {
+				Cost.setText("THIS IS THE COST OF: " + spellList.getSelectionModel().getSelectedItem());
+				
+				Description.setText(spellList.getSelectionModel().getSelectedItem() + " filler text.");
+			}
+			
+		});
+		
+		VBox spellStuff = new VBox();
+		spellStuff.setSpacing(20);
+		spellStuff.getChildren().addAll(Cost, Description);
+		mainGroup.getChildren().add(spellStuff);
+		
+		mainGroup.getChildren().get(2).setLayoutX(100);
+		mainGroup.getChildren().get(2).setLayoutY(200);
+		
+		
+	}
+	
+	public void Update(){
 		
 	}
 	

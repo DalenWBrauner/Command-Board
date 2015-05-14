@@ -163,7 +163,6 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().get(1).setLayoutY(60);
 		
 		//spell view launches.
-		spell = new spellView();
 		
 
 
@@ -333,6 +332,7 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().add(groupWallet.getWallGroup());
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
+		spell = new spellView(myMatch);
 
 	}
 

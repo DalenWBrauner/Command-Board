@@ -149,7 +149,6 @@ public class Joystick implements Observer  {
 		wallet.getChildren().add(walletbox);
 
 
-		groupWallet = new walletView(myMatch);
 		
 		//Bind label to property value, so you can change that and have the label update
 
@@ -332,6 +331,8 @@ public class Joystick implements Observer  {
 	public void registerMatch(Match m){
 		myMatch = m;
 		m.addObserver(this);
+		groupWallet = new walletView(myMatch);
+
 	}
 
 	public void setWalletText(){

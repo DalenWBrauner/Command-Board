@@ -6,6 +6,7 @@ import shared.enums.PlayerID;
 import model.Match;
 import model.Player;
 import model.Wallet;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 
 public class walletView {
@@ -22,6 +23,8 @@ public class walletView {
 	
 	Label P4money;
 	Label P4netVal;
+	
+	Group wallGroup;
 	
 	Match m;
 	
@@ -47,6 +50,20 @@ public class walletView {
 		P4money = new Label("P4 ON HAND: ");
 		P4netVal = new Label("P4 NET VALUE");
 		
+		Group wallet4 = new Group();
+		wallet4.getChildren().addAll(P4money, P4netVal);
+		
+		Group wallet3 = new Group();
+		wallet3.getChildren().addAll(P3money, P3netVal);
+		
+		Group wallet2 = new Group();
+		wallet2.getChildren().addAll(P2money, P2netVal);
+		
+		Group wallet1 = new Group();
+		wallet1.getChildren().addAll(P1money, P1netVal);
+		
+		wallGroup = new Group(wallet1, wallet2, wallet3, wallet4);
+
 		
 
 		
@@ -60,17 +77,41 @@ public class walletView {
 		
 		P3money = new Label("P3 ON HAND: ");
 		P3netVal = new Label("P3 NET VALUE: ");
+		
+		Group wallet3 = new Group();
+		wallet3.getChildren().addAll(P3money, P3netVal);
+		
+		Group wallet2 = new Group();
+		wallet2.getChildren().addAll(P2money, P2netVal);
+		
+		Group wallet1 = new Group();
+		wallet1.getChildren().addAll(P1money, P1netVal);
+		
+		wallGroup = new Group(wallet1, wallet2, wallet3);
 
 		
 	}else{
 		//You have two players
 		P1money = new Label("P1 ON HAND:              ");
 		P1netVal = new Label("P1 NET VALUE:           ");
+		
+		Group wallet1 = new Group();
+		wallet1.getChildren().addAll(P1money, P1netVal);
+
 
 		P2money = new Label("P2 ON HAND:              ");
 		P2netVal = new Label("P2 NET VALUE:           ");
+		
+		Group wallet2 = new Group();
+		wallet2.getChildren().addAll(P2money, P2netVal);
+		
+		wallGroup = new Group(wallet1, wallet2);
+
 
 	}
+	
+	
+	
 	
 	}
 	
@@ -103,4 +144,8 @@ public class walletView {
 		
 
 	}
+	
+	Group getWallGroup(){
+	return wallGroup;
+     }
 }

@@ -178,6 +178,7 @@ public class MatchView implements ControlledScreen,
     			joystick.meetNGreet();
     		}
     	});
+    	MenuScreenView.modelThread.suspend();
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -254,6 +255,12 @@ public class MatchView implements ControlledScreen,
     public synchronized void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public PlayerID castOnPlayer(SpellID spellCast) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

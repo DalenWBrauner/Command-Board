@@ -7,6 +7,7 @@ import java.util.Random;
 
 import model.Match;
 import model.Wallet;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -45,9 +46,14 @@ public class Joystick implements Observer  {
 	Label money;
 	Label netVal;
 	
+	spellView spell;
+	
 	private int answer;
 
 	private Match myMatch;
+	
+	walletView groupWallet;
+
 	
 	CardinalDirection chosenDirection = CardinalDirection.NONE;
 
@@ -143,6 +149,8 @@ public class Joystick implements Observer  {
 		wallet.getChildren().add(walletbox);
 
 
+		groupWallet = new walletView(myMatch);
+		
 		//Bind label to property value, so you can change that and have the label update
 
 		mainGroup = new Group(directionGroup, commandGroup, wallet);
@@ -156,6 +164,11 @@ public class Joystick implements Observer  {
 		//This
 		mainGroup.getChildren().get(1).setLayoutX(30);
 		mainGroup.getChildren().get(1).setLayoutY(60);
+		
+		//spell view launches.
+		spell = new spellView();
+		
+
 
 	}
 
@@ -263,6 +276,8 @@ public class Joystick implements Observer  {
 		Scene dialogScene = new Scene (dialogVbox, 200, 50);
 		dialog.setScene(dialogScene);
 		dialog.show();
+		MenuScreenView.modelThread.resume();
+
 		
 	}
 	public void activateDiceRoll(){
@@ -295,7 +310,6 @@ public class Joystick implements Observer  {
 			public void handle(ActionEvent arg0) {
 				final Stage spellView = new Stage();
 				spellView.initModality(Modality.APPLICATION_MODAL);
-				spellView spell = new spellView();
 				Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
 				spellView.setScene(spellScene);
 				spellView.show();
@@ -327,14 +341,17 @@ public class Joystick implements Observer  {
 		currentWallet.getCashOnHand();
 		money.setText("ON HAND: $" + currentWallet.getCashOnHand());
 		netVal.setText("NET VALUE: $" + currentWallet.getNetValue());
-			
-		
 	}
 	
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		setWalletText();
+		Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			setWalletText();
+    		}
+    	});
 		
 	}
 }

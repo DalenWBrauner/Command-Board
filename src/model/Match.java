@@ -121,6 +121,11 @@ public class Match extends Observable implements Observer, Runnable {
 
     // Getters
 
+    /** Returns the amount of money needed to win! */
+    public int getCashGoal() {
+        return cashGoal;
+    }
+
     /** Returns the current Board. */
     public Board getBoard() {
         return theBoard;

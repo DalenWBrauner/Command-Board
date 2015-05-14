@@ -5,7 +5,15 @@ import model.Player;
 public class AddFundsCommand extends Command {
     private int funds;
 
+    public AddFundsCommand() {
+        funds = 0;
+    }
+
     public AddFundsCommand(int amount) {
+        funds = amount;
+    }
+
+    public void setAmount(int amount) {
         funds = amount;
     }
 

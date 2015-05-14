@@ -38,8 +38,10 @@ public class Wallet {
         Math.max(funds, 0); // You can't subtract negative funds
         cashOnHand -= funds;
 
-        // If funds fall below zero:
-        if (funds < 0) onNegative.execute(theOwner);
+        // If funds fall below zero
+        // And the player has any tiles
+        // TODO: Don't hardcode tile checking
+        while (funds < 0 && theOwner.getTilesOwned().size() > 0) onNegative.execute(theOwner);
     }
 
     public void setOnNegativeCommand(Command command) {

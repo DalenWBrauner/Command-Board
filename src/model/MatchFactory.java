@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import model.command.AddFundsCommand;
 import model.command.Command;
-import model.command.PrintCommand;
+import model.command.SellAnyTileCommand;
+import model.command.SellTileCommand;
 import shared.WatchTower;
 import shared.enums.PlayerID;
 
@@ -56,7 +58,11 @@ public class MatchFactory {
         Board theBoard = boardFactory.getBoard(whichBoard);
 
         // Instantiate the command executed when a Player's balance falls below zero
-        Command onNegativeCommand = new PrintCommand("balance fell below zero!");
+        AddFundsCommand afc = new AddFundsCommand();
+        SellTileCommand stc = new SellTileCommand(afc);
+        Command onNegativeCommand = new SellAnyTileCommand(stc);
+        afc.addObserver(tower);
+        stc.addObserver(tower);
         onNegativeCommand.addObserver(tower);
 
         // Assign each Player's...

@@ -16,6 +16,20 @@ import javafx.util.Duration;
 public class ScreenSwitcher extends StackPane {
 
     private HashMap<String, Node> registeredScreens = new HashMap();
+    private double stageWidth;
+    private double stageHeight;
+    
+    public ScreenSwitcher(double stageWidth, double stageHeight) {
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
+    }
+    
+    public double getStageWidth() {
+        return stageWidth;
+    }
+    public double getStageHeight() {
+        return stageHeight;
+    }
     
     public void registerScreen(String screenName, ControlledScreen screen) {
         registeredScreens.put(screenName, screen.getRoot());

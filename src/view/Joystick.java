@@ -42,6 +42,8 @@ public class Joystick  {
 		Button up = new Button("UP");
 		up.setPadding(new Insets(10));
 		
+		// TODO: Set event handlers for buttons.
+		
 		left.setMinWidth(dButtons.getPrefWidth());
 		left.setMinHeight(dButtons.getPrefHeight());
 		

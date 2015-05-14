@@ -33,8 +33,6 @@ public class Main extends Application {
     public final static String VICTORY_SCREEN = "victory";
     public final static String[] PLAYABLE_BOARDS = {
         "Rings","Keyblade","Snailshell","Butterfly","Honeypot"};
-    //public final int STAGE_HEIGHT;
-    //public final int STAGE_WIDTH;
 
 
     //private static Logger logger =  Logger.getLogger(PegSolitaire.class);
@@ -53,10 +51,10 @@ public class Main extends Application {
      *
      * @return Scene
      */
-    public Scene initGameScene(){
+    public Scene initGameScene(double width, double height){
 
         // Create our container which has a stack of screens.
-        ScreenSwitcher mainContainer = new ScreenSwitcher();
+        ScreenSwitcher mainContainer = new ScreenSwitcher(width, height);
 
         // Add our screens to the stack.
         ControlledScreen gameMap = new MatchView();
@@ -98,11 +96,14 @@ public class Main extends Application {
 
         primaryStage.setX(primaryScreenBounds.getMinX());
         primaryStage.setY(primaryScreenBounds.getMinY());
-        primaryStage.setWidth(primaryScreenBounds.getWidth());
-        primaryStage.setHeight(primaryScreenBounds.getHeight());
+        
+        double screenWidth = primaryScreenBounds.getWidth();
+        double screenHeight = primaryScreenBounds.getHeight();
+        primaryStage.setWidth(screenWidth);
+        primaryStage.setHeight(screenHeight);
 
         primaryStage.setTitle("Command Board");
-        primaryStage.setScene(initGameScene());
+        primaryStage.setScene(initGameScene(screenWidth,screenHeight));
         primaryStage.show();
         //logger.info("JavaFx game started");
     }

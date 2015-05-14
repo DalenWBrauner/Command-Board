@@ -46,24 +46,24 @@ public class walletView {
 	
 	if(numPlays == 4){
 		//You have four players
-		P1money = new Label("P1 ON HAND:              ");
+		P1money = new Label("P1 ON HAND: $0             ");
 		P1money.setTextFill(Color.RED);
-		P1netVal = new Label("P1 NET VALUE:           ");
+		P1netVal = new Label("P1 NET VALUE: $0        ");
 		P1netVal.setTextFill(Color.RED);
 
-		P2money = new Label("P2 ON HAND:              ");
+		P2money = new Label("P2 ON HAND: $0              ");
 		P2money.setTextFill(Color.BLUE);
-		P2netVal = new Label("P2 NET VALUE:           ");
+		P2netVal = new Label("P2 NET VALUE: $0           ");
 		P2netVal.setTextFill(Color.BLUE);
 		
-		P3money = new Label("P3 ON HAND: ");
+		P3money = new Label("P3 ON HAND: $0 ");
 		P3money.setTextFill(Color.GREEN);
-		P3netVal = new Label("P3 NET VALUE: ");
+		P3netVal = new Label("P3 NET VALUE: $0 ");
 		P3netVal.setTextFill(Color.GREEN);
 		
-		P4money = new Label("P4 ON HAND: ");
+		P4money = new Label("P4 ON HAND: $0 ");
 		P4money.setTextFill(Color.PURPLE);
-		P4netVal = new Label("P4 NET VALUE");
+		P4netVal = new Label("P4 NET VALUE: $0 ");
 		P4netVal.setTextFill(Color.PURPLE);
 		
 		P4box.setSpacing(20);
@@ -96,18 +96,18 @@ public class walletView {
 		
 	}else if(numPlays ==3){
 		//You have three players
-		P1money = new Label("P1 ON HAND:              ");
-		P1netVal = new Label("P1 NET VALUE:           ");
+		P1money = new Label("P1 ON HAND: $0             ");
+		P1netVal = new Label("P1 NET VALUE: $0          ");
 		P1money.setTextFill(Color.RED);
 		P1netVal.setTextFill(Color.RED);
 
-		P2money = new Label("P2 ON HAND:              ");
-		P2netVal = new Label("P2 NET VALUE:           ");
+		P2money = new Label("P2 ON HAND: $0             ");
+		P2netVal = new Label("P2 NET VALUE: $0           ");
 		P2money.setTextFill(Color.BLUE);
 		P2netVal.setTextFill(Color.BLUE);
 		
-		P3money = new Label("P3 ON HAND: ");
-		P3netVal = new Label("P3 NET VALUE: ");
+		P3money = new Label("P3 ON HAND: $0");
+		P3netVal = new Label("P3 NET VALUE: $0");
 		P3money.setTextFill(Color.GREEN);
 		P3netVal.setTextFill(Color.GREEN);
 				
@@ -136,14 +136,14 @@ public class walletView {
 		
 	}else{
 		//You have two players
-		P1money = new Label("P1 ON HAND:              ");
-		P1netVal = new Label("P1 NET VALUE:           ");
+		P1money = new Label("P1 ON HAND: $0              ");
+		P1netVal = new Label("P1 NET VALUE: $0           ");
 		P1money.setTextFill(Color.RED);
 		P1netVal.setTextFill(Color.RED);
 
 		
-		P2money = new Label("P2 ON HAND:              ");
-		P2netVal = new Label("P2 NET VALUE:           ");
+		P2money = new Label("P2 ON HAND: $0              ");
+		P2netVal = new Label("P2 NET VALUE: $0           ");
 		P2money.setTextFill(Color.BLUE);
 		P2netVal.setTextFill(Color.BLUE);
 

@@ -205,6 +205,14 @@ public class MatchView implements ControlledScreen,
 
     @Override
     public synchronized SpellID getSpellCast(SpellID[] availableSpells) {
+    	Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				joystick.activateDiceRoll();
+			}
+    	});
+    	
         return SpellID.NOSPELL;
     }
 

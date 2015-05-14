@@ -24,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
+import shared.enums.SpellID;
 
 
 public class Joystick implements Observer  {
@@ -54,6 +55,7 @@ public class Joystick implements Observer  {
 	
 	walletView groupWallet;
 
+	SpellID castedSpell = SpellID.NOSPELL;
 	
 	CardinalDirection chosenDirection = CardinalDirection.NONE;
 
@@ -161,8 +163,7 @@ public class Joystick implements Observer  {
 		//This
 		mainGroup.getChildren().get(1).setLayoutX(30);
 		mainGroup.getChildren().get(1).setLayoutY(60);
-		
-		//spell view launches.
+	
 		
 
 
@@ -333,6 +334,7 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
 		spell = new spellView(myMatch);
+		Label cashGoal = new Label("CASH GOAL: $" );
 
 	}
 
@@ -350,6 +352,10 @@ public class Joystick implements Observer  {
     		}
     	});
 		
+	}
+	
+	public SpellID castedSpell(){
+		return castedSpell;
 	}
 }
 		

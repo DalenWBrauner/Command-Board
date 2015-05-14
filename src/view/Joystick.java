@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -334,7 +336,14 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
 		spell = new spellView(myMatch);
-		Label cashGoal = new Label("CASH GOAL: $" );
+		Label cashGoal = new Label("CASH GOAL: $" + myMatch.getCashGoal());
+		cashGoal.setFont(Font.font("Verdana", FontPosture.ITALIC, 20));
+		mainGroup.getChildren().add(cashGoal);
+		mainGroup.getChildren().get(3).setLayoutX(300);
+		mainGroup.getChildren().get(3).setLayoutY(200);
+
+		
+
 
 	}
 

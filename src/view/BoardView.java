@@ -18,14 +18,14 @@ import javafx.scene.layout.StackPane;
 
 public class BoardView extends StackPane {
     
-    private final static int GRID_SIZE = 15;
-    
     private Node background;
     private Group tileGroup;
     private Group playerGroup;
     
     private TileView[][] tileViews;
     private PlayerView[] players;
+    private int boardWidth;
+    private int boardHeight;
     
     public BoardView(Match m) {
 
@@ -33,19 +33,22 @@ public class BoardView extends StackPane {
         // ex: setBackground(m.getBackground());
         
         // Create group of all the tiles on the board.
+        boardWidth = m.getBoard().getWidth();
+        boardHeight = m.getBoard().getHeight();
+        
         tileGroup = new Group();
-        tileViews = new TileView[GRID_SIZE][GRID_SIZE]; //TODO: Get grid size from match object.
+        tileViews = new TileView[boardWidth][boardHeight]; //TODO: Get grid size from match object.
 
         /* Create tile grid */
-        for (int x = 0; x < GRID_SIZE; x++) {
-            for (int y = 0; y < GRID_SIZE; y++) {
+        for (int x = 0; x < boardWidth; x++) {
+            for (int y = 0; y < boardHeight; y++) {
                 tileViews[x][y] = new TileView(x, y);
             }
         }
 
         /* Set the position of all the tiles and add all the tiles to a group */
-        for (int x = 0; x < GRID_SIZE; x++) {
-            for (int y = 0; y < GRID_SIZE; y++) {
+        for (int x = 0; x < boardWidth; x++) {
+            for (int y = 0; y < boardHeight; y++) {
                 if (tileViews[x][y] != null) {
                     tileViews[x][y].setTranslateX(x * TileView.TILE_PIX_WIDTH);
                     tileViews[x][y].setTranslateY(y * TileView.TILE_PIX_HEIGHT);
@@ -59,8 +62,8 @@ public class BoardView extends StackPane {
         
         // Set the states of each tile in our grid based on the
         // map.
-        for (int x = 0; x < GRID_SIZE; x++) {
-            for (int y = 0; y < GRID_SIZE; y++) {
+        for (int x = 0; x < boardWidth; x++) {
+            for (int y = 0; y < boardHeight; y++) {
                 Tile t = m.getTile(x, y);
                 tileViews[x][y].setCurrentState(t.getTileType());
             }
@@ -85,7 +88,6 @@ public class BoardView extends StackPane {
         // The order of our stackpane will go: background image,
         // tile images, and then player sprite images.
         redrawSelf();
-        
     }
 
     

@@ -98,13 +98,18 @@ public class walletView {
 		//You have three players
 		P1money = new Label("P1 ON HAND:              ");
 		P1netVal = new Label("P1 NET VALUE:           ");
+		P1money.setTextFill(Color.RED);
+		P1netVal.setTextFill(Color.RED);
 
 		P2money = new Label("P2 ON HAND:              ");
 		P2netVal = new Label("P2 NET VALUE:           ");
+		P2money.setTextFill(Color.BLUE);
+		P2netVal.setTextFill(Color.BLUE);
 		
 		P3money = new Label("P3 ON HAND: ");
 		P3netVal = new Label("P3 NET VALUE: ");
-		
+		P3money.setTextFill(Color.GREEN);
+		P3netVal.setTextFill(Color.GREEN);
 				
 		P3box.setSpacing(20);
 		P3box.getChildren().addAll(P3money, P3netVal);
@@ -114,18 +119,34 @@ public class walletView {
 		
 		P1box.setSpacing(20);
 		P1box.getChildren().addAll(P1money, P1netVal);
-				
-		wallGroup = new Group(P1box, P2box, P3box);
-
-
+		
+		VBox comBox = new VBox();
+		comBox.setSpacing(20);
+		comBox.getChildren().addAll(P1box, P3box);
+		
+		VBox comBox2 = new VBox();
+		comBox2.setSpacing(20);
+		comBox2.getChildren().add(P2box);
+		
+		HBox finalBox = new HBox();
+		finalBox.setSpacing(100);
+		finalBox.getChildren().addAll(comBox, comBox2);
+		
+		wallGroup = new Group(finalBox);
 		
 	}else{
 		//You have two players
 		P1money = new Label("P1 ON HAND:              ");
 		P1netVal = new Label("P1 NET VALUE:           ");
+		P1money.setTextFill(Color.RED);
+		P1netVal.setTextFill(Color.RED);
+
 		
 		P2money = new Label("P2 ON HAND:              ");
 		P2netVal = new Label("P2 NET VALUE:           ");
+		P2money.setTextFill(Color.BLUE);
+		P2netVal.setTextFill(Color.BLUE);
+
 				
 		P2box.setSpacing(20);
 		P2box.getChildren().addAll(P2money, P2netVal);

@@ -55,7 +55,9 @@ public class Joystick implements Observer  {
 
 	private Match myMatch;
 	
-	walletView groupWallet;
+	private walletView groupWallet;
+	
+	private checkpointView checks;
 
 	SpellID castedSpell = SpellID.NOSPELL;
 	
@@ -166,9 +168,6 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().get(1).setLayoutX(30);
 		mainGroup.getChildren().get(1).setLayoutY(60);
 	
-		
-
-
 	}
 
 
@@ -341,14 +340,21 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().add(cashGoal);
 		mainGroup.getChildren().get(3).setLayoutX(300);
 		mainGroup.getChildren().get(3).setLayoutY(200);
-
 		
-
+		checks = new checkpointView(myMatch);
+		mainGroup.getChildren().add(checks.getMainGroup());
+		mainGroup.getChildren().get(4).setLayoutX(500);
+		mainGroup.getChildren().get(4).setLayoutY(40);
 
 	}
 
 	public void setWalletText(){
 		groupWallet.update();
+	}
+	
+	public void setCheckpointEffect(){
+		checks.redraw();
+	
 	}
 	
 	
@@ -357,9 +363,16 @@ public class Joystick implements Observer  {
 		Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
-    			setWalletText();
+    			setWalletText();    			
     		}
     	});
+		
+		Platform.runLater(new Runnable(){
+			@Override
+			public void run(){
+				setCheckpointEffect();
+			}
+		});
 		
 	}
 	

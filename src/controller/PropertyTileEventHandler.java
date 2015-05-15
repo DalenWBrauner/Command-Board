@@ -4,7 +4,7 @@ import view.TileView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class TileEventHandler implements EventHandler<MouseEvent> {
+public class PropertyTileEventHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent me) {

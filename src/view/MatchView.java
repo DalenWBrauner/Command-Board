@@ -3,22 +3,13 @@ package view;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Match;
 import model.Player;
@@ -32,14 +23,35 @@ import shared.interfaces.PlayerRepresentative;
 import view.interfaces.ControlledScreen;
 import controller.ScreenSwitcher;
 
+/* TODO: Watch this class like a hawk!
+ * Pay attention to which methods need to be synchronized and which do not!
+ *
+ * HINT: (Maybe this will help!)
+ * Let's pretend that this class had a "main" function, something that runs for
+ * a long period of time and calls other functions inside this class.
+ * The goal then is to NOT synchronize the main function itself,
+ * but any methods it calls instead. (Or if it's just a lot of chunks of code,
+ * break up those chunks into separate synchronized(this) blocks!)
+ * The idea is that we don't want to interrupt the subroutines that modify
+ * values, but if we have a subroutine that modifies values X, Y and Z,
+ * and then we have a subroutine right after that modifies values A, B and C,
+ * then it's probably okay to have our threads interrupt in-between those
+ * subroutines. So our first subroutine would be synchronized and so would our
+ * second, leaving a gap in-between.
+ */
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
 
-    
+
     private VBox root;
     private BoardView board;
+    private Joystick joystick;
     private ScreenSwitcher myController;
-    
+
+
+    //for testing
+    //Scanner scan = new Scanner(System.in);
+
     //private Match match;
 
     private final static Image BOARD_BACKGROUND_IMAGE = new Image(
@@ -59,7 +71,7 @@ public class MatchView implements ControlledScreen,
         root.setPrefSize(stageWidth, stageHeight);
         root.setPadding(new Insets(10)); // margin padding
         root.setSpacing(40); // spacing between our two nodes
-        
+
         // Construct the board, which has its own
         // background, the tiles of the board, and
         // the player sprites on it.
@@ -71,7 +83,7 @@ public class MatchView implements ControlledScreen,
         // right now we manually set it though.
         board.setBackground(BOARD_BACKGROUND_IMAGE);
 
-        
+
         // Put our board into a scrollpane.
         ScrollPane sp = new ScrollPane();
         //sp.setVmax(arg0);
@@ -83,29 +95,31 @@ public class MatchView implements ControlledScreen,
         // Add our scrollpane to the root.
         root.getChildren().add(sp);
 
-        // Construct the joystick, which is
-        // the user interface separate from the
-        // board. This goes below the root.
-        Joystick joystick = new Joystick();
+
+        // TODO: Create joystick UI.
+        joystick = new Joystick();
+        joystick.registerMatch(m);
         Group stick = joystick.getMainGroup();
-//        stick.setLayoutY(stageHeight * 1/3);
-//        stick.setLayoutX(0);
+
+//      stick.setLayoutY(stageHeight * 1/3);
+//      stick.setLayoutX(0);
+
         root.getChildren().add(stick);
 
-        
         // Set this view as the "player representative" for
         // all of the players.
         for (Player eachPlayer : m.getAllPlayers()) {
             eachPlayer.setRepresentative(this);
             //eachPlayer.setRepresentative(new AIEasy(eachPlayer));
-        }        
+        }
     }
 
     @Override
-    public void setScreenParent(ScreenSwitcher scSw) {
+    public synchronized void setScreenParent(ScreenSwitcher scSw) {
         myController = scSw;
     }
 
+    // TODO: Decide if this should be synchronized
     @Override
     public Parent getRoot() {
         return root;
@@ -113,18 +127,58 @@ public class MatchView implements ControlledScreen,
 
     //Skeleton functions to fill in for Dalen
 
-    public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections){
-        Random rand = new Random();
-        int randInt =  rand.nextInt(availableDirections.length);
-    	return availableDirections[randInt];
+    @Override
+    @SuppressWarnings("deprecation")
+	public synchronized CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.chooseDirection(availableDirections);
+    		}
+    	});
+    	MenuScreenView.modelThread.suspend();
+
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    				joystick.turnDirectionsOff();
+    			}
+    		});
+    	return joystick.getDirection();
     }
 
     //Random roll between 1 and 6
-    public int getUsersRoll(){
-    	Random rand = new Random();
-    	return rand.nextInt(6) + 1;
+    @SuppressWarnings("deprecation")
+	@Override
+    public synchronized int getUsersRoll(){
+    	//Change color
+    	//there's css style for this sort of thing.
+
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.meetNGreet();
+    		}
+    	});
+    	MenuScreenView.modelThread.suspend();
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.activateDiceRoll();
+    		}
+    	});
+    	System.out.println("\nHIT SELECT TO ROLL DICE\n");
+    	MenuScreenView.modelThread.suspend();
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.turnStartOff();
+    		}
+    	});
+    	return joystick.getRollResult();
     }
 
+    // TODO: Decide if this should be synchronized
     //Loads joystick
     public Group getJoystick(){
     	Group joystick = new Group();
@@ -132,58 +186,71 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public SpellID getSpellCast(SpellID[] availableSpells) {
-        // TODO Auto-generated method stub
-        return null;
+    public synchronized SpellID getSpellCast(SpellID[] availableSpells) {
+    	Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				joystick.activateDiceRoll();
+			}
+    	});
+
+        return SpellID.NOSPELL;
     }
 
     @Override
-    public boolean buyThisTile(PropertyTile tileForPurchase) {
+    public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public CardShape placeWhichCard() {
+    public synchronized CardShape placeWhichCard() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
+    public synchronized CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Tile swapCardOnWhichTile() {
+    public synchronized Tile swapCardOnWhichTile() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
+    public synchronized Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile) {
+    public synchronized int upgradeToWhatLevel(PropertyTile upgradingTile) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
+    public synchronized PropertyTile sellWhichTile(PlayerID sellingPlayer) {
         // TODO Auto-generated method stub
         return null;
     }
 
     // Arg will be null.
     @Override
-    public void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public PlayerID castOnPlayer(SpellID spellCast) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

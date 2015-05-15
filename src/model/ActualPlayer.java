@@ -22,7 +22,6 @@ public class ActualPlayer implements Player {
     private HashMap<CheckpointColor, Boolean> checkpointsPassed;
     private PlayerRepresentative myRep;
 
-
     public ActualPlayer(PlayerID id) {
         System.out.println("new ActualPlayer("+id.toString()+");");
         myID = id;
@@ -31,7 +30,7 @@ public class ActualPlayer implements Player {
         xLast = 0;
         yLast = 0;
         myHand = new Hand();
-        myWallet = new Wallet();
+        myWallet = new Wallet(this);
         myTiles = new ArrayList<PropertyTile>();
         checkpointsPassed = new HashMap<>();
         checkpointsPassed.put(CheckpointColor.RED, false);
@@ -134,5 +133,4 @@ public class ActualPlayer implements Player {
     public PlayerRepresentative getRepresentative() {
         return myRep;
     }
-
 }

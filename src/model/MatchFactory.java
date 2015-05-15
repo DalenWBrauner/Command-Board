@@ -2,7 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
+import model.command.AddFundsCommand;
+import model.command.Command;
+import model.command.SellAnyTileCommand;
+import model.command.SellTileCommand;
 import shared.WatchTower;
 import shared.enums.PlayerID;
 
@@ -13,28 +18,33 @@ public class MatchFactory {
     public Match createMatch(int numberOfPlayers, int cashGoal, String whichBoard) {
         System.out.println("MatchFactory.createMatch(); START");
 
-        // Create Player Objects
-        ArrayList<Player> thePlayers = new ArrayList<>();
+        // Create player objects
+        HashMap<PlayerID, Player> playerMap = new HashMap<>();
         if (numberOfPlayers > 0) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER1));
+            playerMap.put(PlayerID.PLAYER1,
+                        new ActualPlayer(PlayerID.PLAYER1));
         }
         if (numberOfPlayers > 1) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER2));
+            playerMap.put(PlayerID.PLAYER2,
+                    new ActualPlayer(PlayerID.PLAYER2));
         }
         if (numberOfPlayers > 2) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER3));
+            playerMap.put(PlayerID.PLAYER3,
+                    new ActualPlayer(PlayerID.PLAYER3));
         }
         if (numberOfPlayers > 3) {
-            thePlayers.add(new ActualPlayer(PlayerID.PLAYER4));
+            playerMap.put(PlayerID.PLAYER4,
+                    new ActualPlayer(PlayerID.PLAYER4));
         }
 
         // Shuffle the Turn Order
-        Collections.shuffle(thePlayers);
+        ArrayList<PlayerID> turnOrder = new ArrayList<>(playerMap.keySet());
+        Collections.shuffle(turnOrder);
 
         // Print some stuff
         System.out.println("The " + numberOfPlayers + " players play in this order:");
-        for (Player player : thePlayers) {
-            System.out.println(player.getID().toString());
+        for (PlayerID id : turnOrder) {
+            System.out.println(id);
         }
         System.out.println("We're playing on the "+whichBoard+" Board!");
         System.out.println("First one back to the start with $"+cashGoal+" wins!");
@@ -44,19 +54,37 @@ public class MatchFactory {
 
         // Create Board Object
         boardFactory.setWatchTower(tower);
+        boardFactory.setPlayerMap(playerMap);
         Board theBoard = boardFactory.getBoard(whichBoard);
 
-        for (Player player : thePlayers) {
-            // Assign the Players to the Start position
+        // Instantiate the command executed when a Player's balance falls below zero
+        AddFundsCommand afc = new AddFundsCommand();
+        SellTileCommand stc = new SellTileCommand(afc);
+        Command onNegativeCommand = new SellAnyTileCommand(stc);
+        afc.addObserver(tower);
+        stc.addObserver(tower);
+        onNegativeCommand.addObserver(tower);
+
+        // Assign each Player's...
+        for (PlayerID id : turnOrder) {
+            Player player = playerMap.get(id);
+
+            // ..position to the Start
             player.setPosition(theBoard.getStartX(), theBoard.getStartY());
             player.setLastPosition(player.getX(), player.getY());
 
-            // Fill their hands with random cards
-            player.getHand().clear();
+            // ...wallet the onNegativeCommand
+            player.getWallet().setOnNegativeCommand(onNegativeCommand);
+
+            // ...wallet $1000 to start with
+            player.getWallet().addFunds(1000);
         }
 
+        // Create the SpellCaster
+        SpellCaster yensid = new SpellCaster(tower, theBoard, playerMap);
+
         // Create Match Object
-        Match theMatch = new Match(theBoard, thePlayers);
+        Match theMatch = new Match(cashGoal, theBoard, yensid, turnOrder, playerMap);
         tower.addObserver(theMatch);
 
         System.out.println("MatchFactory.createMatch() END");

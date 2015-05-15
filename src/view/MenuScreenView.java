@@ -30,6 +30,7 @@ public class MenuScreenView implements ControlledScreen {
 
     Group mainGroup;
     ScreenSwitcher myController;
+    static Thread modelThread;
     
     /*public static final Image BACKGROUND_IMAGE = 
             new Image(MenuScreenView.class.getResource(
@@ -154,7 +155,8 @@ public class MenuScreenView implements ControlledScreen {
                     gameScreen.loadMatch(theMatch);
      
                     myController.setActiveScreen(Main.GAME_SCREEN);
-                    theMatch.start();
+                    modelThread = new Thread(theMatch);
+                    modelThread.start();
              
                     // Show the victory screen, showing who won.
 //                    victoryScreen.loadMatch(theMatch);

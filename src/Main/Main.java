@@ -11,10 +11,10 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.MatchFactory;
-import view.interfaces.ControlledScreen;
 import view.MatchView;
 import view.MenuScreenView;
 import view.VictoryView;
+import view.interfaces.ControlledScreen;
 import controller.ScreenSwitcher;
 
 public class Main extends Application {
@@ -41,6 +41,7 @@ public class Main extends Application {
 
     public final static int MAIN_WINDOW_HEIGHT = 600;
     public final static int MAIN_WINDOW_WIDTH = 800;
+    public static Stage prim;
 
     public static void main(String[] args) {
         launch(args);
@@ -87,6 +88,8 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+    	prim = primaryStage;
+
         CASH_GOAL_OPTIONS.put(("Low ("    + DEFAULT_CASH_GOAL_LOW    + ")"), DEFAULT_CASH_GOAL_LOW);
         CASH_GOAL_OPTIONS.put(("Medium (" + DEFAULT_CASH_GOAL_MEDIUM + ")"), DEFAULT_CASH_GOAL_MEDIUM);
         CASH_GOAL_OPTIONS.put(("High ("   + DEFAULT_CASH_GOAL_HIGH   + ")"), DEFAULT_CASH_GOAL_HIGH);
@@ -96,7 +99,7 @@ public class Main extends Application {
 
         primaryStage.setX(primaryScreenBounds.getMinX());
         primaryStage.setY(primaryScreenBounds.getMinY());
-        
+
         double screenWidth = primaryScreenBounds.getWidth();
         double screenHeight = primaryScreenBounds.getHeight();
         primaryStage.setWidth(screenWidth);

@@ -16,9 +16,7 @@ public class NullRepresentative implements PlayerRepresentative {
     private Player thePlayer;
     private static Random r = new Random();
 
-    public NullRepresentative(Player player) {
-        thePlayer = player;
-    }
+    public NullRepresentative(Player player) { thePlayer = player; }
 
     @Override
     public SpellID getSpellCast(SpellID[] availableSpells) { return SpellID.NOSPELL; }
@@ -49,5 +47,8 @@ public class NullRepresentative implements PlayerRepresentative {
 
     @Override
     public Tile swapCardOnWhichTile() { return new NullTile(); }
+
+    @Override
+    public PlayerID castOnPlayer(SpellID spellCast) { return thePlayer.getID(); }
 
 }

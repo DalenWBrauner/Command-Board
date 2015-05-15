@@ -32,9 +32,7 @@ public class BoardIterator extends Observable {
         matchIsOver = isOver;
     }
 
-    /** Physically moves the player across the board until their turn is over.
-     * @return Whether or not the current player has won
-     */
+    /** Physically moves the player across the board until their turn is over. */
     public void go() {
         PlayerRepresentative currentRep = movingPlayer.getRepresentative();
 

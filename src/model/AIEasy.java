@@ -72,4 +72,10 @@ public class AIEasy implements PlayerRepresentative {
         ArrayList<PropertyTile> tilesOwned = thePlayer.getTilesOwned();
         return tilesOwned.get(r.nextInt(tilesOwned.size()));
     }
+
+    /** Easy AI doesn't cast spells. */
+    @Override
+    public PlayerID castOnPlayer(SpellID spellCast) {
+        return thePlayer.getID();
+    }
 }

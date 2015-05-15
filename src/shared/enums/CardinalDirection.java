@@ -5,7 +5,8 @@ public enum CardinalDirection {
     NORTH ("North"),
     SOUTH ("South"),
     EAST  ("East"),
-    WEST  ("West");
+    WEST  ("West"),
+    NONE  ("None");
 
     private final String myName;
     private CardinalDirection(String name) {

@@ -10,38 +10,34 @@ import model.tile.Tile;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import shared.enums.PlayerID;
-import shared.enums.SpellID;
-import shared.interfaces.PlayerRepresentative;
 
-public class Match extends Observable implements Observer {
+public class Match extends Observable implements Observer, Runnable {
 
-    private Board theBoard;
-    private ArrayList<PlayerID> turnOrder     = new ArrayList<>();
-    private HashMap<PlayerID, Player> players = new HashMap<>();
+    private final int cashGoal;
+    private final Board theBoard;
+    private final SpellCaster donald;
+    private final ArrayList<PlayerID> turnOrder;
+    private final HashMap<PlayerID, Player> players;
+    private final MutableBoolean matchIsOver;
     private PlayerID currentPlayer;
     private PlayerID winner;
-    private MutableBoolean matchIsOver;
     private int turnNumber;
 
-    public Match(Board requestedBoard, ArrayList<Player> playersInTurnOrder) {
+    public Match(int theCashGoal, Board requestedBoard, SpellCaster caster,
+                 ArrayList<PlayerID> playerIDsInTurnOrder, HashMap<PlayerID, Player> idMap) {
         System.out.println("new Match();");
+        cashGoal = theCashGoal;
         theBoard = requestedBoard;
-
-        // Fills the maps with info from playersInTurnOrder.
-        for (int i = 0; i < playersInTurnOrder.size(); i++) {
-            Player eachPlayer = playersInTurnOrder.get(i);
-            PlayerID id       = eachPlayer.getID();
-
-            turnOrder.add(id);
-            players.put(id, eachPlayer);
-        }
-
+        donald = caster;
+        players = idMap;
+        turnOrder = playerIDsInTurnOrder;
         winner = PlayerID.NOPLAYER;
         matchIsOver = new MutableBoolean(false);
     }
 
     /** Starts the game. */
-    public void start() {
+    @Override
+    public void run() {
         System.out.println("Match.start(); START");
 
         turnNumber = 0;
@@ -61,27 +57,20 @@ public class Match extends Observable implements Observer {
 
     /** Takes the current player's turn.
      * @return true if and only if the game is over.
+     * @throws InterruptedException
      */
     private void takeTurn() {
-
-        // Setup
         System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
+        System.out.println("They have in their wallet: $" +
+                           getPlayer(currentPlayer).getWallet().getCashOnHand() + "!");
+        System.out.println("They have a net value of:  $" +
+                           getPlayer(currentPlayer).getWallet().getNetValue() + "!");
 
-        // SpellCasting
-        // TODO Replace this section with a call to a SpellCaster object
-        // e.g. SpellCaster.prepare(currentPlayer);
-        // First, determine the spells the player can cast.
-        SpellID[] castableSpells = getPlayer(currentPlayer).getHand().getCastableSpells();
+        // Let the Player cast a spell!
+        donald.performMagic(getPlayer(currentPlayer));
 
-        // Second, ask that player which of those spells they'd like to cast.
-        PlayerRepresentative currentRep = players.get(currentPlayer).getRepresentative();
-        SpellID spellCast = currentRep.getSpellCast(castableSpells);
-
-        // Third, cast that spell.
-        cast(spellCast);
-
-        // Move the player!
+        // Move the Player!
         BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard, matchIsOver);
         itr.addObserver(this); // We want to be notified when the BoardIterator moves players
         itr.go();
@@ -109,14 +98,13 @@ public class Match extends Observable implements Observer {
         final int startX = theBoard.getStartX();
         final int startY = theBoard.getStartY();
 
-        // TODO: Implement real victory condition
         // Check if any player is at the start
         for (Player p : getAllPlayers()) {
             if (p.getX() == startX &&
                 p.getY() == startY) {
 
-                // If that player has a full hand
-                if (p.getHand().size() == Hand.maxSize()) {
+                // If that player has more $$ than the Cash Goal, they win!
+                if (p.getWallet().getNetValue() > cashGoal) {
                     declareWinner(p.getID());
                 }
             }
@@ -131,14 +119,12 @@ public class Match extends Observable implements Observer {
         notifyObservers();
     }
 
-    /** Temporary function for casting spells. */
-    private void cast(SpellID spellCast) {
-        if (spellCast == SpellID.NOSPELL) {
-            return;
-        }
-    }
-
     // Getters
+
+    /** Returns the amount of money needed to win! */
+    public int getCashGoal() {
+        return cashGoal;
+    }
 
     /** Returns the current Board. */
     public Board getBoard() {

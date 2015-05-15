@@ -33,6 +33,7 @@ public class SpellCaster {
         spellCosts.put(SpellID.SPELL1, new HashMap<>());
         spellCosts.put(SpellID.SPELL2, new HashMap<>());
         spellCosts.put(SpellID.SPELL3, new HashMap<>());
+        spellCosts.put(SpellID.SPELL4, new HashMap<>());
 
         // (SHAPE1) Circle   Cards are seen as "Help" cards
         // (SHAPE2) Square   Cards are seen as "Wild" cards

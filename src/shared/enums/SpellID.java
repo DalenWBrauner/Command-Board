@@ -3,10 +3,10 @@ package shared.enums;
 public enum SpellID {
 
     NOSPELL ("No Spell"),
-    SPELL1  ("Spell 1"),
-    SPELL2  ("Spell 2"),
-    SPELL3  ("Spell 3"),
-    SPELL4  ("Spell 4"),
+    SPELL1  ("Navigator"),
+    SPELL2  ("Foreclosure"),
+    SPELL3  ("Upgrade"),
+    SPELL4  ("Card Swap"),
     SPELL5  ("Spell 5"),
     SPELL6  ("Spell 6"),
     SPELL7  ("Spell 7"),

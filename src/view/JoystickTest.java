@@ -1,5 +1,9 @@
 package view;
 
+/**
+ * Tests the Joystick class, to make sure it looked nice before I had a board to add it to.
+ * Also used to experiment with different sizes and such. 
+ */
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

@@ -1,5 +1,10 @@
 package view;
 
+/**
+ * @author Shane Caldwell
+ * 
+ * Checks the current players model data to find out which checkpoints have yet to be reached and displays them. 
+ */
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import javafx.scene.Group;
@@ -13,27 +18,41 @@ import model.Player;
 
 public class checkpointView {
 	
+	//Holds the model data
 	Match myMatch;
+	
+	//Labels the checkpoints so a user can identify them.
 	Label title;
+	
+
 	Label checkpoint1;
 	Label checkpoint2;
 	Label checkpoint3;
 	Label checkpoint4;
 	
+	//Displays the red checkpoint
 	Rectangle red;
+	//Displays the blue checkpoint
 	Rectangle blue;
+	//Displays the green checkpoints
 	Rectangle green;
+	//Displays the yellow checkpoint. 
 	Rectangle yellow;
-	
-	Label x;
-	
+		
 	Group mainGroup;
 	
+	
+	/**
+	 * Instantiates checkpointView
+	 */
 	public checkpointView(Match m){
 		myMatch = m;
 		initCheckpointView();
 	}
 	
+	/**
+	 * Main instantiator of objects used by checkpointView. 
+	 */
 	public void initCheckpointView(){
 		Rectangle passed = new Rectangle();
 		passed.setWidth(10);
@@ -74,10 +93,19 @@ public class checkpointView {
 		
 	}
 	
+	/**
+	 * 
+	 * @return mainGroup
+	 * Returns the rectangles for use by the joystick. 
+	 */
 	public Group getMainGroup(){
 		return mainGroup;
 	}
 	
+	/**
+	 * Uses the ID and a series of if/else statements to see which checkpoints a player has passed and what they haven't.
+	 * As players pass them, they're blacked out so a user can see where they still have to go. 
+	 */
 	public void redraw(){
 		System.out.println("Called");
 		PlayerID currentPlayerID = myMatch.getCurrentPlayerID();

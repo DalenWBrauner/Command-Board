@@ -12,6 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * 
+ * @author Shane Caldwell
+ * 
+ * The natural extension of having a label for net value and money on hand in order to provide all necessary information. 
+ *
+ */
 public class walletView {
 	
 	Label P1money;

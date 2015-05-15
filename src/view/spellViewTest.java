@@ -1,5 +1,10 @@
 package view;
 
+/**
+ * @author Shane Caldwell
+ * 
+ * Used in order to test the SpellView class before it was placed inside the joystick. 
+ */
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

@@ -14,27 +14,52 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * 
+ * @author Shane Caldwell
+ * 
+ * This class is what the user interacts with in order to cast spells and see their hand. 
+ *
+ */
 public class spellView {
 	
+	//Group returned to joystick.
 	private Group mainGroup;
 	
+	//Made up of the models eviews/enums. 
 	ListView<String> spellList;
 	
+	//Buttons the user interacts with. 
 	Button cast;
 	Button cancel;
 	
+	//Label that displays the cost of a given spell.
 	Label Cost;
 	
+	//Label holds the Descriptions. 
 	Label Description;
 	
+	//Holds the match. 
 	Match myMatch;
 	
+	/**
+	 * 
+	 * @param myMatch
+	 * Needs the match object to display user information accurately.
+	 * 
+	 * Then the init function takes it away.
+	 */
 	public spellView(Match myMatch){
 		this.myMatch = myMatch;
 		initSpellView();
 		
 	}
 	
+	/**
+	 * initSpellView
+	 * 
+	 * Builds the the group the user will interact with in the scene Launched by the Joystick's "Spell" button.
+	 */
 	public void initSpellView(){
 		spellList = new ListView<String>();
 		ObservableList<String> spells = FXCollections.observableArrayList("Spell1", "Spell2", "Spell3", "Spell4", "Spell5", "Spell6", "Spell7");
@@ -46,10 +71,10 @@ public class spellView {
 		mainGroup = new Group(spellList);
 		
 		
-		//Buttons in use
+		//The following is instantiating and positioning buttons.
 		
+		//Hbox locks buttons in Horizontal to each other.
 		HBox buttons = new HBox();
-		
 		buttons.setSpacing(10);
 		buttons.setPadding(new Insets(0, 20, 10, 20));
 		buttons.setPrefWidth(80);
@@ -76,8 +101,8 @@ public class spellView {
 		mainGroup.getChildren().get(1).setLayoutX(100);
 		mainGroup.getChildren().get(1).setLayoutY(350);
 		
+		//Instantiate them blank. You don't want them to say anything unless the user requests it.
 		Cost = new Label("");
-		
 		Description = new Label("");
 		
 		spellList.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -102,6 +127,7 @@ public class spellView {
 		
 	}
 	
+	//Upates to take into account most recent information. 
 	public void Update(){
 		
 	}

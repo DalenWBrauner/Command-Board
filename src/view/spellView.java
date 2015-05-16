@@ -1,6 +1,14 @@
 package view;
 
+import java.util.HashMap;
+
+import shared.enums.CardShape;
+import shared.enums.PlayerID;
+import shared.enums.SpellID;
+import model.Hand;
 import model.Match;
+import model.Player;
+import model.SpellCaster;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -37,7 +45,7 @@ public class spellView {
 	
 	public void initSpellView(){
 		spellList = new ListView<String>();
-		ObservableList<String> spells = FXCollections.observableArrayList("Spell1", "Spell2", "Spell3", "Spell4", "Spell5", "Spell6", "Spell7");
+		ObservableList<String> spells = FXCollections.observableArrayList(SpellID.SPELL1.toString(), SpellID.SPELL2.toString(), SpellID.SPELL3.toString(), SpellID.SPELL4.toString());
 		spellList.setItems(spells);
 		
 		spellList.setPrefWidth(400);
@@ -84,7 +92,9 @@ public class spellView {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				Cost.setText("THIS IS THE COST OF: " + spellList.getSelectionModel().getSelectedItem());
+				String val = spellList.getSelectionModel().getSelectedItem();
+				SpellID valof = SpellID.fromString(val);
+				Cost.setText("COST:  " + calculateCost(valof));
 				
 				Description.setText(spellList.getSelectionModel().getSelectedItem() + " filler text.");
 			}
@@ -96,14 +106,66 @@ public class spellView {
 		spellStuff.getChildren().addAll(Cost, Description);
 		mainGroup.getChildren().add(spellStuff);
 		
-		mainGroup.getChildren().get(2).setLayoutX(100);
+		
+		mainGroup.getChildren().get(2).setLayoutX(50);
 		mainGroup.getChildren().get(2).setLayoutY(200);
 		
+		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
+		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
+		
+//		Hand currentHand = currentPlayer.getHand();
+//		CardShape[] currentCards = currentHand.getAllCards();
+//		HBox cardHolder = new HBox();
+//		cardHolder.setSpacing(20);
+//		for(int i=0; i > currentCards.length; i++){
+//			cardArtist card = new cardArtist(currentCards[i]);
+//			cardHolder.getChildren().add(card.getShape());
+//		}
+//				
+//		mainGroup.getChildren().addAll(cardHolder);
+//		mainGroup.getChildren().get(3).setLayoutY(150);
 		
 	}
 	
-	public void Update(){
+	
+	public void drawCards(){
+//		//Get rid of old cards
+//		
+//		mainGroup.getChildren().remove(3);
+//		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
+//		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
+//		
+//		if (!(currentPlayer.getHand() == null)){
+//		Hand currentHand = currentPlayer.getHand();
+//		CardShape[] currentCards = currentHand.getAllCards();
+//		HBox cardHolder = new HBox();
+//		cardHolder.setSpacing(20);
+//		for(int i=0; i > currentCards.length; i++){
+//			cardArtist card = new cardArtist(currentCards[i]);
+//			cardHolder.getChildren().add(card.getShape());
+//		}
+//				
+//		mainGroup.getChildren().addAll(cardHolder);
+//		mainGroup.getChildren().get(3).setLayoutY(150);
+//		}
+
 		
+		
+		}
+
+		
+	public String calculateCost(SpellID spell){
+		String answer = spell.toString() + " costs: ";
+		 HashMap<CardShape, Integer> costs = SpellCaster.getCost(spell);
+		 int numCircle = costs.get(CardShape.SHAPE1);
+		 answer += numCircle + " " + CardShape.SHAPE1.toString() + "s,  ";
+		 int numSquare = costs.get(CardShape.SHAPE2);
+		 answer += numSquare + " " + CardShape.SHAPE2.toString() + "s,  and ";
+		 int numTriangle = costs.get(CardShape.SHAPE3);
+		 answer +=  numTriangle + " " + CardShape.SHAPE3.toString() + "s.";
+		 return answer;
+		 
+		 
 	}
 	
 	public Group getMainGroup(){

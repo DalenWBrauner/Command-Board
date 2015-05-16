@@ -47,7 +47,7 @@ public class Joystick implements Observer  {
 	Label money;
 	Label netVal;
 
-	spellView spell;
+	public spellView spell;
 
 	private int answer;
 
@@ -306,9 +306,12 @@ public class Joystick implements Observer  {
 			public void handle(ActionEvent arg0) {
 				final Stage spellView = new Stage();
 				spellView.initModality(Modality.APPLICATION_MODAL);
+				spell.drawCards();
 				Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
 				spellView.setScene(spellScene);
 				spellView.show();
+
+				
 
 			}
 
@@ -354,6 +357,10 @@ public class Joystick implements Observer  {
 		checks.redraw();
 
 	}
+	
+	public void updateSpellView(){
+		spell.drawCards();
+	}
 
 
 	@Override
@@ -372,6 +379,12 @@ public class Joystick implements Observer  {
 			}
 		});
 
+		Platform.runLater(new Runnable(){
+			@Override
+			public void run(){
+				
+			}
+		});
 	}
 
 	public SpellID castedSpell(){

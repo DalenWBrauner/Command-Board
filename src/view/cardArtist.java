@@ -10,35 +10,29 @@ import shared.enums.CardShape;
 public class cardArtist {
 	
 	Group card;
-	
 	CardShape myshape;
-	
 	Rectangle blankCard;
 	
 	cardArtist(CardShape shape){
+		myshape = shape;
 		drawCard();
 	}
 	
 	public void drawCard(){
 		
-		if (myshape.equals(CardShape.NOCARD)){
+		if (myshape == CardShape.NOCARD){
 			blankCard = new Rectangle();
 			blankCard.setHeight(80);
-			blankCard.setWidth(30);
+			blankCard.setWidth(40);
 			blankCard.setFill(Color.GRAY);
-			blankCard.setArcHeight(20);
-			blankCard.setArcWidth(20);
+			blankCard.setArcHeight(10);
+			blankCard.setArcWidth(10);
 			
 			card = new Group(blankCard);
-		}
-		//Circle
-		//Square
-		//Triangle
-		
-		if(myshape.equals(CardShape.SHAPE1)){
+		}else if(myshape == CardShape.SHAPE1){
 			blankCard = new Rectangle();
 			blankCard.setHeight(80);
-			blankCard.setWidth(30);
+			blankCard.setWidth(40);
 			blankCard.setFill(Color.GRAY);
 			blankCard.setArcHeight(20);
 			blankCard.setArcWidth(20);
@@ -49,26 +43,21 @@ public class cardArtist {
 			
 			
 			card = new Group(blankCard, circle);
-		}
-		
-		if(myshape.equals(CardShape.SHAPE2)){
+		}else if(myshape == CardShape.SHAPE2){
 			blankCard = new Rectangle();
 			blankCard.setHeight(80);
-			blankCard.setWidth(30);
+			blankCard.setWidth(40);
 			blankCard.setFill(Color.GRAY);
-			blankCard.setArcHeight(20);
-			blankCard.setArcWidth(20);
+			blankCard.setArcHeight(10);
+			blankCard.setArcWidth(10);
 
 			Rectangle square = new Rectangle();
 			square.setWidth(20);
 			square.setHeight(20);
-			
 			square.setFill(Color.BLANCHEDALMOND);
 			
 			card = new Group(blankCard, square);
-		}
-		
-		if(myshape.equals(CardShape.SHAPE2)){
+		}else if(myshape == CardShape.SHAPE3){
 			blankCard = new Rectangle();
 			blankCard.setHeight(80);
 			blankCard.setWidth(30);
@@ -83,6 +72,8 @@ public class cardArtist {
 					10.0, 20.0});
 			
 			card = new Group(blankCard, triangle);
+			}else{
+				System.out.println("NOT A VALID ENUM");
 			}
 		}
 		

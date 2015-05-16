@@ -30,9 +30,13 @@ public class VictoryView implements ControlledScreen {
         mainGroup = new Group();
     }
     
+    /**
+     * Can do more with info from match object in the future.
+     * Right now just displays the winner's name.
+     * @param m Match object from match that just ended.
+     */
     public void loadMatch(Match m) {
         match = m;
-        // TODO: set up the view based on who won.
         
         // Create our grid to place forms.
         GridPane grid = new GridPane();

@@ -29,13 +29,13 @@ public interface PlayerRepresentative {
 
     /** The Model needs to know the result of the Player's roll!
      *
-     * Ultimately, it’s up to the View to provide the interactivity between the
+     * Ultimately, itï¿½s up to the View to provide the interactivity between the
      * Board game and its Users. Because actually rolling dice (or spinning a
      * roulette wheel, or picking one out of 6 cards) are all things that Users
      * could potentially want to do (and could be fun!), we think the View
      * should have the responsibility of determining the number, should any of
      * this interactivity be less than purely random. And of course, in the
-     * event that it’s decided things should be purely random, the answer is a
+     * event that itï¿½s decided things should be purely random, the answer is a
      * simple call to random(1,6).
      *
      * @return The result of the roll.
@@ -107,4 +107,10 @@ public interface PlayerRepresentative {
      * @return Which player receives the effect of the Spell.
      */
     public PlayerID castOnPlayer(SpellID spellCast);
+    
+    /**
+     * Because of threading, the model must tell the PlayerRepresentative once the game
+     * is over.
+     */
+    public void gameOver();
 }

@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -156,17 +157,16 @@ public class Joystick implements Observer  {
 
 
 
-		//Bind label to property value, so you can change that and have the label update
 
 		mainGroup = new Group(directionGroup, commandGroup);
 
 		//Interesting note: The x coordinates can be exactly the same for the dbuttons and select buttons and they won'tline up.
 		directionGroup.setLayoutX(10);
-		commandGroup.setLayoutY(10);
+		directionGroup.setLayoutY(10);
 
 		//This
-		mainGroup.getChildren().get(1).setLayoutX(30);
-		mainGroup.getChildren().get(1).setLayoutY(60);
+		commandGroup.setLayoutX(30);
+		commandGroup.setLayoutY(60);
 
 	}
 
@@ -176,26 +176,28 @@ public class Joystick implements Observer  {
 		return mainGroup;
 	}
 
-	void chooseDirection(CardinalDirection[] availableDirections) {
+	void chooseDirection(CardinalDirection[] availableDirectionsArr) {
 		DropShadow shadow = new DropShadow();
 
-		//Shadow effects.
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.WEST)){
-				left.setEffect(shadow);
-		}else{
-				left.setEffect(null);
+		List<CardinalDirection> availableDirections = Arrays.asList(availableDirectionsArr);
+		
+		if (availableDirections.contains(CardinalDirection.WEST)) {
+		    
+		    //Shadow effects.
+	        left.setEffect(shadow);
+	        
+	        // Event handler.
+	        left.setOnAction(new EventHandler<ActionEvent>(){
+	            @Override public void handle(ActionEvent e) {
+	                System.out.println("CLICKED LEFT");
+	                chosenDirection = CardinalDirection.WEST;
+                    MenuScreenView.modelThread.resume();
+	            }
+	        });
+		} else {
+		    left.setEffect(null);
 		}
-
-
-		left.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e) {
-				System.out.println("CLICKED LEFT");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.WEST)){
-				chosenDirection = CardinalDirection.WEST;
-				MenuScreenView.modelThread.resume();
-				}
-			}
-		});
+		
 
 		//Shadow effects.
 		if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
@@ -399,13 +401,6 @@ public class Joystick implements Observer  {
 			@Override
 			public void run(){
 				setCheckpointEffect();
-			}
-		});
-
-		Platform.runLater(new Runnable(){
-			@Override
-			public void run(){
-				
 			}
 		});
 	}

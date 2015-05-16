@@ -58,14 +58,14 @@ public class Main extends Application {
         ScreenSwitcher mainContainer = new ScreenSwitcher(width, height);
 
         // Add our screens to the stack.
-        ControlledScreen gameMap = new MatchView();
-        mainContainer.registerScreen(GAME_SCREEN, gameMap);
-
         ControlledScreen victoryScreen = new VictoryView(MENU_SCREEN);
         mainContainer.registerScreen(VICTORY_SCREEN, victoryScreen);
+        
+        ControlledScreen gameMap = new MatchView((VictoryView) victoryScreen);
+        mainContainer.registerScreen(GAME_SCREEN, gameMap);
 
         ControlledScreen menuScreen = new MenuScreenView(
-                (MatchView) gameMap, (VictoryView) victoryScreen);
+                (MatchView) gameMap);
         mainContainer.registerScreen(MENU_SCREEN, menuScreen);
 
 

@@ -203,7 +203,9 @@ public class MatchView implements ControlledScreen,
     			joystick.turnSpellOff();
     		}
     	});
-    	return joystick.getCastedSpell();
+    	SpellID castedSpell = joystick.getCastedSpell();
+    	joystick.spellReset();
+    	return castedSpell;
         }
 
     @Override

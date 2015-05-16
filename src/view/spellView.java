@@ -39,9 +39,12 @@ public class spellView {
 	
 	Match myMatch;
 	
+	Joystick myStick;
+	
 	SpellID castedSpell = SpellID.NOSPELL;
-	public spellView(Match myMatch){
+	public spellView(Match myMatch, Joystick myStick){
 		this.myMatch = myMatch;
+		this.myStick = myStick;
 		initSpellView();
 		
 	}
@@ -118,7 +121,7 @@ public class spellView {
 				String val = spellList.getSelectionModel().getSelectedItem();
 				SpellID valof = SpellID.fromString(val);
 				if(gotTheDough(valof)){
-					castedSpell = valof;
+					myStick.castedSpell = valof;
 					Stage stage = (Stage) cast.getScene().getWindow();
 					MenuScreenView.modelThread.resume();
 					

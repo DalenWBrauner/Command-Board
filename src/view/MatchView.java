@@ -1,5 +1,7 @@
 package view;
 
+import Main.Main;
+
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
@@ -47,6 +49,8 @@ public class MatchView implements ControlledScreen,
     private BoardView board;
     private Joystick joystick;
     private ScreenSwitcher myController;
+    private VictoryView victoryScreen;
+    private Match m;
 
 
     //for testing
@@ -59,11 +63,13 @@ public class MatchView implements ControlledScreen,
 //            MatchView.class.getResource("/images/gameBackground.jpg")
 //            .toString());
 
-    public MatchView() {
+    public MatchView(VictoryView victoryScreen) {
         root = new VBox();
+        this.victoryScreen = victoryScreen;
     }
 
     public void loadMatch(Match m) {
+        this.m = m;
 
         double stageWidth = myController.getStageWidth();
         double stageHeight = myController.getStageHeight();
@@ -261,6 +267,13 @@ public class MatchView implements ControlledScreen,
     public PlayerID castOnPlayer(SpellID spellCast) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void gameOver() {
+        // TODO Auto-generated method stub
+        victoryScreen.loadMatch(m);
+        myController.setActiveScreen(Main.VICTORY_SCREEN);
     }
 
 }

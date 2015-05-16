@@ -78,4 +78,10 @@ public class AIEasy implements PlayerRepresentative {
     public PlayerID castOnPlayer(SpellID spellCast) {
         return thePlayer.getID();
     }
+
+    @Override
+    public void gameOver() {
+        // TODO Auto-generated method stub
+        
+    }
 }

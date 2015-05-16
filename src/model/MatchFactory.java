@@ -67,6 +67,9 @@ public class MatchFactory {
 
             // ...wallet $1000 to start with
             player.getWallet().addFunds(1000);
+
+            // ...hand a random set of cards
+            player.getHand().fillRandomly();
         }
 
         // Create the SpellCaster

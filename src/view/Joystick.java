@@ -352,6 +352,10 @@ public class Joystick implements Observer  {
 	public int getRollResult(){
 		return answer;
 	}
+	
+	public void spellReset(){
+		castedSpell = SpellID.NOSPELL;
+	}
 
 	public void registerMatch(Match m){
 		myMatch = m;
@@ -360,7 +364,7 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().add(groupWallet.getWallGroup());
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
-		spell = new spellView(myMatch);
+		spell = new spellView(myMatch, this);
 		Label cashGoal = new Label("CASH GOAL: $" + myMatch.getCashGoal());
 		cashGoal.setFont(Font.font("Verdana", FontPosture.ITALIC, 20));
 		mainGroup.getChildren().add(cashGoal);

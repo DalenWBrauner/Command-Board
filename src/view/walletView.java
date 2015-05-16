@@ -1,6 +1,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import shared.enums.PlayerID;
 import model.Match;
@@ -167,25 +168,28 @@ public class walletView {
 	}
 	
 	void update(){
-		PlayerID id1 = m.getAllPlayerIDs().get(0);
-		Wallet P1Wallet = m.getPlayer(id1).getWallet();
+	    List<PlayerID> playerIDs = m.getAllPlayerIDs();
+	    List<Player> players = m.getAllPlayers();
+	    
+		PlayerID id1 = playerIDs.get(0);
+		Wallet P1Wallet = m.getPlayer(PlayerID.PLAYER1).getWallet();
 		P1money.setText("P1 ON HAND: $" + P1Wallet.getCashOnHand());
 		P1netVal.setText("P1 NET VALUE: $" + P1Wallet.getNetValue());
 		
-		PlayerID id2 = m.getAllPlayerIDs().get(1);
-		Wallet P2Wallet = m.getPlayer(id2).getWallet();
+		PlayerID id2 = playerIDs.get(1);
+		Wallet P2Wallet = players.get(1).getWallet();
 		P2money.setText("P2 ON HAND: $" + P2Wallet.getCashOnHand());
 		P2netVal.setText("P2 NET VALUE: $" + P2Wallet.getNetValue());
 		
 		if (numPlays > 2){
-			PlayerID id3 = m.getAllPlayerIDs().get(2);
-			Wallet P3Wallet = m.getPlayer(id3).getWallet();
+			PlayerID id3 = playerIDs.get(2);
+			Wallet P3Wallet = players.get(2).getWallet();
 			P3money.setText("P3 ON HAND: $" + P3Wallet.getCashOnHand());
 			P3netVal.setText("P3 NET VALUE: $" + P3Wallet.getNetValue());
 			}
 		if (numPlays > 3){
-			PlayerID id4 = m.getAllPlayerIDs().get(3);
-			Wallet P4Wallet = m.getPlayer(id4).getWallet();
+			PlayerID id4 = playerIDs.get(3);
+			Wallet P4Wallet = players.get(3).getWallet();
 			P4money.setText("P4 ON HAND: $" + P4Wallet.getCashOnHand());
 			P4netVal.setText("P4 NET VALUE $:" + P4Wallet.getCashOnHand());
 			
@@ -193,7 +197,8 @@ public class walletView {
 
 	}
 	
-	Group getWallGroup(){
-	return wallGroup;
-     }
+	Group getWallGroup() {
+	    return wallGroup;
+	}
+	
 }

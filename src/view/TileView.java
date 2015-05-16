@@ -55,6 +55,8 @@ public class TileView extends ImageView {
                 break;
             case START:
                 this.setImage(START_TILE_IMAGE);
+                System.out.println("START TILE HAS COORDS: " +
+                Integer.toString(xPos) + ", " + Integer.toString(yPos));
                 setOnMousePressed(null);
                 break;
             case CHECKPOINT:

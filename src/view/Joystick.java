@@ -161,8 +161,8 @@ public class Joystick implements Observer  {
 		mainGroup = new Group(directionGroup, commandGroup);
 
 		//Interesting note: The x coordinates can be exactly the same for the dbuttons and select buttons and they won'tline up.
-		mainGroup.getChildren().get(0).setLayoutX(10);
-		mainGroup.getChildren().get(0).setLayoutY(10);
+		directionGroup.setLayoutX(10);
+		commandGroup.setLayoutY(10);
 
 		//This
 		mainGroup.getChildren().get(1).setLayoutX(30);

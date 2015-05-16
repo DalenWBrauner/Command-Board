@@ -79,9 +79,7 @@ public class AIEasy implements PlayerRepresentative {
         return thePlayer.getID();
     }
 
+    /** The Easy AI doesn't actually care when the game is over. */
     @Override
-    public void gameOver() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void gameOver() {}
 }

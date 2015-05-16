@@ -17,7 +17,6 @@ public class Hand {
         counters.put(CardShape.SHAPE1, 0);
         counters.put(CardShape.SHAPE2, 0);
         counters.put(CardShape.SHAPE3, 0);
-        //fillRandomly(); TODO: Remove comment when the game is finished!
     }
 
     /** Returns the maximum number of cards a hand can hold. */

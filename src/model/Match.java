@@ -141,21 +141,21 @@ public class Match extends Observable implements Observer, Runnable {
         return currentPlayer;
     }
 
-    /** Returns the list of PlayerIDs (in turn order). */
-    @SuppressWarnings("unchecked")
-    public ArrayList<PlayerID> getAllPlayerIDs() {
-        return (ArrayList<PlayerID>) turnOrder.clone();
-    }
-
     /** Returns the Player given its ID.*/
     public Player getPlayer(PlayerID thisPlayer) {
         return players.get(thisPlayer);
     }
 
+    /** Returns the list of PlayerIDs (in turn order). */
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlayerID> getTurnOrder() {
+        return (ArrayList<PlayerID>) turnOrder.clone();
+    }
+
     /** Returns the list of Player objects (in turn order). */
     public ArrayList<Player> getAllPlayers() {
         ArrayList<Player> allPlayers = new ArrayList<>();
-        for (PlayerID pID : getAllPlayerIDs()) {
+        for (PlayerID pID : getTurnOrder()) {
             allPlayers.add(getPlayer(pID));
         }
         return allPlayers;
@@ -166,7 +166,6 @@ public class Match extends Observable implements Observer, Runnable {
     public int getTurnNumber() {
         return turnNumber;
     }
-
 
     /** Returns whether or not the Match has ended.
      * @return true if the Match is over.

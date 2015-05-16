@@ -15,34 +15,23 @@ public class MatchFactory {
 
     private final BoardFactory boardFactory = new BoardFactory();
 
-    public Match createMatch(int numberOfPlayers, int cashGoal, String whichBoard) {
+    public Match createMatch(int numPlayers, int cashGoal, String whichBoard) {
         System.out.println("MatchFactory.createMatch(); START");
 
-        // Create player objects
+        // Instantiate Player containers
+        PlayerID[] allIDs = PlayerID.getNPlayers(numPlayers);
         HashMap<PlayerID, Player> playerMap = new HashMap<>();
-        if (numberOfPlayers > 0) {
-            playerMap.put(PlayerID.PLAYER1,
-                        new ActualPlayer(PlayerID.PLAYER1));
-        }
-        if (numberOfPlayers > 1) {
-            playerMap.put(PlayerID.PLAYER2,
-                    new ActualPlayer(PlayerID.PLAYER2));
-        }
-        if (numberOfPlayers > 2) {
-            playerMap.put(PlayerID.PLAYER3,
-                    new ActualPlayer(PlayerID.PLAYER3));
-        }
-        if (numberOfPlayers > 3) {
-            playerMap.put(PlayerID.PLAYER4,
-                    new ActualPlayer(PlayerID.PLAYER4));
-        }
+        ArrayList<PlayerID> turnOrder = new ArrayList<>();
 
-        // Shuffle the Turn Order
-        ArrayList<PlayerID> turnOrder = new ArrayList<>(playerMap.keySet());
+        // Create Player objects & shuffle turn order
+        for (PlayerID id : allIDs) {
+            playerMap.put(id, new ActualPlayer(id));
+            turnOrder.add(id);
+        }
         Collections.shuffle(turnOrder);
 
         // Print some stuff
-        System.out.println("The " + numberOfPlayers + " players play in this order:");
+        System.out.println("The " + numPlayers + " players play in this order:");
         for (PlayerID id : turnOrder) {
             System.out.println(id);
         }

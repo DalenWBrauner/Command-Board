@@ -55,7 +55,7 @@ public class checkpointView {
 	}
 	
 	public void initCheckpointView(){
-		numPlayers = myMatch.getAllPlayerIDs().size();
+		numPlayers = myMatch.getTurnOrder().size();
 
 		
 		title1 = new Label("Player1");

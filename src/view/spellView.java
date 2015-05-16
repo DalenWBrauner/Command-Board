@@ -22,6 +22,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class spellView {
 	
@@ -38,6 +39,7 @@ public class spellView {
 	
 	Match myMatch;
 	
+	SpellID castedSpell = SpellID.NOSPELL;
 	public spellView(Match myMatch){
 		this.myMatch = myMatch;
 		initSpellView();
@@ -102,9 +104,27 @@ public class spellView {
 				
 				if(gotTheDough(valof)){
 					cast.setEffect(shadow);
+				}else{
+					cast.setEffect(null);
 				}
 			}
 			
+		});
+		
+		cast.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				String val = spellList.getSelectionModel().getSelectedItem();
+				SpellID valof = SpellID.fromString(val);
+				if(gotTheDough(valof)){
+					castedSpell = valof;
+					Stage stage = (Stage) cast.getScene().getWindow();
+					MenuScreenView.modelThread.resume();
+					
+				}
+				
+			}	
 		});
 		
 		VBox spellStuff = new VBox();

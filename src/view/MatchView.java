@@ -154,13 +154,7 @@ public class MatchView implements ControlledScreen,
     	//Change color
     	//there's css style for this sort of thing.
 
-    	Platform.runLater(new Runnable(){
-    		@Override
-    		public void run(){
-    			joystick.meetNGreet();
-    		}
-    	});
-    	MenuScreenView.modelThread.suspend();
+    	
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -187,16 +181,30 @@ public class MatchView implements ControlledScreen,
 
     @Override
     public synchronized SpellID getSpellCast(SpellID[] availableSpells) {
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.meetNGreet();
+    		}
+    	});
+    	MenuScreenView.modelThread.suspend();
     	Platform.runLater(new Runnable() {
 
 			@Override
 			public void run() {
-				joystick.activateDiceRoll();
+			   joystick.activateSpellPhase();				
 			}
+    		
     	});
-
-        return SpellID.NOSPELL;
-    }
+    	MenuScreenView.modelThread.suspend();
+    	Platform.runLater(new Runnable(){
+    		@Override
+    		public void run(){
+    			joystick.turnSpellOff();
+    		}
+    	});
+    	return joystick.getCastedSpell();
+        }
 
     @Override
     public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {

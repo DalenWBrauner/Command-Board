@@ -42,6 +42,9 @@ public class Joystick implements Observer  {
 
 	Button select;
 	Button spells;
+	
+	Button cancel;
+	Button menu;
 
 
 	Label money;
@@ -116,10 +119,10 @@ public class Joystick implements Observer  {
 		spells = new Button("SPELLS");
 		spells.setPadding(new Insets(10));
 
-		Button cancel = new Button("CANCEL");
+		cancel = new Button("CANCEL");
 		cancel.setPadding(new Insets(10));
 
-		Button menu   = new Button("MENU");
+		menu   = new Button("MENU");
 		menu.setPadding(new Insets(10));
 
 
@@ -298,9 +301,12 @@ public class Joystick implements Observer  {
 				MenuScreenView.modelThread.resume();
 			}
 		});
+	}
+	
+	public void activateSpellPhase(){
+		DropShadow shadow = new DropShadow();
 	    spells.setEffect(shadow);
 	    spells.setOnAction(new EventHandler<ActionEvent>(){
-
 			@Override
             @SuppressWarnings("deprecation")
 			public void handle(ActionEvent arg0) {
@@ -311,16 +317,33 @@ public class Joystick implements Observer  {
 				spellView.setScene(spellScene);
 				spellView.show();
 
-				
 
 			}
 
 	    });
+	    
+	    cancel.setEffect(shadow);
+	    cancel.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				castedSpell = SpellID.NOSPELL;
+				MenuScreenView.modelThread.resume();
+				
+			}
+	    });
+	    	
+
 	}
 
 
 	public void turnStartOff(){
 		select.setEffect(null);
+		spells.setEffect(null);
+	}
+	
+	public void turnSpellOff(){
+		cancel.setEffect(null);
 		spells.setEffect(null);
 	}
 
@@ -387,7 +410,7 @@ public class Joystick implements Observer  {
 		});
 	}
 
-	public SpellID castedSpell(){
+	public SpellID getCastedSpell(){
 		return castedSpell;
 	}
 }

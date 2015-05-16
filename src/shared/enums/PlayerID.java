@@ -17,4 +17,38 @@ public enum PlayerID {
     public String toString() {
         return myName;
     }
+    
+    public static String getShortName(PlayerID pID) {
+        switch (pID) {
+        case NOPLAYER:
+            return "";
+        case PLAYER1:
+            return "P1";
+        case PLAYER2:
+            return "P2";
+        case PLAYER3:
+            return "P3";
+        case PLAYER4:
+            return "P4";
+        default:
+            return "";
+        }
+    }
+
+    /** Returns an array of n PlayerIDs in ID order, */
+    public static PlayerID[] getNPlayers(int n) {
+        PlayerID[] players;
+        if        (n == 1) {
+            players = new PlayerID[]{ PLAYER1 };
+        } else if (n == 2) {
+            players = new PlayerID[]{ PLAYER1, PLAYER2 };
+        } else if (n == 3) {
+            players = new PlayerID[]{ PLAYER1, PLAYER2, PLAYER3 };
+        } else if (n == 4) {
+            players = new PlayerID[]{ PLAYER1, PLAYER2, PLAYER3, PLAYER4 };
+        } else {
+            players = new PlayerID[]{ NOPLAYER };
+        }
+        return players;
+    }
 }

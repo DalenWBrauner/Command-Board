@@ -18,6 +18,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,6 +45,7 @@ public class spellView {
 	}
 	
 	public void initSpellView(){
+		DropShadow shadow = new DropShadow();
 		spellList = new ListView<String>();
 		ObservableList<String> spells = FXCollections.observableArrayList(SpellID.SPELL1.toString(), SpellID.SPELL2.toString(), SpellID.SPELL3.toString(), SpellID.SPELL4.toString());
 		spellList.setItems(spells);
@@ -97,6 +99,10 @@ public class spellView {
 				Cost.setText("COST:  " + calculateCost(valof));
 				
 				Description.setText(spellList.getSelectionModel().getSelectedItem() + " filler text.");
+				
+				if(gotTheDough(valof)){
+					cast.setEffect(shadow);
+				}
 			}
 			
 		});
@@ -152,6 +158,29 @@ public class spellView {
 		
 		
 		}
+	
+	public boolean gotTheDough(SpellID spell){
+		
+		
+		HashMap<CardShape, Integer> costs = SpellCaster.getCost(spell);
+		
+		int numCircle = costs.get(CardShape.SHAPE1);
+		int numSquare = costs.get(CardShape.SHAPE2);
+		int numTriangle = costs.get(CardShape.SHAPE3);
+		
+		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
+		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
+		Hand currentHand = currentPlayer.getHand();
+		int yourNumCircle = currentHand.getNumberOfCards(CardShape.SHAPE1);
+		int yourNumSquare = currentHand.getNumberOfCards(CardShape.SHAPE2);
+		int yourNumTriangle = currentHand.getNumberOfCards(CardShape.SHAPE3);
+		
+		if(yourNumTriangle >= numTriangle && yourNumSquare >= numSquare && yourNumCircle >= numCircle){
+			return true;
+		}
+		return false;
+		
+	}
 
 		
 	public String calculateCost(SpellID spell){

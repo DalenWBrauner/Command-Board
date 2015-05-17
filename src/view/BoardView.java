@@ -1,6 +1,8 @@
 package view;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -14,8 +16,9 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import model.Match;
 import model.Player;
+import model.tile.Tile;
 
-public class BoardView extends StackPane {
+public class BoardView extends StackPane implements Observer {
 
     private Node background;
     private Group tileGroup;
@@ -25,9 +28,12 @@ public class BoardView extends StackPane {
     private PlayerView[] players;
     private int boardWidth;
     private int boardHeight;
+    private Match m;
 
     public BoardView(Match m) {
 
+        this.m = m;
+        
         // TODO: Load background from match?
         // ex: setBackground(m.getBackground());
 
@@ -72,14 +78,16 @@ public class BoardView extends StackPane {
         // TODO: Put players in the right spots from match info.
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
+        System.out.println("LKDJSFLSKJFKLDSJFLKSDJKL " + numPlayers);
         players = new PlayerView[numPlayers];
-        for (int i=0; i < numPlayers; i++) {
-            players[i] = new PlayerView(modelPlayers.get(i));
-            System.out.println("Player: " + modelPlayers.get(i).toString() + " has this X: " +
-                    modelPlayers.get(i).getX() + " and this Y: " +
-                    modelPlayers.get(i).getY() + ".");
-            players[i].setTranslateX(modelPlayers.get(i).getX() * TileView.TILE_PIX_WIDTH);
-            players[i].setTranslateY(modelPlayers.get(i).getY() * TileView.TILE_PIX_HEIGHT);
+        for (int i=0; i < numPlayers; i++) { 
+            Player p = modelPlayers.get(i);
+            players[i] = new PlayerView(p);
+            System.out.println("Player: " + p.getID().toString() + " has this X: " +
+                    p.getX() + " and this Y: " +
+                    p.getY() + ".");
+            players[i].setTranslateX(p.getX() * TileView.TILE_PIX_WIDTH);
+            players[i].setTranslateY(p.getY() * TileView.TILE_PIX_HEIGHT);
             playerGroup.getChildren().add(players[i]);
         }
 
@@ -109,6 +117,32 @@ public class BoardView extends StackPane {
         if (playerGroup != null) {
             children.add(playerGroup);
         }
+    }
+
+
+
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub
+        for (int x=0; x < boardWidth; x++) {
+            for (int y=0; y < boardHeight; y++) {
+                tileViews[x][y].setCurrentState(m.getBoard().getTile(x, y));
+//                TileView t = tileViews[x][y];
+//                Tile modelT = m.getBoard().getTile(x, y);
+//                if (t.getCurrentState() != modelT.getTileType()) {
+//                    t.setCurrentState(t);
+//                }
+            }
+        }
+        
+        List<Player> modelPlayers = m.getAllPlayers();
+        int numPlayers = modelPlayers.size();
+        for (int i=0; i < numPlayers; i++) { 
+            Player p = modelPlayers.get(i);
+            players[i].setLayoutX(p.getX());
+            players[i].setLayoutY(p.getY());
+        }
+            
     }
 
 }

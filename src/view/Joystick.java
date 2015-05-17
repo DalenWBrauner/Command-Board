@@ -410,7 +410,7 @@ public class Joystick implements Observer  {
 		
 		outputLabel = new Label();
 		outputQ = new LimitedQueue<>(8);
-		outputLabel.setLayoutX(900);
+		outputLabel.setLayoutX(1100);
 		outputLabel.setLayoutY(30);
 		mainGroup.getChildren().add(outputLabel);
 

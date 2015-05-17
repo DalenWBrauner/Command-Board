@@ -27,6 +27,8 @@ public class UpgradeTileCommand extends Command {
         int newLevel = sourcePlayer.getRepresentative().upgradeToWhatLevel(thisTile);
 
         // TODO: If desired, check against a level cap
+        System.out.println(sourcePlayer.getID() + " is upgrading the tile at ("+
+                thisTile.getX() + ", " + thisTile.getY() + ")");
 
         // Subtract Funds
         subtractFunds.setAmount(thisTile.getUpgradeCost(newLevel));

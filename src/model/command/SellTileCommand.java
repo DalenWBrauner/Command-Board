@@ -24,6 +24,8 @@ public class SellTileCommand extends Command {
     @Override
     public void execute(Player sourcePlayer) {
         // For now, we've already asked the player if they want to sell
+        System.out.println(sourcePlayer.getID() + " is selling the tile at (" +
+                tileForSale.getX() + ", " + tileForSale.getY() + ")");
 
         // Add Funds
         addFunds.setAmount(tileForSale.getCost());

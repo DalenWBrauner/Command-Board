@@ -1,7 +1,5 @@
 package view;
 
-import Main.Main;
-
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import model.Match;
 import model.Player;
+import model.tile.NullTile;
 import model.tile.PropertyTile;
 import model.tile.Tile;
 import shared.enums.CardShape;
@@ -23,6 +22,7 @@ import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
 import view.interfaces.ControlledScreen;
+import Main.Main;
 import controller.ScreenSwitcher;
 
 /* TODO: Watch this class like a hawk!
@@ -70,7 +70,7 @@ public class MatchView implements ControlledScreen,
 
     public void loadMatch(Match m) {
         this.m = m;
-        
+
         // Add ourself as an observer of the match.
         m.addObserver(this);
 
@@ -163,7 +163,7 @@ public class MatchView implements ControlledScreen,
     	//Change color
     	//there's css style for this sort of thing.
 
-    	
+
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -201,9 +201,9 @@ public class MatchView implements ControlledScreen,
 
 			@Override
 			public void run() {
-			   joystick.activateSpellPhase();				
+			   joystick.activateSpellPhase();
 			}
-    		
+
     	});
     	MenuScreenView.modelThread.suspend();
     	Platform.runLater(new Runnable(){
@@ -219,44 +219,58 @@ public class MatchView implements ControlledScreen,
 
     @Override
     public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
-        // TODO Auto-generated method stub
+        // Don't purchase tiles ever
         return false;
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public synchronized CardShape placeWhichCard() {
-        // TODO Auto-generated method stub
-        return null;
+        // Places the first card
+        return m.getPlayer(m.getCurrentPlayerID()).getHand().getAllCards()[0];
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public synchronized CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
-        // TODO Auto-generated method stub
-        return null;
+        // Don't bother to swap cards
+        return CardShape.NOCARD;
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public synchronized Tile swapCardOnWhichTile() {
-        // TODO Auto-generated method stub
-        return null;
+        // Don't bother to swap cards
+        return new NullTile();
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public synchronized Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
-        // TODO Auto-generated method stub
-        return null;
+        // Don't bother to upgrade tiles
+        return new NullTile();
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public synchronized int upgradeToWhatLevel(PropertyTile upgradingTile) {
-        // TODO Auto-generated method stub
-        return 0;
+        // Don't bother to upgrade tiles
+        return 1;
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public synchronized PropertyTile sellWhichTile(PlayerID sellingPlayer) {
-        // TODO Auto-generated method stub
-        return null;
+        // Sell the first tile
+        return m.getPlayer(sellingPlayer).getTilesOwned().get(0);
+        // Alert! TODO Use the GUI to ask the users!
+    }
+
+    @Override
+    public PlayerID castOnPlayer(SpellID spellCast) {
+        // Cast spells on yourself
+        return m.getCurrentPlayerID();
+        // Alert! TODO Use the GUI to ask the users!
     }
 
     // Arg will be null.
@@ -271,11 +285,4 @@ public class MatchView implements ControlledScreen,
             myController.setActiveScreen(Main.VICTORY_SCREEN);
         }
     }
-
-    @Override
-    public PlayerID castOnPlayer(SpellID spellCast) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

@@ -107,10 +107,4 @@ public interface PlayerRepresentative {
      * @return Which player receives the effect of the Spell.
      */
     public PlayerID castOnPlayer(SpellID spellCast);
-    
-    /**
-     * Because of threading, the model must tell the PlayerRepresentative once the game
-     * is over.
-     */
-    public void gameOver();
 }

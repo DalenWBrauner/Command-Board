@@ -15,7 +15,7 @@ import javafx.util.Duration;
 
 public class ScreenSwitcher extends StackPane {
 
-    private HashMap<String, Node> registeredScreens = new HashMap();
+    private HashMap<String, Node> registeredScreens = new HashMap<>();
     private double stageWidth;
     private double stageHeight;
     

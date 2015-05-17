@@ -389,11 +389,13 @@ public class Joystick implements Observer  {
 	public void registerMatch(Match m){
 		myMatch = m;
 		m.addObserver(this);
+		
 		groupWallet = new walletView(myMatch);
+		setWalletText();
 		mainGroup.getChildren().add(groupWallet.getWallGroup());
-		assert(groupWallet.getWallGroup() == mainGroup.getChildren().get(2));
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
+		
 		spell = new spellView(myMatch, this);
 		Label cashGoal = new Label("CASH GOAL: $" + myMatch.getCashGoal());
 		cashGoal.setFont(Font.font("Verdana", FontPosture.ITALIC, 20));

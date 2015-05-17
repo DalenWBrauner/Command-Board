@@ -203,8 +203,8 @@ public class Joystick implements Observer  {
 		}
 		
 
-		//Shadow effects.
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
+		
+		if(availableDirections.contains(CardinalDirection.EAST)){
 				right.setEffect(shadow);
 		}else{
 				right.setEffect(null);
@@ -214,7 +214,7 @@ public class Joystick implements Observer  {
 		right.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e) {
 				System.out.println("CLICKED RIGHT");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
+				if(availableDirections.contains(CardinalDirection.EAST)){
 				chosenDirection = CardinalDirection.EAST;
 				MenuScreenView.modelThread.resume();
 				}
@@ -222,7 +222,7 @@ public class Joystick implements Observer  {
 		});
 
 		//Shadow effects.
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
+		if(availableDirections.contains(CardinalDirection.NORTH)){
 			up.setEffect(shadow);
 		}else{
 			up.setEffect(null);
@@ -231,7 +231,7 @@ public class Joystick implements Observer  {
 		up.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e) {
 				System.out.println("CLICKED UP");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
+				if(availableDirections.contains(CardinalDirection.NORTH)){
 				chosenDirection = CardinalDirection.NORTH;
 				MenuScreenView.modelThread.resume();
 				}
@@ -239,7 +239,7 @@ public class Joystick implements Observer  {
 		});
 
 
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
+		if(availableDirections.contains(CardinalDirection.SOUTH)){
 			down.setEffect(shadow);
 		}else{
 			down.setEffect(null);
@@ -247,7 +247,7 @@ public class Joystick implements Observer  {
 		down.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e) {
 				System.out.println("CLICKED DOWN");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
+				if(availableDirections.contains(CardinalDirection.SOUTH)){
 				chosenDirection = CardinalDirection.SOUTH;
 				MenuScreenView.modelThread.resume();
 				}

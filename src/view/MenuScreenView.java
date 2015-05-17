@@ -30,7 +30,7 @@ public class MenuScreenView implements ControlledScreen {
 
     Group mainGroup;
     ScreenSwitcher myController;
-    static Thread modelThread;
+    public static Thread modelThread;
     
     /*public static final Image BACKGROUND_IMAGE = 
             new Image(MenuScreenView.class.getResource(

@@ -70,6 +70,7 @@ public class MatchView implements ControlledScreen,
 
     public void loadMatch(Match m) {
         this.m = m;
+        m.addObserver(this);
 
         double stageWidth = myController.getStageWidth();
         double stageHeight = myController.getStageHeight();

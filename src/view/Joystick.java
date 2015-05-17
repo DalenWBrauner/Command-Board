@@ -150,16 +150,14 @@ public class Joystick implements Observer  {
 		commandGroup.getChildren().add(cButtons);
 
 		//Add labels for On hand and and net Value
-		money = new Label("ON HAND:              ");
-		netVal = new Label("NET VALUE:           ");
-		money.setAlignment(Pos.BOTTOM_RIGHT);
-		VBox walletbox = new VBox();
-		walletbox.setSpacing(20);
-		walletbox.getChildren().addAll(money, netVal);
-
-		wallet.getChildren().add(walletbox);
-
-
+//		money = new Label("ON HAND:              ");
+//		netVal = new Label("NET VALUE:           ");
+//		money.setAlignment(Pos.BOTTOM_RIGHT);
+//		VBox walletbox = new VBox();
+//		walletbox.setSpacing(20);
+//		walletbox.getChildren().addAll(money, netVal);
+//
+//		wallet.getChildren().add(walletbox);
 
 
 		mainGroup = new Group(directionGroup, commandGroup);
@@ -254,7 +252,6 @@ public class Joystick implements Observer  {
 		right.setEffect(null);
 		up.setEffect(null);
 		down.setEffect(null);
-
 	}
 
 
@@ -263,7 +260,7 @@ public class Joystick implements Observer  {
 		return chosenDirection;
 	}
 
-	public void meetNGreet(){
+	public void meetNGreet() {
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.initOwner(Main.Main.prim);
@@ -273,9 +270,8 @@ public class Joystick implements Observer  {
 		dialog.setScene(dialogScene);
 		dialog.show();
 		MenuScreenView.modelThread.resume();
-
-
 	}
+	
 	public void activateDiceRoll(){
 
 		DropShadow shadow = new DropShadow();
@@ -369,6 +365,7 @@ public class Joystick implements Observer  {
 		m.addObserver(this);
 		groupWallet = new walletView(myMatch);
 		mainGroup.getChildren().add(groupWallet.getWallGroup());
+		assert(groupWallet.getWallGroup() == mainGroup.getChildren().get(2));
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
 		spell = new spellView(myMatch, this);

@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.MatchFactory;
 import view.MatchView;
 import view.MenuScreenView;
@@ -89,6 +92,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
     	prim = primaryStage;
+    	
+    	primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    	       @Override
+    	       public void handle(WindowEvent e) {
+    	           // TODO: Make this safer.
+    	          MenuScreenView.modelThread.interrupt();
+    	          Platform.exit();
+    	          System.exit(0);
+    	       }
+    	    });
 
         CASH_GOAL_OPTIONS.put(("Low ("    + DEFAULT_CASH_GOAL_LOW    + ")"), DEFAULT_CASH_GOAL_LOW);
         CASH_GOAL_OPTIONS.put(("Medium (" + DEFAULT_CASH_GOAL_MEDIUM + ")"), DEFAULT_CASH_GOAL_MEDIUM);

@@ -220,7 +220,7 @@ public class MatchView implements ControlledScreen,
     @Override
     public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
         // Don't purchase tiles ever
-        return false;
+        return true;
         // Alert! TODO Use the GUI to ask the users!
     }
 

@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -29,7 +30,27 @@ import shared.enums.SpellID;
 
 
 public class Joystick implements Observer  {
+    
+    //TODO: Replace this with Guava's
+    // EvictingQueue.
+    private class LimitedQueue<E> extends LinkedList<E> {
+        private int limit;
 
+        public LimitedQueue(int limit) {
+            this.limit = limit;
+        }
+
+        @Override
+        public boolean add(E o) {
+            super.add(o);
+            while (size() > limit) { super.remove(); }
+            return true;
+        }
+    }
+
+    private LimitedQueue<String> outputQ;
+    private Label outputLabel;
+    
 	private Group directionGroup;
 	private Group commandGroup;
 	private Group wallet;
@@ -191,7 +212,7 @@ public class Joystick implements Observer  {
 	        // Event handler.
 	        left.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
-	                System.out.println("CLICKED LEFT");
+	                addToOutput("CLICKED LEFT");
 	                chosenDirection = CardinalDirection.WEST;
                     MenuScreenView.modelThread.resume();
 	            }
@@ -207,7 +228,7 @@ public class Joystick implements Observer  {
 				
 				right.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {
-		                System.out.println("CLICKED RIGHT");
+		                addToOutput("CLICKED RIGHT");
 		                chosenDirection = CardinalDirection.EAST;
 		                MenuScreenView.modelThread.resume();
 		            }
@@ -221,7 +242,7 @@ public class Joystick implements Observer  {
 			
 			up.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
-	                System.out.println("CLICKED UP");
+	                addToOutput("CLICKED UP");
 	                chosenDirection = CardinalDirection.NORTH;
 	                MenuScreenView.modelThread.resume();
 	            }
@@ -235,7 +256,7 @@ public class Joystick implements Observer  {
 			
 			down.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
-	                System.out.println("CLICKED DOWN");
+	                addToOutput("CLICKED DOWN");
 	                chosenDirection = CardinalDirection.SOUTH;
 	                MenuScreenView.modelThread.resume();
 	            }
@@ -261,19 +282,22 @@ public class Joystick implements Observer  {
 	}
 
 	public void meetNGreet() {
-		final Stage dialog = new Stage();
-		dialog.initModality(Modality.APPLICATION_MODAL);
-		dialog.initOwner(Main.Main.prim);
-		VBox dialogVbox = new VBox(20);
-		dialogVbox.getChildren().add(new Text(myMatch.getCurrentPlayerID() + "'s TURN IS STARTING"));
-		Scene dialogScene = new Scene (dialogVbox, 200, 50);
-		dialog.setScene(dialogScene);
-		dialog.show();
-		MenuScreenView.modelThread.resume();
+//		final Stage dialog = new Stage();
+//		dialog.initModality(Modality.APPLICATION_MODAL);
+//		dialog.initOwner(Main.Main.prim);
+//		VBox dialogVbox = new VBox(20);
+//		dialogVbox.getChildren().add(new Text(myMatch.getCurrentPlayerID() + "'s TURN IS STARTING"));
+//		Scene dialogScene = new Scene (dialogVbox, 200, 50);
+//		dialog.setScene(dialogScene);
+//		dialog.show();
+//		MenuScreenView.modelThread.resume();
+	    addToOutput(myMatch.getCurrentPlayerID() + "'s TURN IS STARTING");
+	    MenuScreenView.modelThread.resume();
 	}
 	
 	public void activateDiceRoll(){
 
+	    addToOutput("PRESS SELECT TO ROLL THE DICE");
 		DropShadow shadow = new DropShadow();
 		select.setEffect(shadow);
 		select.setOnAction(new EventHandler<ActionEvent>(){
@@ -281,15 +305,16 @@ public class Joystick implements Observer  {
 			@Override public void handle(ActionEvent e){
 				Random random = new Random();
 				answer = random.nextInt(6) + 1;
-				System.out.println("USER ROLLED A " + answer);
-				final Stage rollResult = new Stage();
-				rollResult.initModality(Modality.APPLICATION_MODAL);
-				rollResult.initOwner(Main.Main.prim);
-				VBox dialogVbox = new VBox(20);
-				dialogVbox.getChildren().add(new Text(myMatch.getCurrentPlayerID() + " rolled a " + answer + "!"));
-				Scene dialogScene = new Scene (dialogVbox, 100, 50);
-				rollResult.setScene(dialogScene);
-				rollResult.show();
+				//addToOutput("USER ROLLED A " + answer);
+//				final Stage rollResult = new Stage();
+//				rollResult.initModality(Modality.APPLICATION_MODAL);
+//				rollResult.initOwner(Main.Main.prim);
+//				VBox dialogVbox = new VBox(20);
+//				dialogVbox.getChildren().add(new Text(myMatch.getCurrentPlayerID() + " rolled a " + answer + "!"));
+//				Scene dialogScene = new Scene (dialogVbox, 100, 50);
+//				rollResult.setScene(dialogScene);
+//				rollResult.show();
+				addToOutput(myMatch.getCurrentPlayerID() + " rolled a " + answer + "!");
 
 				//they rolled the dice, now give the poor kid his control back
 				MenuScreenView.modelThread.resume();
@@ -379,7 +404,26 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().add(checks.getMainGroup());
 		mainGroup.getChildren().get(4).setLayoutX(500);
 		mainGroup.getChildren().get(4).setLayoutY(40);
+		
+		outputLabel = new Label();
+		outputQ = new LimitedQueue<>(8);
+		outputLabel.setLayoutX(900);
+		outputLabel.setLayoutY(30);
+		mainGroup.getChildren().add(outputLabel);
 
+	}
+	
+	public void addToOutput(String s) {
+	    outputQ.add(s);
+	    redrawOutput();
+	}
+	
+	private void redrawOutput() {
+	    String text = "";
+	    for (String s : outputQ) {
+	        text += s + "\n";
+	    }
+	    outputLabel.setText(text);
 	}
 
 	public void setWalletText(){

@@ -102,25 +102,17 @@ public class TileFactory {
         ifNotYetPassedMacro[0] = new GiveRandomCardCommand();
         ifNotYetPassedMacro[1] = new AddFundsCommand(500);
         ifNotYetPassedMacro[2] = new PrintCommand("First time this lap!");
-//        ifNotYetPassedMacro[0].addObserver(currentTower);
-//        ifNotYetPassedMacro[1].addObserver(currentTower);
         Command ifNotYetPassed = new MacroCommand(ifNotYetPassedMacro);
-//        ifNotYetPassed.addObserver(currentTower);
 
         // Create the onPass Command
         Command[] onPassMacro = new Command[2];
         onPassMacro[0] = new PrintCommand("You passed the "+color+" Checkpoint!");
         onPassMacro[1] = new MarkCheckpointCommand(color, ifNotYetPassed);
-//        onPassMacro[0].addObserver(currentTower);
-//        onPassMacro[1].addObserver(currentTower);
         Command onPass = new MacroCommand(onPassMacro);
-//        onPass.addObserver(currentTower);
 
         // Create the onLand Command
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
         Command onLand = new UpgradeAnyTileCommand(utc);
-//        utc.addObserver(currentTower);
-//        onLand.addObserver(currentTower);
 
         // Finish
         tile.setOnPassCommand(onPass);
@@ -135,9 +127,6 @@ public class TileFactory {
         AddFundsCommand afc = new AddFundsCommand();
         SubtractFundsCommand sfc = new SubtractFundsCommand();
         Command buyCommand = new BuyTileCommand(sfc, afc, currentPlayers, tile);
-//        afc.addObserver(currentTower);
-//        sfc.addObserver(currentTower);
-//        buyCommand.addObserver(currentTower);
 
         // Create the onPass Command
         Command onPass = new NullCommand();
@@ -165,10 +154,7 @@ public class TileFactory {
         Command[] ifOwnedByYouMacro = new Command[2];
         ifOwnedByYouMacro[0] = new SwapCardCommand(tile);
         ifOwnedByYouMacro[1] = new UpgradeTileCommand(sfc, tile);
-//        ifOwnedByYouMacro[0].addObserver(currentTower);
-//        ifOwnedByYouMacro[1].addObserver(currentTower);
         Command ifOwnedByYou = new MacroCommand(ifOwnedByYouMacro);
-//        ifOwnedByYou.addObserver(currentTower);
 
         // Create the macro for:
         // If the tile is owned by someone else
@@ -183,9 +169,6 @@ public class TileFactory {
         // Create the onLand Command
         Command checkWhoOwns = new IfOwnedByYouCommand(tile, ifOwnedByYou, ifNotOwnedByYou);
         Command onLand = new IfOwnedCommand(tile, checkWhoOwns, buyCommand);
-//        checkWhoOwns.addObserver(currentTower);
-//        onLand.addObserver(currentTower);
-
         // Finish
         tile.setOnPassCommand(onPass);
         tile.setOnLandCommand(onLand);

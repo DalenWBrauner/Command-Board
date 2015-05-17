@@ -43,44 +43,52 @@ public class TileView extends ImageView {
     }
 
     public void setCurrentState(Tile t) {
-        this.currentState = t.getTileType();
-        switch(currentState) {
-            case NONE:
-                this.setImage(null);
-                setOnMousePressed(null);
-                break;
-            case PROPERTY:
-                this.setImage(PROPERTY_TILE_IMAGE);
-                setOnMousePressed(new PropertyTileEventHandler());
-                break;
-            case START:
-                this.setImage(START_TILE_IMAGE);
-                System.out.println("START TILE HAS COORDS: " +
-                Integer.toString(xPos) + ", " + Integer.toString(yPos));
-                setOnMousePressed(null);
-                break;
-            case CHECKPOINT:
-                CheckpointTile chkptT = (CheckpointTile) t;
-                switch(chkptT.getColor()) {
-                case BLU:
-                    this.setImage(CHECKPOINT_TILE_BLUE_IMAGE);
-                    break;
-                case GRN:
-                    this.setImage(CHECKPOINT_TILE_GREEN_IMAGE);
-                    break;
-                case RED:
-                    this.setImage(CHECKPOINT_TILE_RED_IMAGE);
-                    break;
-                case YLW:
-                    this.setImage(CHECKPOINT_TILE_YELLOW_IMAGE);
-                    break;
-                default:
+        TileType nextState = t.getTileType();
+        if (currentState != nextState) {
+            this.currentState = t.getTileType();
+            switch(currentState) {
+                case NONE:
                     this.setImage(null);
+                    setOnMousePressed(null);
                     break;
-                }
-                setOnMousePressed(null);
-                break;
+                case PROPERTY:
+                    this.setImage(PROPERTY_TILE_IMAGE);
+                    setOnMousePressed(new PropertyTileEventHandler());
+                    break;
+                case START:
+                    this.setImage(START_TILE_IMAGE);
+                    System.out.println("START TILE HAS COORDS: " +
+                    Integer.toString(xPos) + ", " + Integer.toString(yPos));
+                    setOnMousePressed(null);
+                    break;
+                case CHECKPOINT:
+                    CheckpointTile chkptT = (CheckpointTile) t;
+                    switch(chkptT.getColor()) {
+                    case BLU:
+                        this.setImage(CHECKPOINT_TILE_BLUE_IMAGE);
+                        break;
+                    case GRN:
+                        this.setImage(CHECKPOINT_TILE_GREEN_IMAGE);
+                        break;
+                    case RED:
+                        this.setImage(CHECKPOINT_TILE_RED_IMAGE);
+                        break;
+                    case YLW:
+                        this.setImage(CHECKPOINT_TILE_YELLOW_IMAGE);
+                        break;
+                    default:
+                        this.setImage(null);
+                        break;
+                    }
+                    setOnMousePressed(null);
+                    break;
+            }
+        
         }
+    }
+    
+    public TileType getCurrentState() {
+        return currentState;
     }
 
 }

@@ -170,7 +170,7 @@ public class MatchView implements ControlledScreen,
     			joystick.activateDiceRoll();
     		}
     	});
-    	System.out.println("\nHIT SELECT TO ROLL DICE\n");
+    	//System.out.println("\nHIT SELECT TO ROLL DICE\n");
     	MenuScreenView.modelThread.suspend();
     	Platform.runLater(new Runnable(){
     		@Override

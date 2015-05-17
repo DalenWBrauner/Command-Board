@@ -78,8 +78,4 @@ public class AIEasy implements PlayerRepresentative {
     public PlayerID castOnPlayer(SpellID spellCast) {
         return thePlayer.getID();
     }
-
-    /** The Easy AI doesn't actually care when the game is over. */
-    @Override
-    public void gameOver() {}
 }

@@ -269,11 +269,11 @@ public class MatchView implements ControlledScreen,
         return null;
     }
 
-    @Override
-    public void gameOver() {
-        // TODO Auto-generated method stub
-        victoryScreen.loadMatch(m);
-        myController.setActiveScreen(Main.VICTORY_SCREEN);
-    }
+//    @Override
+//    public void gameOver() {
+//        // TODO Auto-generated method stub
+//        victoryScreen.loadMatch(m);
+//        myController.setActiveScreen(Main.VICTORY_SCREEN);
+//    }
 
 }

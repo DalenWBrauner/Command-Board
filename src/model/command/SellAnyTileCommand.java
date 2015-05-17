@@ -16,6 +16,9 @@ public class SellAnyTileCommand extends Command {
     public void execute(Player sourcePlayer) {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();
 
+        // If the player doesn't have any tiles, quit early
+        if (sourcePlayer.getTilesOwned().size() == 0) return;
+
         // Ask the player which tile they have to sell
         PropertyTile soldTile = rep.sellWhichTile(sourcePlayer.getID());
 

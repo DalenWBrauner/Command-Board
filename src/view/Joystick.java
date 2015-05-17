@@ -292,6 +292,7 @@ public class Joystick implements Observer  {
 //		dialog.show();
 //		MenuScreenView.modelThread.resume();
 	    addToOutput(myMatch.getCurrentPlayerID() + "'s TURN IS STARTING");
+	    addToOutput("CHOOSE A SPELL?");
 	    MenuScreenView.modelThread.resume();
 	}
 	

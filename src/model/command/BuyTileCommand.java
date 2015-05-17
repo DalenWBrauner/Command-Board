@@ -50,6 +50,8 @@ public class BuyTileCommand extends Command {
 
         // If yes, buy the tile!
         if (theyAgreed) {
+            System.out.println(sourcePlayer.getID() + " bought the tile at (" +
+                    tileForPurchase.getX() + ", " + tileForPurchase.getY() + ")");
 
             // Subtract Funds
             subtractFunds.setAmount(tileForPurchase.getCost());

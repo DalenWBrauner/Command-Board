@@ -260,20 +260,19 @@ public class MatchView implements ControlledScreen,
     @Override
     public synchronized void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
-
+        boolean matchOver = m.isTheMatchOver();
+        if (!matchOver) {
+            //TODO: update boardview.
+        } else {
+            victoryScreen.loadMatch(m);
+            myController.setActiveScreen(Main.VICTORY_SCREEN);
+        }
     }
 
     @Override
     public PlayerID castOnPlayer(SpellID spellCast) {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    @Override
-    public void gameOver() {
-        // TODO Auto-generated method stub
-        victoryScreen.loadMatch(m);
-        myController.setActiveScreen(Main.VICTORY_SCREEN);
     }
 
 }

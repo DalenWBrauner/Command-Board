@@ -200,55 +200,52 @@ public class Joystick implements Observer  {
 		
 
 		//Shadow effects.
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
+		if (availableDirections.contains(CardinalDirection.EAST)) {
 				right.setEffect(shadow);
-		}else{
+				
+				right.setOnAction(new EventHandler<ActionEvent>(){
+		            @Override public void handle(ActionEvent e) {
+		                System.out.println("CLICKED RIGHT");
+		                chosenDirection = CardinalDirection.EAST;
+		                MenuScreenView.modelThread.resume();
+		            }
+		        });
+		} else{
 				right.setEffect(null);
 		}
 
 
-		right.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e) {
-				System.out.println("CLICKED RIGHT");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.EAST)){
-				chosenDirection = CardinalDirection.EAST;
-				MenuScreenView.modelThread.resume();
-				}
-			}
-		});
+		
 
 		//Shadow effects.
 		if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
 			up.setEffect(shadow);
+			
+			up.setOnAction(new EventHandler<ActionEvent>(){
+	            @Override public void handle(ActionEvent e) {
+	                System.out.println("CLICKED UP");
+	                chosenDirection = CardinalDirection.NORTH;
+	                MenuScreenView.modelThread.resume();
+	            }
+	        });
 		}else{
 			up.setEffect(null);
 		}
 
-		up.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e) {
-				System.out.println("CLICKED UP");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
-				chosenDirection = CardinalDirection.NORTH;
-				MenuScreenView.modelThread.resume();
-				}
-			}
-		});
-
-
 		if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
 			down.setEffect(shadow);
+			
+			down.setOnAction(new EventHandler<ActionEvent>(){
+	            @Override public void handle(ActionEvent e) {
+	                System.out.println("CLICKED DOWN");
+	                chosenDirection = CardinalDirection.SOUTH;
+	                MenuScreenView.modelThread.resume();
+	            }
+	        });
 		}else{
 			down.setEffect(null);
 		}
-		down.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e) {
-				System.out.println("CLICKED DOWN");
-				if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
-				chosenDirection = CardinalDirection.SOUTH;
-				MenuScreenView.modelThread.resume();
-				}
-			}
-		});
+		
 
 	}
 

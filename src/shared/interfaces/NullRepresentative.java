@@ -50,5 +50,4 @@ public class NullRepresentative implements PlayerRepresentative {
 
     @Override
     public PlayerID castOnPlayer(SpellID spellCast) { return thePlayer.getID(); }
-
 }

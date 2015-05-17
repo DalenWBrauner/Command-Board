@@ -52,6 +52,8 @@ public class Match extends Observable implements Observer, Runnable {
 
         // The Match is over!
         System.out.println("The match is over! " + winner.toString() + " wins!");
+        update();
+
         System.out.println("Match.start(); END");
     }
 

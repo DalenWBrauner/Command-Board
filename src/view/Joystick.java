@@ -35,12 +35,16 @@ public class Joystick implements Observer  {
 	private Group wallet;
 
 	private Group mainGroup;
-
+	
+	boolean notInstantiated = true;
 	Button left;
 	Button right;
 	Button up;
 	Button down;
 
+	Stage spellView;
+	Scene spellScene; 
+	
 	Button select;
 	Button spells;
 	
@@ -203,7 +207,7 @@ public class Joystick implements Observer  {
 		if (availableDirections.contains(CardinalDirection.EAST)) {
 				right.setEffect(shadow);
 				
-				right.setOnAction(new EventHandler<ActionEvent>(){
+				right.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {
 		                System.out.println("CLICKED RIGHT");
 		                chosenDirection = CardinalDirection.EAST;
@@ -214,11 +218,7 @@ public class Joystick implements Observer  {
 				right.setEffect(null);
 		}
 
-
-		
-
-		//Shadow effects.
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.NORTH)){
+		if (availableDirections.contains(CardinalDirection.NORTH)) {
 			up.setEffect(shadow);
 			
 			up.setOnAction(new EventHandler<ActionEvent>(){
@@ -228,11 +228,11 @@ public class Joystick implements Observer  {
 	                MenuScreenView.modelThread.resume();
 	            }
 	        });
-		}else{
+		} else {
 			up.setEffect(null);
 		}
 
-		if(Arrays.asList(availableDirections).contains(CardinalDirection.SOUTH)){
+		if (availableDirections.contains(CardinalDirection.SOUTH)) {
 			down.setEffect(shadow);
 			
 			down.setOnAction(new EventHandler<ActionEvent>(){
@@ -242,11 +242,10 @@ public class Joystick implements Observer  {
 	                MenuScreenView.modelThread.resume();
 	            }
 	        });
-		}else{
+		} else {
 			down.setEffect(null);
 		}
 		
-
 	}
 
 	void turnDirectionsOff(){
@@ -304,22 +303,33 @@ public class Joystick implements Observer  {
 	
 	public void activateSpellPhase(){
 		DropShadow shadow = new DropShadow();
-	    spells.setEffect(shadow);
-	    spells.setOnAction(new EventHandler<ActionEvent>(){
+		if (notInstantiated){
+			spells.setEffect(shadow);
+			spells.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
             @SuppressWarnings("deprecation")
 			public void handle(ActionEvent arg0) {
-				final Stage spellView = new Stage();
+				spellView = new Stage();
 				spellView.initModality(Modality.APPLICATION_MODAL);
 				spell.drawCards();
 				Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
 				spellView.setScene(spellScene);
 				spellView.show();
-
-
+				notInstantiated = false;
 			}
-
 	    });
+		}else{
+			spells.setEffect(shadow);
+			spells.setOnAction(new EventHandler<ActionEvent>(){
+				@Override
+				public void handle(ActionEvent arg0) {
+					spellView.show();
+					
+				}
+				
+			});
+			
+		}
 	    
 	    cancel.setEffect(shadow);
 	    cancel.setOnAction(new EventHandler<ActionEvent>(){

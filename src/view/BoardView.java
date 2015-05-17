@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import shared.enums.TileType;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -32,7 +34,10 @@ public class BoardView extends StackPane implements Observer {
 
     public BoardView(Match m) {
 
+        setAlignment(Pos.TOP_LEFT);
+        
         this.m = m;
+        m.addObserver(this);
         
         // TODO: Load background from match?
         // ex: setBackground(m.getBackground());
@@ -48,33 +53,22 @@ public class BoardView extends StackPane implements Observer {
         for (int x = 0; x < boardWidth; x++) {
             for (int y = 0; y < boardHeight; y++) {
                 tileViews[x][y] = new TileView(x, y);
-            }
-        }
-
-        /* Set the position of all the tiles and add all the tiles to a group */
-        for (int x = 0; x < boardWidth; x++) {
-            for (int y = 0; y < boardHeight; y++) {
-                if (tileViews[x][y] != null) {
-                    tileViews[x][y].setTranslateX(x * TileView.TILE_PIX_WIDTH);
-                    tileViews[x][y].setTranslateY(y * TileView.TILE_PIX_HEIGHT);
-                    tileGroup.getChildren().add(tileViews[x][y]);
-                }
-            }
-        }
-
-
-
-
-        // Set the states of each tile in our grid based on the
-        // map.
-        for (int x = 0; x < boardWidth; x++) {
-            for (int y = 0; y < boardHeight; y++) {
+                tileViews[x][y].setLayoutX(x * TileView.TILE_PIX_WIDTH);
+                tileViews[x][y].setLayoutY(y * TileView.TILE_PIX_HEIGHT);
                 tileViews[x][y].setCurrentState(m.getTile(x, y));
+                Tile t = m.getTile(x , y);
+                if (t.getTileType() == TileType.START) {
+                    System.out.println("start tile has coords: " +
+                            t.getX() + ", " + t.getY());
+                }
+                tileGroup.getChildren().add(tileViews[x][y]);
             }
         }
 
         // Create group of all the player sprites on the board.
         playerGroup = new Group();
+        playerGroup.setAutoSizeChildren(false);
+        playerGroup.setManaged(false);
         // TODO: Put players in the right spots from match info.
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
@@ -83,12 +77,12 @@ public class BoardView extends StackPane implements Observer {
         for (int i=0; i < numPlayers; i++) { 
             Player p = modelPlayers.get(i);
             players[i] = new PlayerView(p);
-            System.out.println("Player: " + p.getID().toString() + " has this X: " +
-                    p.getX() + " and this Y: " +
-                    p.getY() + ".");
+            System.out.println("Player: " + p.getID().toString() + " has coords: " +
+                    p.getX() + ", " + p.getY());
             players[i].setTranslateX(p.getX() * TileView.TILE_PIX_WIDTH);
             players[i].setTranslateY(p.getY() * TileView.TILE_PIX_HEIGHT);
-            playerGroup.getChildren().add(players[i]);
+            players[i].setManaged(false);
+            //playerGroup.getChildren().add(players[i]);
         }
 
         // The order of our stackpane will go: background image,
@@ -115,7 +109,10 @@ public class BoardView extends StackPane implements Observer {
             children.add(tileGroup);
         }
         if (playerGroup != null) {
-            children.add(playerGroup);
+            for (int i=0; i < players.length; i++) {
+                children.add(players[i]);
+            }
+            //children.add(playerGroup);
         }
     }
 
@@ -137,10 +134,13 @@ public class BoardView extends StackPane implements Observer {
         
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
-        for (int i=0; i < numPlayers; i++) { 
+        for (int i=0; i < numPlayers; i++) {
+            
             Player p = modelPlayers.get(i);
-            players[i].setLayoutX(p.getX());
-            players[i].setLayoutY(p.getY());
+            players[i].setTranslateX(p.getX());
+            players[i].setTranslateY(p.getY());
+            players[i].setManaged(false);
+            System.out.println(p.getID().toString() + " moved to " + p.getX() + ", " + p.getY());
         }
             
     }

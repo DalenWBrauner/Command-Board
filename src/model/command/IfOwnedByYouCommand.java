@@ -20,6 +20,8 @@ public class IfOwnedByYouCommand extends Command {
     public void execute(Player sourcePlayer) {
         if (whichTile.getOwner() == sourcePlayer.getID()) ifOwned.execute(sourcePlayer);
         else                                           ifNotOwned.execute(sourcePlayer);
-    }
 
+        setChanged();
+        notifyObservers();
+    }
 }

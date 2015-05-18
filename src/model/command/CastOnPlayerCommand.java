@@ -23,7 +23,7 @@ public class CastOnPlayerCommand extends Command {
         PlayerID target = sourcePlayer.getRepresentative().castOnPlayer(id);
         spell.execute(playerMap.get(target));
 
-        // This Command doesn't actually do anything
-        // We can rely on the Spell for updating
+        setChanged();
+        notifyObservers();
     }
 }

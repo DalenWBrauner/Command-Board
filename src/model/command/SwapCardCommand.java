@@ -40,6 +40,5 @@ public class SwapCardCommand extends Command {
             setChanged();
             notifyObservers();
         }
-
     }
 }

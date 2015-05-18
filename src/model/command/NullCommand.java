@@ -9,6 +9,9 @@ import model.Player;
 public class NullCommand extends Command {
 
     @Override
-    public void execute(Player sourcePlayer) {}
+    public void execute(Player sourcePlayer) {
 
+        setChanged();
+        notifyObservers();
+    }
 }

@@ -9,10 +9,14 @@ public class PrintCommand extends Command {
         output = printThis;
     }
 
+    @Override
     public void execute(Player sourcePlayer) {
         setChanged();
         notifyObservers();
         System.out.println("PrintCommand invoked by " +
                 sourcePlayer.getID() + ": " + output);
+
+        setChanged();
+        notifyObservers();
     }
 }

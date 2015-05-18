@@ -7,8 +7,8 @@ public enum SpellID {
     SPELL2  ("Foreclosure"),
     SPELL3  ("Upgrade"),
     SPELL4  ("Card Swap"),
-    SPELL5  ("Spell 5"),
-    SPELL6  ("Spell 6"),
+    SPELL5  ("Player Swap"),
+    SPELL6  ("Cash Magnet"),
     SPELL7  ("Spell 7"),
     SPELL8  ("Spell 8"),
     SPELL9  ("Spell 9"),
@@ -23,7 +23,7 @@ public enum SpellID {
     public String toString() {
         return myName;
     }
-    
+
     public static SpellID fromString(String text) {
         if (text != null) {
           for (SpellID b : SpellID.values()) {

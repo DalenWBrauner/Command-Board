@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Match;
 import model.Player;
 import model.tile.NullTile;
@@ -203,16 +205,21 @@ public class MatchView implements ControlledScreen,
     @Override
     public  boolean buyThisTile(PropertyTile tileForPurchase) {
 
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//               joystick.buyTile();
-//            }
-//
-//        });
-//      MenuScreenView.modelThread.suspend();
-        return true;
-        // Alert! TODO Use the GUI to ask the users!
+        final boolean[] answer = new boolean[] {false};
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int x = tileForPurchase.getX();
+                int y = tileForPurchase.getY();
+               board.highlightTile(x, y);
+               answer[0] = BooleanQuestionView.getAnswer("Do you wish to purchase"
+                       + " this tile?");
+               board.unhighlightTile(x, y);
+               MenuScreenView.modelThread.resume();
+            }
+        });
+        MenuScreenView.modelThread.suspend();
+        return answer[0];
     }
 
     @Override

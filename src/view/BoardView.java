@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.lang.Thread;
 
 import shared.enums.TileType;
 import javafx.collections.ObservableList;
@@ -129,6 +130,14 @@ public class BoardView extends StackPane implements Observer {
         
         // Update player positions.
         placePlayers();
+        
+        // Wait half a second.
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     /**

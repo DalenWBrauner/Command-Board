@@ -170,7 +170,6 @@ public class MatchView implements ControlledScreen,
     			joystick.activateDiceRoll();
     		}
     	});
-    	//System.out.println("\nHIT SELECT TO ROLL DICE\n");
     	MenuScreenView.modelThread.suspend();
     	Platform.runLater(new Runnable(){
     		@Override
@@ -219,7 +218,7 @@ public class MatchView implements ControlledScreen,
 
     @Override
     public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
-//        MenuScreenView.modelThread.suspend();
+
 //        Platform.runLater(new Runnable() {
 //            @Override
 //            public void run() {
@@ -227,6 +226,7 @@ public class MatchView implements ControlledScreen,
 //            }
 //
 //        });
+//      MenuScreenView.modelThread.suspend();
         return true;
         // Alert! TODO Use the GUI to ask the users!
     }

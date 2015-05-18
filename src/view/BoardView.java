@@ -48,7 +48,7 @@ public class BoardView extends StackPane implements Observer {
         boardHeight = m.getBoard().getHeight();
 
         tileGroup = new Group();
-        tileViews = new TileView[boardWidth][boardHeight]; //TODO: Get grid size from match object.
+        tileViews = new TileView[boardWidth][boardHeight];
 
         /* Create tile grid */
         for (int x = 0; x < boardWidth; x++) {
@@ -106,9 +106,6 @@ public class BoardView extends StackPane implements Observer {
             children.add(tileGroup);
         }
         if (playerGroup != null) {
-//            for (int i=0; i < players.length; i++) {
-//                children.add(players[i]);
-//            }
             children.add(playerGroup);
         }
     }

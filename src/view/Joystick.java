@@ -170,24 +170,13 @@ public class Joystick implements Observer  {
 
 		commandGroup.getChildren().add(cButtons);
 
-		//Add labels for On hand and and net Value
-//		money = new Label("ON HAND:              ");
-//		netVal = new Label("NET VALUE:           ");
-//		money.setAlignment(Pos.BOTTOM_RIGHT);
-//		VBox walletbox = new VBox();
-//		walletbox.setSpacing(20);
-//		walletbox.getChildren().addAll(money, netVal);
-//
-//		wallet.getChildren().add(walletbox);
-
-
 		mainGroup = new Group(directionGroup, commandGroup);
 
 		//Interesting note: The x coordinates can be exactly the same for the dbuttons and select buttons and they won'tline up.
 		directionGroup.setLayoutX(10);
 		directionGroup.setLayoutY(10);
 
-		//This
+		// This
 		commandGroup.setLayoutX(30);
 		commandGroup.setLayoutY(60);
 
@@ -323,36 +312,28 @@ public class Joystick implements Observer  {
 		});
 	}
 	
-	public void activateSpellPhase(){
+	public void activateSpellPhase() {
 		DropShadow shadow = new DropShadow();
 
-		if (notInstantiated){
-			spells.setEffect(shadow);
-			spells.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-            @SuppressWarnings("deprecation")
-			public void handle(ActionEvent arg0) {
-				spellView = new Stage();
-				spellView.initModality(Modality.APPLICATION_MODAL);
-				spell.drawCards();
-				Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
-				spellView.setScene(spellScene);
-				spellView.show();
-				notInstantiated = false;
-			}
-	    });
-		}else{
-			spells.setEffect(shadow);
-			spells.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent arg0) {
-					spellView.show();
-					
-				}
-				
-			});
-			
+		spells.setEffect(shadow);
+		spells.setOnAction(new EventHandler<ActionEvent>(){
+		@Override
+        @SuppressWarnings("deprecation")
+		public void handle(ActionEvent arg0) {
+		    // I don't understand this -- Noah
+		    if (notInstantiated) {
+		        spellView = new Stage();
+                spellView.initModality(Modality.APPLICATION_MODAL);
+                spell.drawCards();
+                Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
+                spellView.setScene(spellScene);
+                spellView.show();
+                notInstantiated = false;
+		    } else {
+		        spellView.show();
+		    }
 		}
+    });
 	    
 	    cancel.setEffect(shadow);
 	    cancel.setOnAction(new EventHandler<ActionEvent>(){

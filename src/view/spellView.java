@@ -133,8 +133,8 @@ public class spellView {
 		cancel.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		    @Override
             public void handle(MouseEvent arg0) {
-		        
-                
+		        Stage stage = (Stage) cancel.getScene().getWindow();
+                stage.close();
             }
 		});
 		

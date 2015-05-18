@@ -26,7 +26,7 @@ public class SellAnyTileCommand extends Command {
         tileSalesman.setTile(soldTile);
         tileSalesman.execute(sourcePlayer);
 
-        // The player is forced to sell,
-        // Therefore we can rely on the sellCommand updating for us
+        setChanged();
+        notifyObservers();
     }
 }

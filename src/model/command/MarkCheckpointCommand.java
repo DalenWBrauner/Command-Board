@@ -13,6 +13,7 @@ public class MarkCheckpointCommand extends Command {
         executeThis = ifNotYetPassed;
     }
 
+    @Override
     public void execute(Player sourcePlayer) {
         // If the player has yet to pass this checkpoint
         if (!sourcePlayer.hasPassed(myColor)) {
@@ -25,6 +26,9 @@ public class MarkCheckpointCommand extends Command {
             // And execute what follows
             executeThis.execute(sourcePlayer);
         }
-        // Otherwise, don't do anything; don't even bother to update
+        // Otherwise, don't do anything
+
+        setChanged();
+        notifyObservers();
     }
 }

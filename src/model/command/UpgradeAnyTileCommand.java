@@ -49,6 +49,7 @@ public class UpgradeAnyTileCommand extends Command {
         tileUpgrader.setTile((PropertyTile) whichTile);
         tileUpgrader.execute(sourcePlayer);
 
-        // No need to update unless they actually upgrade the tile
+        setChanged();
+        notifyObservers();
     }
 }

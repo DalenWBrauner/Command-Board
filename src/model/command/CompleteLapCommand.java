@@ -30,6 +30,9 @@ public class CompleteLapCommand extends Command {
             // Now execute whatever happens as a result
             executeThis.execute(sourcePlayer);
         }
-        // Otherwise, don't do anything; don't even bother to update
+
+        // Otherwise, don't do anything
+        setChanged();
+        notifyObservers();
     }
 }

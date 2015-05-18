@@ -26,6 +26,7 @@ public class BoardView extends StackPane implements Observer {
 
     private Node background;
     private Group tileGroup;
+    private Group tileDecorationsGroup;
     private Group playerGroup;
 
     private TileView[][] tileViews;
@@ -66,6 +67,10 @@ public class BoardView extends StackPane implements Observer {
                 tileGroup.getChildren().add(tileViews[x][y]);
             }
         }
+        
+        // Create empty group. We will fill this in the future with overlays
+        // on top of our tiles.
+        tileDecorationsGroup = new Group();
 
         // Create group of all the player sprites on the board.
         playerGroup = new Group();
@@ -103,11 +108,39 @@ public class BoardView extends StackPane implements Observer {
         if (background != null) {
             children.add(background);
         }
+        if (tileDecorationsGroup != null) { // it never should be null, in fact.
+            children.add(tileDecorationsGroup);
+        }
         if (tileGroup != null) { // it never should be null, in fact.
             children.add(tileGroup);
         }
         if (playerGroup != null) {
             children.add(playerGroup);
+        }
+    }
+    
+    
+    public void highlightTile(int x, int y) {
+        TileHighlightView t = new TileHighlightView(x, y);
+        t.setTranslateX(x * TileView.TILE_PIX_WIDTH);
+        t.setTranslateY(y * TileView.TILE_PIX_WIDTH);
+        
+        tileDecorationsGroup.getChildren().add(t);
+    }
+    
+    public void unhighlightTile(int x, int y) {
+        Node nodeToRemove = null;
+        for (Node n : tileDecorationsGroup.getChildren()) {
+            if (n instanceof TileHighlightView) {
+                TileHighlightView t = (TileHighlightView)n;
+                if (t.getXPos() == x && t.getYPos() == y) {
+                    nodeToRemove = n;
+                    break;
+                }
+            }
+        }
+        if (nodeToRemove != null) {
+            tileDecorationsGroup.getChildren().remove(nodeToRemove);
         }
     }
 

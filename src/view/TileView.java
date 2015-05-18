@@ -88,5 +88,11 @@ public class TileView extends ImageView {
     public TileType getCurrentState() {
         return currentState;
     }
+    public int getXPos() {
+        return xPos;
+    }
+    public int getYPos() {
+        return yPos;
+    }
 
 }

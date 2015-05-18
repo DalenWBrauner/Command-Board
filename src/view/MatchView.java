@@ -219,7 +219,14 @@ public class MatchView implements ControlledScreen,
 
     @Override
     public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
-        // Don't purchase tiles ever
+//        MenuScreenView.modelThread.suspend();
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//               joystick.buyTile();
+//            }
+//
+//        });
         return true;
         // Alert! TODO Use the GUI to ask the users!
     }

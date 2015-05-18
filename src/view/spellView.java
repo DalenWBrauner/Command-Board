@@ -130,6 +130,14 @@ public class spellView {
 			}	
 		});
 		
+		cancel.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		    @Override
+            public void handle(MouseEvent arg0) {
+		        
+                
+            }
+		});
+		
 		VBox spellStuff = new VBox();
 		spellStuff.setSpacing(20);
 		spellStuff.getChildren().addAll(Cost, Description);

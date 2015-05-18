@@ -325,6 +325,7 @@ public class Joystick implements Observer  {
 	
 	public void activateSpellPhase(){
 		DropShadow shadow = new DropShadow();
+
 		if (notInstantiated){
 			spells.setEffect(shadow);
 			spells.setOnAction(new EventHandler<ActionEvent>(){
@@ -360,7 +361,6 @@ public class Joystick implements Observer  {
 			public void handle(ActionEvent arg0) {
 				castedSpell = SpellID.NOSPELL;
 				MenuScreenView.modelThread.resume();
-				
 			}
 	    });
 	    	

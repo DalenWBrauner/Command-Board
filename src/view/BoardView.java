@@ -163,7 +163,6 @@ public class BoardView extends StackPane implements Observer {
                     yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
                     break;
                 case 1:
-                    System.out.println("JDLKFJDSKLFJLKSDJFL");
                     xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH;
                     yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
                     break;

@@ -255,9 +255,30 @@ public class Joystick implements Observer  {
 	void turnDirectionsOff(){
 		//Turns directions off so they dont stay highlighted.
 		left.setEffect(null);
+		left.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+                // do nothing
+            }
+        });
+		
 		right.setEffect(null);
+		right.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+                // do nothing
+            }
+        });
 		up.setEffect(null);
+		up.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+                // do nothing
+            }
+        });
 		down.setEffect(null);
+		down.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+                // do nothing
+            }
+        });
 	}
 
 	public CardinalDirection getDirection() {
@@ -323,6 +344,7 @@ public class Joystick implements Observer  {
 			@Override
 			public void handle(ActionEvent arg0) {
 				castedSpell = SpellID.NOSPELL;
+				addToOutput("You chose to not cast a spell!");
 				MenuScreenView.modelThread.resume();
 			}
 	    });
@@ -330,7 +352,17 @@ public class Joystick implements Observer  {
 
 	public void turnStartOff(){
 		select.setEffect(null);
+		select.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+                // do nothing
+            }
+        });
 		spells.setEffect(null);
+		spells.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+                // do nothing
+            }
+        });
 	}
 
 	public void turnSpellOff(){

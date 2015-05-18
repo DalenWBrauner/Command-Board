@@ -140,7 +140,9 @@ public class spellView {
 				SpellID valof = SpellID.fromString(val);
 				if(gotTheDough(valof)){
 					myStick.castedSpell = valof;
+					myStick.addToOutput("You chose to cast " + val + "!");
 					Stage stage = (Stage) cast.getScene().getWindow();
+					stage.close();
 					MenuScreenView.modelThread.resume();
 				}
 			}

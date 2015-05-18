@@ -19,7 +19,6 @@ public class walletView {
 	Label P1money;
 	Label P1netVal;
 
-
 	Label P2money;
 	Label P2netVal;
 
@@ -39,9 +38,6 @@ public class walletView {
 	Match m;
 
 	int numPlays;
-
-
-
 
 	public walletView(Match m) {
 
@@ -98,10 +94,7 @@ public class walletView {
     		finalBox.getChildren().addAll(comBox, comBox2);
     		wallGroup = new Group(finalBox);
 
-
-
-
-    	} else if(numPlays ==3) { //You have three players
+    	} else if (numPlays == 3) { //You have three players
 
     		P1money = new Label("P1 ON HAND: $0             ");
     		P1netVal = new Label("P1 NET VALUE: $0          ");
@@ -148,12 +141,10 @@ public class walletView {
     		P1money.setTextFill(P1COLOR);
     		P1netVal.setTextFill(P1COLOR);
 
-
     		P2money = new Label("P2 ON HAND: $0              ");
     		P2netVal = new Label("P2 NET VALUE: $0           ");
     		P2money.setTextFill(P2COLOR);
     		P2netVal.setTextFill(P2COLOR);
-
 
     		P2box.setSpacing(20);
     		P2box.getChildren().addAll(P2money, P2netVal);
@@ -167,10 +158,6 @@ public class walletView {
 
     		wallGroup = new Group(box);
     	}
-
-
-
-
 	}
 
 	void update(){
@@ -192,11 +179,9 @@ public class walletView {
 	        netValue.setText(String.format("%s NET VALUE: $",
 	                shortName) + w.getNetValue());
 	    }
-
 	}
 
 	Group getWallGroup() {
 	    return wallGroup;
 	}
-
 }

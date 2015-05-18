@@ -3,9 +3,7 @@ package view;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.lang.Thread;
 
-import shared.enums.TileType;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -21,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import model.Match;
 import model.Player;
 import model.tile.Tile;
+import shared.enums.TileType;
 
 public class BoardView extends StackPane implements Observer {
 
@@ -38,10 +37,10 @@ public class BoardView extends StackPane implements Observer {
     public BoardView(Match m) {
 
         setAlignment(Pos.TOP_LEFT);
-        
+
         this.m = m;
         m.addObserver(this);
-        
+
         // TODO: Load background from match?
         // ex: setBackground(m.getBackground());
 
@@ -67,7 +66,7 @@ public class BoardView extends StackPane implements Observer {
                 tileGroup.getChildren().add(tileViews[x][y]);
             }
         }
-        
+
         // Create empty group. We will fill this in the future with overlays
         // on top of our tiles.
         tileDecorationsGroup = new Group();
@@ -88,13 +87,11 @@ public class BoardView extends StackPane implements Observer {
 
         // Place the players into their correct starting positions.
         placePlayers();
-        
+
         // The order of our stackpane will go: background image,
         // tile images, and then player sprite images.
         redrawSelf();
     }
-
-
 
     public void setBackground(Image newBackgroundImage) {
         setBackground(new Background(new BackgroundImage(newBackgroundImage,
@@ -119,8 +116,7 @@ public class BoardView extends StackPane implements Observer {
             children.add(playerGroup);
         }
     }
-    
-    
+
     public void highlightTile(int x, int y) {
         TileOverlayView t = new TileOverlayView(tileViews[x][y]);
         t.setOverlay("highlight");
@@ -128,7 +124,7 @@ public class BoardView extends StackPane implements Observer {
         t.setTranslateY(y * TileView.TILE_PIX_WIDTH);
         tileDecorationsGroup.getChildren().add(t);
     }
-    
+
     public void unhighlightTile(int x, int y) {
         Node nodeToRemove = null;
         for (Node n : tileDecorationsGroup.getChildren()) {
@@ -145,7 +141,6 @@ public class BoardView extends StackPane implements Observer {
         }
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
         Platform.runLater(new Runnable() {
@@ -153,10 +148,10 @@ public class BoardView extends StackPane implements Observer {
             public void run() {
              // Update tile states.
                 updateTiles();
-                
+
                 // Update player positions.
                 placePlayers();
-                
+
                 // Wait half a second.
                 try {
                     Thread.sleep(500);
@@ -168,9 +163,8 @@ public class BoardView extends StackPane implements Observer {
             }
         });
         MenuScreenView.modelThread.suspend();
-        
     }
-    
+
     private void updateTiles() {
         // Update tile states
         for (int x=0; x < boardWidth; x++) {
@@ -184,14 +178,11 @@ public class BoardView extends StackPane implements Observer {
             }
         }
     }
-    
-    /**
-     * 
-     */
+
     private void placePlayers() {
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
-        
+
         boolean[] sharingSameSpot = new boolean[numPlayers];
         for (int i=0; i < numPlayers; i++) {
             for (int j=i+1; j < numPlayers; j++) {
@@ -204,9 +195,9 @@ public class BoardView extends StackPane implements Observer {
                 }
             }
         }
-        
+
         for (int i=0; i < numPlayers; i++) {
-            
+
             Player p = modelPlayers.get(i);
             if (sharingSameSpot[i]) {
                 Double xCoords;
@@ -238,10 +229,6 @@ public class BoardView extends StackPane implements Observer {
                 players[i].setTranslateX((p.getX() + 0.25) * TileView.TILE_PIX_WIDTH);
                 players[i].setTranslateY((p.getY() + 0.25) * TileView.TILE_PIX_HEIGHT);
             }
-            
-            
         }
-            
     }
-
 }

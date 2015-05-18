@@ -1,7 +1,4 @@
 /**
- * 
- */
-/**
  * @author Dalen W. Brauner
  *
  */

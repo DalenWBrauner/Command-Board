@@ -18,10 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Match;
@@ -30,7 +28,7 @@ import shared.enums.SpellID;
 
 
 public class Joystick implements Observer  {
-    
+
     // TODO: Replace this with Guava's
     // EvictingQueue.
     private class LimitedQueue<E> extends LinkedList<E> {
@@ -50,13 +48,13 @@ public class Joystick implements Observer  {
 
     private LimitedQueue<String> outputQ;
     private Label outputLabel;
-    
+
 	private Group directionGroup;
 	private Group commandGroup;
 	private Group wallet;
 
 	private Group mainGroup;
-	
+
 	boolean notInstantiated = true;
 	Button left;
 	Button right;
@@ -64,14 +62,13 @@ public class Joystick implements Observer  {
 	Button down;
 
 	Stage spellView;
-	Scene spellScene; 
-	
+	Scene spellScene;
+
 	Button select;
 	Button spells;
-	
+
 	Button cancel;
 	Button menu;
-
 
 	Label money;
 	Label netVal;
@@ -127,7 +124,6 @@ public class Joystick implements Observer  {
 		up.setMinHeight(dButtons.getPrefHeight());
 
 
-
 		dButtons.getChildren().addAll(left, right, up, down);
 		dButtons.setAlignment(Pos.CENTER_LEFT);
 		directionGroup.getChildren().add(dButtons);
@@ -165,7 +161,6 @@ public class Joystick implements Observer  {
 		menu.setMinWidth(cButtons.getPrefWidth());
 
 
-
 		cButtons.getChildren().addAll(select, spells, cancel, menu);
 
 		commandGroup.getChildren().add(cButtons);
@@ -188,9 +183,7 @@ public class Joystick implements Observer  {
         spellView.setScene(spellScene);
 	}
 
-
-
-	Group getMainGroup(){
+	Group getMainGroup() {
 		return mainGroup;
 	}
 
@@ -198,12 +191,12 @@ public class Joystick implements Observer  {
 		DropShadow shadow = new DropShadow();
 
 		List<CardinalDirection> availableDirections = Arrays.asList(availableDirectionsArr);
-		
+
 		if (availableDirections.contains(CardinalDirection.WEST)) {
-		    
+
 		    //Shadow effects.
 	        left.setEffect(shadow);
-	        
+
 	        // Event handler.
 	        left.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
@@ -212,15 +205,14 @@ public class Joystick implements Observer  {
                     MenuScreenView.modelThread.resume();
 	            }
 	        });
+
 		} else {
 		    left.setEffect(null);
 		}
-		
 
 		//Shadow effects.
 		if (availableDirections.contains(CardinalDirection.EAST)) {
 				right.setEffect(shadow);
-				
 				right.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {
 		                //addToOutput("CLICKED RIGHT");
@@ -228,13 +220,12 @@ public class Joystick implements Observer  {
 		                MenuScreenView.modelThread.resume();
 		            }
 		        });
-		} else{
+		} else {
 				right.setEffect(null);
 		}
 
 		if (availableDirections.contains(CardinalDirection.NORTH)) {
 			up.setEffect(shadow);
-			
 			up.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
 	                //addToOutput("CLICKED UP");
@@ -248,7 +239,6 @@ public class Joystick implements Observer  {
 
 		if (availableDirections.contains(CardinalDirection.SOUTH)) {
 			down.setEffect(shadow);
-			
 			down.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
 	                //addToOutput("CLICKED DOWN");
@@ -259,7 +249,7 @@ public class Joystick implements Observer  {
 		} else {
 			down.setEffect(null);
 		}
-		
+
 	}
 
 	void turnDirectionsOff(){
@@ -269,8 +259,6 @@ public class Joystick implements Observer  {
 		up.setEffect(null);
 		down.setEffect(null);
 	}
-
-
 
 	public CardinalDirection getDirection() {
 		return chosenDirection;
@@ -290,9 +278,8 @@ public class Joystick implements Observer  {
 	    addToOutput("CHOOSE A SPELL?");
 	    MenuScreenView.modelThread.resume();
 	}
-	
-	public void activateDiceRoll(){
 
+	public void activateDiceRoll(){
 	    addToOutput("PRESS SELECT TO ROLL THE DICE");
 		DropShadow shadow = new DropShadow();
 		select.setEffect(shadow);
@@ -317,10 +304,9 @@ public class Joystick implements Observer  {
 			}
 		});
 	}
-	
+
 	public void activateSpellPhase() {
 		DropShadow shadow = new DropShadow();
-
 		spells.setEffect(shadow);
 		spells.setOnAction(new EventHandler<ActionEvent>(){
 		@Override
@@ -330,7 +316,7 @@ public class Joystick implements Observer  {
 		    spellView.show();
 		}
     });
-	    
+
 	    cancel.setEffect(shadow);
 	    cancel.setOnAction(new EventHandler<ActionEvent>(){
 
@@ -340,16 +326,13 @@ public class Joystick implements Observer  {
 				MenuScreenView.modelThread.resume();
 			}
 	    });
-	    	
-
 	}
-
 
 	public void turnStartOff(){
 		select.setEffect(null);
 		spells.setEffect(null);
 	}
-	
+
 	public void turnSpellOff(){
 		cancel.setEffect(null);
 		spells.setEffect(null);
@@ -358,7 +341,7 @@ public class Joystick implements Observer  {
 	public int getRollResult(){
 		return answer;
 	}
-	
+
 	public void spellReset(){
 		castedSpell = SpellID.NOSPELL;
 	}
@@ -366,13 +349,13 @@ public class Joystick implements Observer  {
 	public void registerMatch(Match m){
 		myMatch = m;
 		m.addObserver(this);
-		
+
 		groupWallet = new walletView(myMatch);
 		setWalletText();
 		mainGroup.getChildren().add(groupWallet.getWallGroup());
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
-		
+
 		spell.registerMatch(m);
 		Label cashGoal = new Label("CASH GOAL: $" + myMatch.getCashGoal());
 		cashGoal.setFont(Font.font("Verdana", FontPosture.ITALIC, 20));
@@ -384,20 +367,19 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().add(checks.getMainGroup());
 		mainGroup.getChildren().get(4).setLayoutX(500);
 		mainGroup.getChildren().get(4).setLayoutY(40);
-		
+
 		outputLabel = new Label();
 		outputQ = new LimitedQueue<>(8);
 		outputLabel.setLayoutX(1100);
 		outputLabel.setLayoutY(30);
 		mainGroup.getChildren().add(outputLabel);
-
 	}
-	
+
 	public void addToOutput(String s) {
 	    outputQ.add(s);
 	    redrawOutput();
 	}
-	
+
 	private void redrawOutput() {
 	    String text = "";
 	    for (String s : outputQ) {
@@ -412,9 +394,8 @@ public class Joystick implements Observer  {
 
 	public void setCheckpointEffect(){
 		checks.redraw();
-
 	}
-	
+
 	public void updateSpellView(){
 		spell.drawCards();
 	}
@@ -441,6 +422,3 @@ public class Joystick implements Observer  {
 		return castedSpell;
 	}
 }
-
-
-

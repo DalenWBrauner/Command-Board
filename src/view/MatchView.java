@@ -11,8 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import model.Match;
 import model.Player;
 import model.tile.NullTile;
@@ -30,14 +28,12 @@ import controller.ScreenSwitcher;
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
 
-
     private VBox root;
     private BoardView board;
     private Joystick joystick;
     private ScreenSwitcher myController;
     private VictoryView victoryScreen;
     private Match m;
-
 
     //for testing
     //Scanner scan = new Scanner(System.in);
@@ -78,7 +74,6 @@ public class MatchView implements ControlledScreen,
         // right now we manually set it though.
         board.setBackground(BOARD_BACKGROUND_IMAGE);
 
-
         // Put our board into a scrollpane.
         ScrollPane sp = new ScrollPane();
         //sp.setVmax(arg0);
@@ -89,7 +84,6 @@ public class MatchView implements ControlledScreen,
 
         // Add our scrollpane to the root.
         root.getChildren().add(sp);
-
 
         // TODO: Create joystick UI.
         joystick = new Joystick();
@@ -114,13 +108,10 @@ public class MatchView implements ControlledScreen,
         myController = scSw;
     }
 
-    // TODO: Decide if this should be
     @Override
     public Parent getRoot() {
         return root;
     }
-
-    //Skeleton functions to fill in for Dalen
 
     @Override
     @SuppressWarnings("deprecation")
@@ -166,7 +157,6 @@ public class MatchView implements ControlledScreen,
     	return joystick.getRollResult();
     }
 
-    // TODO: Decide if this should be
     //Loads joystick
     public Group getJoystick(){
     	Group joystick = new Group();

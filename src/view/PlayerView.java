@@ -2,10 +2,9 @@ package view;
 
 import java.io.File;
 
-import shared.enums.PlayerID;
-import model.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.Player;
 
 public class PlayerView extends ImageView {
 
@@ -17,10 +16,9 @@ public class PlayerView extends ImageView {
             new File("images/Player 3.png").toURI().toString());
     public final static Image PLAYER4_IMAGE = new Image(
             new File("images/Player 4.png").toURI().toString());
-    
-    
+
     private Player p;
-    
+
     public PlayerView(Player p) {
         this.p = p;
         switch (p.getID()) {
@@ -36,12 +34,11 @@ public class PlayerView extends ImageView {
         case PLAYER4:
             setImage(PLAYER4_IMAGE);
             break;
-        case NOPLAYER:
-            // Do nothing.
+        case NOPLAYER: // Do nothing.
             break;
         }
     }
-    
+
     public Player getPlayer() {
         return p;
     }

@@ -12,21 +12,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BooleanQuestionView {
-    
+
     public static boolean getAnswer(String question) {
-        
+
         final boolean[] result = new boolean[] {false};
-        
+
         final Stage questionStage = new Stage();
         questionStage.initModality(Modality.WINDOW_MODAL);
-        
+
 //        questionStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 //            @Override
 //            public void handle(WindowEvent e) {
 //                result = 0;
 //            }
 //         });
-        
+
         Label questionLabel = new Label(question);
         questionLabel.setAlignment(Pos.BASELINE_CENTER);
 
@@ -39,8 +39,8 @@ public class BooleanQuestionView {
                 questionStage.close();
             }
         });
-        Button noBtn = new Button("No");
 
+        Button noBtn = new Button("No");
         noBtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -60,7 +60,7 @@ public class BooleanQuestionView {
 
         questionStage.setScene(new Scene(vBox));
         questionStage.showAndWait();
-        
+
         return result[0];
     }
 }

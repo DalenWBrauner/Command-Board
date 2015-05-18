@@ -1,12 +1,12 @@
 package view.interfaces;
 
-import controller.ScreenSwitcher;
 import javafx.scene.Parent;
+import controller.ScreenSwitcher;
 
 public interface ControlledScreen {
 
-    //This method will allow the injection of the Parent ScreenPane 
+    /** Allows the injection of the Parent ScreenPane */
     public void setScreenParent(ScreenSwitcher scSw);
-    
+
     public Parent getRoot();
 }

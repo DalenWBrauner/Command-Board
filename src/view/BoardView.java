@@ -5,6 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.lang.Thread;
 
+import shared.enums.CardShape;
+import shared.enums.PlayerID;
 import shared.enums.TileType;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -20,6 +22,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import model.Match;
 import model.Player;
+import model.tile.PropertyTile;
 import model.tile.Tile;
 
 public class BoardView extends StackPane implements Observer {
@@ -30,6 +33,8 @@ public class BoardView extends StackPane implements Observer {
     private Group playerGroup;
 
     private TileView[][] tileViews;
+    private OwnerView[][] tileOwners;
+    private CardView[][] tileCards;
     private PlayerView[] players;
     private int boardWidth;
     private int boardHeight;
@@ -51,6 +56,8 @@ public class BoardView extends StackPane implements Observer {
 
         tileGroup = new Group();
         tileViews = new TileView[boardWidth][boardHeight];
+        tileOwners = new OwnerView[boardWidth][boardHeight];
+        tileCards = new CardView[boardWidth][boardHeight];
 
         /* Create tile grid */
         for (int x = 0; x < boardWidth; x++) {
@@ -175,7 +182,23 @@ public class BoardView extends StackPane implements Observer {
         // Update tile states
         for (int x=0; x < boardWidth; x++) {
             for (int y=0; y < boardHeight; y++) {
-                tileViews[x][y].setCurrentState(m.getBoard().getTile(x, y));
+                Tile t = m.getBoard().getTile(x, y);
+                tileViews[x][y].setCurrentState(t);
+                if (t.getTileType() == TileType.PROPERTY) {
+                    //TODO: this
+//                    PropertyTile pt = (PropertyTile)t;
+//                    PlayerID owner = pt.getOwner();
+//                    if (owner != PlayerID.NOPLAYER &&
+//                            owner != tileOwners[x][y]) {
+//                        TileOverlayView ownerOverlay = new TileOverlayView(tileViews[x][y]);
+//                        ownerOverlay.setOverlay("play")
+//                        t.setOverlay("highlight");
+//                        t.setTranslateX(x * TileView.TILE_PIX_WIDTH - 12);
+//                        t.setTranslateY(y * TileView.TILE_PIX_WIDTH - 12);
+//                        tileDecorationsGroup.getChildren().add(t);
+//                        
+//                    }
+                }
 //                TileView t = tileViews[x][y];
 //                Tile modelT = m.getBoard().getTile(x, y);
 //                if (t.getCurrentState() != modelT.getTileType()) {

@@ -211,11 +211,11 @@ public class MatchView implements ControlledScreen,
             public void run() {
                 int x = tileForPurchase.getX();
                 int y = tileForPurchase.getY();
-               board.highlightTile(x, y);
-               answer[0] = BooleanQuestionView.getAnswer("Do you wish to purchase"
+                board.highlightTile(x, y);
+                answer[0] = BooleanQuestionView.getAnswer("Do you wish to purchase"
                        + " this tile?");
-               board.unhighlightTile(x, y);
-               MenuScreenView.modelThread.resume();
+                board.unhighlightTile(x, y);
+                MenuScreenView.modelThread.resume();
             }
         });
         MenuScreenView.modelThread.suspend();

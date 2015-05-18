@@ -121,7 +121,7 @@ public class BoardView extends StackPane implements Observer {
     
     
     public void highlightTile(int x, int y) {
-        TileHighlightView t = new TileHighlightView(x, y);
+        TileOverlayView t = new TileOverlayView(tileViews[x][y]);
         t.setTranslateX(x * TileView.TILE_PIX_WIDTH);
         t.setTranslateY(y * TileView.TILE_PIX_WIDTH);
         
@@ -131,8 +131,8 @@ public class BoardView extends StackPane implements Observer {
     public void unhighlightTile(int x, int y) {
         Node nodeToRemove = null;
         for (Node n : tileDecorationsGroup.getChildren()) {
-            if (n instanceof TileHighlightView) {
-                TileHighlightView t = (TileHighlightView)n;
+            if (n instanceof TileOverlayView) {
+                TileOverlayView t = (TileOverlayView)n;
                 if (t.getXPos() == x && t.getYPos() == y) {
                     nodeToRemove = n;
                     break;

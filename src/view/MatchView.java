@@ -285,11 +285,20 @@ public class MatchView implements ControlledScreen,
     public synchronized void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
         boolean matchOver = m.isTheMatchOver();
-        if (!matchOver) {
-            //TODO: update boardview.
-        } else {
-            victoryScreen.loadMatch(m);
-            myController.setActiveScreen(Main.VICTORY_SCREEN);
+        if (matchOver) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                   goToNextScreen();
+                }
+            });
+            MenuScreenView.modelThread.suspend();
         }
+    }
+    
+    private void goToNextScreen() {
+        victoryScreen.loadMatch(m);
+        myController.setActiveScreen(Main.VICTORY_SCREEN);
+        MenuScreenView.modelThread.resume();
     }
 }

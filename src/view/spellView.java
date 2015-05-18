@@ -42,8 +42,7 @@ public class spellView {
 	Joystick myStick;
 	
 	SpellID castedSpell = SpellID.NOSPELL;
-	public spellView(Match myMatch, Joystick myStick){
-		this.myMatch = myMatch;
+	public spellView(Joystick myStick){
 		this.myStick = myStick;
 		initSpellView();
 		
@@ -147,8 +146,8 @@ public class spellView {
 		mainGroup.getChildren().get(2).setLayoutX(50);
 		mainGroup.getChildren().get(2).setLayoutY(200);
 		
-		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
-		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
+//		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
+//		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
 		
 //		Hand currentHand = currentPlayer.getHand();
 //		CardShape[] currentCards = currentHand.getAllCards();
@@ -164,7 +163,9 @@ public class spellView {
 		
 	}
 	
-	
+	public void registerMatch(Match m) {
+	    this.myMatch = m;
+	}
 	public void drawCards(){
 //		//Get rid of old cards
 //		

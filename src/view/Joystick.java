@@ -31,7 +31,7 @@ import shared.enums.SpellID;
 
 public class Joystick implements Observer  {
     
-    //TODO: Replace this with Guava's
+    // TODO: Replace this with Guava's
     // EvictingQueue.
     private class LimitedQueue<E> extends LinkedList<E> {
         private int limit;
@@ -180,6 +180,12 @@ public class Joystick implements Observer  {
 		commandGroup.setLayoutX(30);
 		commandGroup.setLayoutY(60);
 
+		spell = new spellView(this);
+        spellView = new Stage();
+        spellView.initModality(Modality.APPLICATION_MODAL);
+        spell.drawCards();
+        Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
+        spellView.setScene(spellScene);
 	}
 
 
@@ -320,18 +326,8 @@ public class Joystick implements Observer  {
 		@Override
         @SuppressWarnings("deprecation")
 		public void handle(ActionEvent arg0) {
-		    // I don't understand this -- Noah
-		    if (notInstantiated) {
-		        spellView = new Stage();
-                spellView.initModality(Modality.APPLICATION_MODAL);
-                spell.drawCards();
-                Scene spellScene = new Scene (spell.getMainGroup(), 400, 400);
-                spellView.setScene(spellScene);
-                spellView.show();
-                notInstantiated = false;
-		    } else {
-		        spellView.show();
-		    }
+		    spell.drawCards();
+		    spellView.show();
 		}
     });
 	    
@@ -377,7 +373,7 @@ public class Joystick implements Observer  {
 		mainGroup.getChildren().get(2).setLayoutX(500);
 		mainGroup.getChildren().get(2).setLayoutY(90);
 		
-		spell = new spellView(myMatch, this);
+		spell.registerMatch(m);
 		Label cashGoal = new Label("CASH GOAL: $" + myMatch.getCashGoal());
 		cashGoal.setFont(Font.font("Verdana", FontPosture.ITALIC, 20));
 		mainGroup.getChildren().add(cashGoal);

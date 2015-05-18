@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.lang.Thread;
 
 import shared.enums.TileType;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -113,6 +114,30 @@ public class BoardView extends StackPane implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+             // Update tile states.
+                updateTiles();
+                
+                // Update player positions.
+                placePlayers();
+                
+                // Wait half a second.
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                MenuScreenView.modelThread.resume();
+            }
+        });
+        MenuScreenView.modelThread.suspend();
+        
+    }
+    
+    private void updateTiles() {
         // Update tile states
         for (int x=0; x < boardWidth; x++) {
             for (int y=0; y < boardHeight; y++) {
@@ -123,17 +148,6 @@ public class BoardView extends StackPane implements Observer {
 //                    t.setCurrentState(t);
 //                }
             }
-        }
-        
-        // Update player positions.
-        placePlayers();
-        
-        // Wait half a second.
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
     

@@ -241,23 +241,23 @@ public class BoardView extends StackPane implements Observer {
                 Double yCoords;
                 switch(p.getID()) {
                 case PLAYER1:
-                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+10);
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+5);
                     yCoords = (double) ((p.getY() + 1.0/3) * TileView.TILE_PIX_HEIGHT);
                     break;
                 case PLAYER2:
-                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH+10;
+                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH+5;
                     yCoords = (double) ((p.getY() + 1.0/3) * TileView.TILE_PIX_HEIGHT);
                     break;
                 case PLAYER3:
-                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+10);
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+5);
                     yCoords = (p.getY() + 2.0/3) * TileView.TILE_PIX_HEIGHT;
                     break;
                 case PLAYER4:
-                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH+10;
+                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH+5;
                     yCoords = (p.getY() + 2.0/3) * TileView.TILE_PIX_HEIGHT;
                     break;
                 default:
-                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+10);
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+5);
                     yCoords = (double) ((p.getY() + 1.0/3) * TileView.TILE_PIX_HEIGHT);
                 }
                 players[i].setTranslateX(xCoords);

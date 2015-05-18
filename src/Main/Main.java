@@ -2,8 +2,8 @@ package Main;
 
 //import org.apache.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -26,11 +26,12 @@ public class Main extends Application {
      * Feel free to change these, they are arbitrary (for now).
      */
     public final static int MAX_NUMBER_OF_PLAYERS = 4;
-    private final static int DEFAULT_CASH_GOAL_LOW    = 3000;
-    private final static int DEFAULT_CASH_GOAL_MEDIUM = 5000;
-    private final static int DEFAULT_CASH_GOAL_HIGH   = 7000;
+    private final static int DEFAULT_CASH_GOAL_LOW       = 3000;
+    private final static int DEFAULT_CASH_GOAL_MEDIUM    = 6000;
+    private final static int DEFAULT_CASH_GOAL_HIGH      = 8500;
+    private final static int DEFAULT_CASH_GOAL_VERY_HIGH = 15000;
     public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
-            HashMap<String, Integer>();
+            TreeMap<String, Integer>();
     public final static String MENU_SCREEN = "menu";
     public final static String GAME_SCREEN = "command board";
     public final static String VICTORY_SCREEN = "victory";
@@ -105,9 +106,10 @@ public class Main extends Application {
     	       }
     	    });
 
-        CASH_GOAL_OPTIONS.put(("Low ("    + DEFAULT_CASH_GOAL_LOW    + ")"), DEFAULT_CASH_GOAL_LOW);
-        CASH_GOAL_OPTIONS.put(("Medium (" + DEFAULT_CASH_GOAL_MEDIUM + ")"), DEFAULT_CASH_GOAL_MEDIUM);
-        CASH_GOAL_OPTIONS.put(("High ("   + DEFAULT_CASH_GOAL_HIGH   + ")"), DEFAULT_CASH_GOAL_HIGH);
+        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_LOW       + "\t(Quick Game)"),     DEFAULT_CASH_GOAL_LOW);
+        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_MEDIUM    + "\t(Normal Game)"),    DEFAULT_CASH_GOAL_MEDIUM);
+        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_HIGH      + "\t(Long Game)"),      DEFAULT_CASH_GOAL_HIGH);
+        CASH_GOAL_OPTIONS.put(("$"  + DEFAULT_CASH_GOAL_VERY_HIGH + "\t(Very Long Game)"), DEFAULT_CASH_GOAL_VERY_HIGH);
 
         //set Stage boundaries to visible bounds of the main screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();

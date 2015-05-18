@@ -106,10 +106,14 @@ public class Main extends Application {
     	       }
     	    });
 
-        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_LOW       + "\t(Quick Game)"),     DEFAULT_CASH_GOAL_LOW);
-        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_MEDIUM    + "\t(Normal Game)"),    DEFAULT_CASH_GOAL_MEDIUM);
-        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_HIGH      + "\t(Long Game)"),      DEFAULT_CASH_GOAL_HIGH);
-        CASH_GOAL_OPTIONS.put(("$"  + DEFAULT_CASH_GOAL_VERY_HIGH + "\t(Very Long Game)"), DEFAULT_CASH_GOAL_VERY_HIGH);
+        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_LOW       + "\t(Quick Game)"),
+                                      DEFAULT_CASH_GOAL_LOW);
+        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_MEDIUM    + "\t(Normal Game)"),
+                                      DEFAULT_CASH_GOAL_MEDIUM);
+        CASH_GOAL_OPTIONS.put((" $" + DEFAULT_CASH_GOAL_HIGH      + "\t(Long Game)"),
+                                      DEFAULT_CASH_GOAL_HIGH);
+        CASH_GOAL_OPTIONS.put(("$"  + DEFAULT_CASH_GOAL_VERY_HIGH + "\t(Very Long Game)"),
+                                      DEFAULT_CASH_GOAL_VERY_HIGH);
 
         //set Stage boundaries to visible bounds of the main screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();

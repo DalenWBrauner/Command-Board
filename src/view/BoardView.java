@@ -122,9 +122,9 @@ public class BoardView extends StackPane implements Observer {
     
     public void highlightTile(int x, int y) {
         TileOverlayView t = new TileOverlayView(tileViews[x][y]);
+        t.setOverlay("highlight");
         t.setTranslateX(x * TileView.TILE_PIX_WIDTH);
         t.setTranslateY(y * TileView.TILE_PIX_WIDTH);
-        
         tileDecorationsGroup.getChildren().add(t);
     }
     

@@ -2,8 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import model.command.AddFundsCommand;
+import model.command.CashMagnetCommand;
 import model.command.CastOnPlayerCommand;
 import model.command.Command;
 import model.command.EnableWalkBackwardsCommand;
@@ -34,6 +36,7 @@ public class SpellCaster {
         spellCosts.put(SpellID.SPELL2, new HashMap<>());
         spellCosts.put(SpellID.SPELL3, new HashMap<>());
         spellCosts.put(SpellID.SPELL4, new HashMap<>());
+        spellCosts.put(SpellID.SPELL6, new HashMap<>());
 
         // (SHAPE1) Circle   Cards are seen as "Help" cards
         // (SHAPE2) Square   Cards are seen as "Wild" cards
@@ -63,11 +66,11 @@ public class SpellCaster {
         spellCosts.get(SpellID.SPELL4).put(CardShape.SHAPE1, 0);
         spellCosts.get(SpellID.SPELL4).put(CardShape.SHAPE2, 1);
         spellCosts.get(SpellID.SPELL4).put(CardShape.SHAPE3, 0);
-    }
 
-    /** Returns the number of each cardshape it costs to cast the spell. */
-    public static HashMap<CardShape, Integer> getCost(SpellID spell) {
-        return spellCosts.get(spell);
+        // Cash Magnet costs one of each card
+        spellCosts.get(SpellID.SPELL6).put(CardShape.SHAPE1, 1);
+        spellCosts.get(SpellID.SPELL6).put(CardShape.SHAPE2, 1);
+        spellCosts.get(SpellID.SPELL6).put(CardShape.SHAPE3, 1);
     }
 
     /** Creates a SpellCaster unique to this match. */
@@ -157,13 +160,14 @@ public class SpellCaster {
         spellBook.put(SpellID.SPELL2, craftForeclosure(tower));
         spellBook.put(SpellID.SPELL3, craftUpgrade(tower));
         spellBook.put(SpellID.SPELL4, craftCardSwap(tower));
+        spellBook.put(SpellID.SPELL6, craftCashMagnet(tower));
     }
 
     /** Returns the Navigator Spell */
     private Command craftNavigator(WatchTower tower) {
-        Command navigator = new EnableWalkBackwardsCommand();
-        navigator.addObserver(tower);
-        return navigator;
+        Command spell = new EnableWalkBackwardsCommand();
+        spell.addObserver(tower);
+        return spell;
     }
 
     /** Returns the Foreclosure Spell */
@@ -171,13 +175,10 @@ public class SpellCaster {
         AddFundsCommand afc = new AddFundsCommand();
         SellTileCommand stc = new SellTileCommand(afc);
         Command foreclose = new SellAnyTileCommand(stc);
-        Command foreclosureSpell = new CastOnPlayerCommand(SpellID.SPELL2, foreclose, playerMap);
+        Command spell = new CastOnPlayerCommand(SpellID.SPELL2, foreclose, playerMap);
 
-        foreclosureSpell.addObserver(tower);
-        foreclose.addObserver(tower);
-        stc.addObserver(tower);
-        afc.addObserver(tower);
-        return foreclosureSpell;
+        spell.addObserver(tower);
+        return spell;
     }
 
     /** Returns the Upgrade Spell */
@@ -186,8 +187,6 @@ public class SpellCaster {
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
         Command spell = new UpgradeAnyTileCommand(utc);
 
-        sfc.addObserver(tower);
-        utc.addObserver(tower);
         spell.addObserver(tower);
         return spell;
     }
@@ -197,8 +196,27 @@ public class SpellCaster {
         SwapCardCommand scc = new SwapCardCommand();
         Command spell = new SwapCardAnyTileCommand(scc);
 
-        scc.addObserver(tower);
         spell.addObserver(tower);
         return spell;
+    }
+
+    /** Returns the Cash Magnet Spell */
+    private Command craftCashMagnet(WatchTower tower) {
+        AddFundsCommand afc = new AddFundsCommand();
+        Command spell = new CashMagnetCommand(afc, 300, playerMap);
+
+        spell.addObserver(tower);
+        return spell;
+    }
+
+    // Getters
+
+    /** Returns the number of each cardshape it costs to cast the spell. */
+    public static HashMap<CardShape, Integer> getCost(SpellID spell) {
+        return spellCosts.get(spell);
+    }
+
+    public static Set<SpellID> getSpellList() {
+        return spellCosts.keySet();
     }
 }

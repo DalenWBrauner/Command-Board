@@ -1,6 +1,8 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,7 +52,15 @@ public class spellView {
 	public void initSpellView(){
 		DropShadow shadow = new DropShadow();
 		spellList = new ListView<String>();
-		ObservableList<String> spells = FXCollections.observableArrayList(SpellID.SPELL1.toString(), SpellID.SPELL2.toString(), SpellID.SPELL3.toString(), SpellID.SPELL4.toString());
+		// ugh
+		Set<SpellID> spellSet = SpellCaster.getSpellList();
+		spellSet.remove(SpellID.NOSPELL);
+		ArrayList<String> spellStrings = new ArrayList<>();
+		for (SpellID id : spellSet) {
+		    spellStrings.add(id.toString());
+		}
+		ObservableList<String> spells = FXCollections.observableArrayList(spellStrings);
+		// okay
 		spellList.setItems(spells);
 
 		spellList.setPrefWidth(400);
@@ -176,7 +186,6 @@ public class spellView {
 //
 //		mainGroup.getChildren().addAll(cardHolder);
 //		mainGroup.getChildren().get(3).setLayoutY(150);
-
 	}
 
 	public void registerMatch(Match m) {
@@ -225,7 +234,6 @@ public class spellView {
 		}
 		return false;
 	}
-
 
 	public String calculateCost(SpellID spell){
 		String answer = spell.toString() + " costs: ";

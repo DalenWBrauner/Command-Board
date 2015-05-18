@@ -109,11 +109,11 @@ public class BoardView extends StackPane implements Observer {
         if (background != null) {
             children.add(background);
         }
-        if (tileDecorationsGroup != null) { // it never should be null, in fact.
-            children.add(tileDecorationsGroup);
-        }
         if (tileGroup != null) { // it never should be null, in fact.
             children.add(tileGroup);
+        }
+        if (tileDecorationsGroup != null) { // it never should be null, in fact.
+            children.add(tileDecorationsGroup);
         }
         if (playerGroup != null) {
             children.add(playerGroup);
@@ -124,8 +124,8 @@ public class BoardView extends StackPane implements Observer {
     public void highlightTile(int x, int y) {
         TileOverlayView t = new TileOverlayView(tileViews[x][y]);
         t.setOverlay("highlight");
-        t.setTranslateX(x * TileView.TILE_PIX_WIDTH);
-        t.setTranslateY(y * TileView.TILE_PIX_WIDTH);
+        t.setTranslateX(x * TileView.TILE_PIX_WIDTH - 12);
+        t.setTranslateY(y * TileView.TILE_PIX_WIDTH - 12);
         tileDecorationsGroup.getChildren().add(t);
     }
     

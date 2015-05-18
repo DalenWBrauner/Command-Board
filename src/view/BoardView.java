@@ -181,25 +181,37 @@ public class BoardView extends StackPane implements Observer {
                 Tile t = m.getBoard().getTile(x, y);
                 tileViews[x][y].setCurrentState(t);
                 if (t.getTileType() == TileType.PROPERTY) {
-                    //TODO: this
-//                    PropertyTile pt = (PropertyTile)t;
-//                    PlayerID owner = pt.getOwner();
-//                    if (owner != PlayerID.NOPLAYER &&
-//                            owner != tileOwners[x][y]) {
-//                        TileOverlayView ownerOverlay = new TileOverlayView(tileViews[x][y]);
-//                        ownerOverlay.setOverlay("play")
-//                        t.setOverlay("highlight");
-//                        t.setTranslateX(x * TileView.TILE_PIX_WIDTH - 12);
-//                        t.setTranslateY(y * TileView.TILE_PIX_WIDTH - 12);
-//                        tileDecorationsGroup.getChildren().add(t);
-//                        
-//                    }
+                    PropertyTile pt = (PropertyTile)t;
+                    PlayerID owner = pt.getOwner();
+                    if (owner != PlayerID.NOPLAYER) {
+                        OwnerView currOwnerV = tileOwners[x][y];
+                        if (currOwnerV != null) {
+                            currOwnerV.setOwner(owner);
+                        } else {
+                            tileOwners[x][y] = new OwnerView(owner);
+                            tileOwners[x][y].setTranslateX(
+                                    x * TileView.TILE_PIX_WIDTH+10);
+                            tileOwners[x][y].setTranslateY(
+                                    y * TileView.TILE_PIX_WIDTH);
+                            tileDecorationsGroup.getChildren().add(
+                                    tileOwners[x][y]);
+                        }
+                        
+                        CardShape card = pt.getCard();
+                        CardView currCardV = tileCards[x][y];
+                        if (currCardV != null) {
+                            currCardV.setCard(card);
+                        } else {
+                            tileCards[x][y] = new CardView(card);
+                            tileCards[x][y].setTranslateX(
+                                    (x + 0.5) * TileView.TILE_PIX_WIDTH+10);
+                            tileCards[x][y].setTranslateY(
+                                    y * TileView.TILE_PIX_WIDTH);
+                            tileDecorationsGroup.getChildren().add(
+                                    tileCards[x][y]);
+                        }
+                    }
                 }
-//                TileView t = tileViews[x][y];
-//                Tile modelT = m.getBoard().getTile(x, y);
-//                if (t.getCurrentState() != modelT.getTileType()) {
-//                    t.setCurrentState(t);
-//                }
             }
         }
     }
@@ -227,32 +239,32 @@ public class BoardView extends StackPane implements Observer {
             if (sharingSameSpot[i]) {
                 Double xCoords;
                 Double yCoords;
-                switch(i) {
-                case 0:
-                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH);
-                    yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
+                switch(p.getID()) {
+                case PLAYER1:
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+10);
+                    yCoords = (double) ((p.getY() + 1.0/3) * TileView.TILE_PIX_HEIGHT);
                     break;
-                case 1:
-                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH;
-                    yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
+                case PLAYER2:
+                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH+10;
+                    yCoords = (double) ((p.getY() + 1.0/3) * TileView.TILE_PIX_HEIGHT);
                     break;
-                case 2:
-                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH);
-                    yCoords = (p.getY() + 0.5) * TileView.TILE_PIX_HEIGHT;
+                case PLAYER3:
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+10);
+                    yCoords = (p.getY() + 2.0/3) * TileView.TILE_PIX_HEIGHT;
                     break;
-                case 3:
-                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH;
-                    yCoords = (p.getY() + 0.5) * TileView.TILE_PIX_HEIGHT;
+                case PLAYER4:
+                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH+10;
+                    yCoords = (p.getY() + 2.0/3) * TileView.TILE_PIX_HEIGHT;
                     break;
                 default:
-                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH);
-                    yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH+10);
+                    yCoords = (double) ((p.getY() + 1.0/3) * TileView.TILE_PIX_HEIGHT);
                 }
                 players[i].setTranslateX(xCoords);
                 players[i].setTranslateY(yCoords);
             } else {
-                players[i].setTranslateX((p.getX() + 0.25) * TileView.TILE_PIX_WIDTH);
-                players[i].setTranslateY((p.getY() + 0.25) * TileView.TILE_PIX_HEIGHT);
+                players[i].setTranslateX((p.getX() + 0.25) * TileView.TILE_PIX_WIDTH+10);
+                players[i].setTranslateY((p.getY() + 0.5) * TileView.TILE_PIX_HEIGHT);
             }
         }
     }

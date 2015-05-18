@@ -66,11 +66,19 @@ public class BuyTileCommand extends Command {
                 // Remove the tile from their possession
                 previousOwner.loseTile(tileForPurchase);
 
+                System.out.println("They bought it from "+previousOwner.getID()+"!");
+
             // Otherwise place a card on it
             } else {
+
                 // Get the card they'd like to place
                 CardShape card = rep.placeWhichCard();
                 tileForPurchase.setCard(card);
+
+                // Remove that card from their hand
+                sourcePlayer.getHand().remove(card);
+
+                System.out.println("They placed a "+card+" card on it!");
             }
 
             // Set the tile's new owner!

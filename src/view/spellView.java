@@ -99,7 +99,31 @@ public class spellView {
 				SpellID valof = SpellID.fromString(val);
 				Cost.setText("COST:  " + calculateCost(valof));
 
-				Description.setText(spellList.getSelectionModel().getSelectedItem() + " filler text.");
+				switch (valof) {
+				case SPELL1:
+                    Description.setText("Allows you to move backwards!");
+                    break;
+				case SPELL2:
+				    Description.setText("Force a {random} opponent to sell a {random} tile they own!");
+				    break;
+				case SPELL3:
+                    Description.setText("Upgrade a {random} tile {to the next level}!");
+                    break;
+				case SPELL4:
+                    Description.setText("Swap a {random} card in your hand with the card on a"
+                            + "\n{random} tile you own!");
+                    break;
+				case SPELL5:
+                    Description.setText("Swap your position on the board with that of a {random} opponent's!");
+                    break;
+				case SPELL6:
+                    Description.setText("Collect cash for every tile your opponent has on the board!");
+                    break;
+				default:
+				    Description.setText(spellList.getSelectionModel().getSelectedItem() + " filler text.");
+				    break;
+				}
+
 
 				if (gotTheDough(valof)) {
 					cast.setEffect(shadow);
@@ -140,7 +164,7 @@ public class spellView {
 
 //		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
 //		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
-
+//
 //		Hand currentHand = currentPlayer.getHand();
 //		CardShape[] currentCards = currentHand.getAllCards();
 //		HBox cardHolder = new HBox();

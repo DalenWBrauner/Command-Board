@@ -24,7 +24,8 @@ public class PayTollCommand extends Command {
     public void execute(Player sourcePlayer) {
         int toll = tile.getToll();
 
-        System.out.println(sourcePlayer.getID() + " has to pay a toll!");
+        System.out.println(sourcePlayer.getID() + " has to pay "
+                         + tile.getOwner() + " a toll of " + toll + "!");
 
         // Subtract their funds no matter what
         subtractFunds.setAmount(toll);

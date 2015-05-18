@@ -81,9 +81,9 @@ public class SpellCaster {
     /** Prepares the Player to cast a spell if they can and they wish! */
     public void performMagic(Player player) {
 
-        System.out.println("Player " + player.getID() + " has the hand:");
+        System.out.println("Player " + player.getID() + " has the cards:");
         for (CardShape card : player.getHand().getAllCards()) {
-            System.out.println(card);
+            if (card != CardShape.NOCARD) System.out.println(card + " card");
         }
 
         // First, get all of the possible spells that player could cast.

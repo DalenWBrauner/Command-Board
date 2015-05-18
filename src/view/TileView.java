@@ -24,8 +24,8 @@ public class TileView extends ImageView {
     public final static Image START_TILE_IMAGE = new Image(
             new File("images/Start.png").toURI().toString());
 
-    public final static int TILE_PIX_HEIGHT = 40;
-    public final static int TILE_PIX_WIDTH = 40;
+    public final static int TILE_PIX_HEIGHT = (int) START_TILE_IMAGE.getHeight();
+    public final static int TILE_PIX_WIDTH = (int) START_TILE_IMAGE.getWidth();
 
     private int xPos, yPos;
     private TileType currentState;
@@ -81,10 +81,10 @@ public class TileView extends ImageView {
                     setOnMousePressed(null);
                     break;
             }
-        
+
         }
     }
-    
+
     public TileType getCurrentState() {
         return currentState;
     }

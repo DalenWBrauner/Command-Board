@@ -35,7 +35,7 @@ public class Main extends Application {
     public final static String GAME_SCREEN = "command board";
     public final static String VICTORY_SCREEN = "victory";
     public final static String[] PLAYABLE_BOARDS = {
-        "Rings","Keyblade","Snailshell","Butterfly","Honeypot"};
+        "Keyblade","Honeypot","Butterfly","Snailshell","Rings"};
 
 
     //private static Logger logger =  Logger.getLogger(PegSolitaire.class);
@@ -63,7 +63,7 @@ public class Main extends Application {
         // Add our screens to the stack.
         ControlledScreen victoryScreen = new VictoryView(MENU_SCREEN);
         mainContainer.registerScreen(VICTORY_SCREEN, victoryScreen);
-        
+
         ControlledScreen gameMap = new MatchView((VictoryView) victoryScreen);
         mainContainer.registerScreen(GAME_SCREEN, gameMap);
 
@@ -92,7 +92,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
     	prim = primaryStage;
-    	
+
     	primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
     	       @Override
     	       public void handle(WindowEvent e) {

@@ -135,13 +135,13 @@ public class Joystick implements Observer  {
 		cButtons.setPrefWidth(80);
 		cButtons.setPrefHeight(40);
 
-		select = new Button("SELECT");
+		select = new Button("ROLL DICE");
 		select.setPadding(new Insets(10));
 
 		spells = new Button("SPELLS");
 		spells.setPadding(new Insets(10));
 
-		cancel = new Button("CANCEL");
+		cancel = new Button("NO SPELL");
 		cancel.setPadding(new Insets(10));
 
 		menu   = new Button("MENU");

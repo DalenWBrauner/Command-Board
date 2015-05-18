@@ -72,7 +72,6 @@ public class BoardView extends StackPane implements Observer {
         // TODO: Put players in the right spots from match info.
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
-        System.out.println("LKDJSFLSKJFKLDSJFLKSDJKL " + numPlayers);
         players = new PlayerView[numPlayers];
         for (int i=0; i < numPlayers; i++) { 
             Player p = modelPlayers.get(i);
@@ -82,7 +81,7 @@ public class BoardView extends StackPane implements Observer {
             players[i].setTranslateX(p.getX() * TileView.TILE_PIX_WIDTH);
             players[i].setTranslateY(p.getY() * TileView.TILE_PIX_HEIGHT);
             players[i].setManaged(false);
-            //playerGroup.getChildren().add(players[i]);
+            playerGroup.getChildren().add(players[i]);
         }
 
         // The order of our stackpane will go: background image,
@@ -109,18 +108,17 @@ public class BoardView extends StackPane implements Observer {
             children.add(tileGroup);
         }
         if (playerGroup != null) {
-            for (int i=0; i < players.length; i++) {
-                children.add(players[i]);
-            }
-            //children.add(playerGroup);
+//            for (int i=0; i < players.length; i++) {
+//                children.add(players[i]);
+//            }
+            children.add(playerGroup);
         }
     }
 
 
-
     @Override
     public void update(Observable o, Object arg) {
-        // TODO Auto-generated method stub
+        // Update tile states
         for (int x=0; x < boardWidth; x++) {
             for (int y=0; y < boardHeight; y++) {
                 tileViews[x][y].setCurrentState(m.getBoard().getTile(x, y));
@@ -132,15 +130,65 @@ public class BoardView extends StackPane implements Observer {
             }
         }
         
+        // Update player positions.
+        placePlayers();
+    }
+    
+    /**
+     * 
+     */
+    private void placePlayers() {
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
+        
+        boolean[] sharingSameSpot = new boolean[numPlayers];
+        for (int i=0; i < numPlayers; i++) {
+            for (int j=1; j < numPlayers; j++) {
+                Player p1 = modelPlayers.get(i);
+                Player p2 = modelPlayers.get(j);
+                if (p1.getX() == p2.getX() &&
+                    p1.getY() == p2.getY() ) {
+                        sharingSameSpot[i] = true;
+                        sharingSameSpot[j] = true;
+                }
+            }
+        }
+        
         for (int i=0; i < numPlayers; i++) {
             
             Player p = modelPlayers.get(i);
-            players[i].setTranslateX(p.getX());
-            players[i].setTranslateY(p.getY());
-            players[i].setManaged(false);
-            System.out.println(p.getID().toString() + " moved to " + p.getX() + ", " + p.getY());
+            if (sharingSameSpot[i]) {
+                Double xCoords;
+                Double yCoords;
+                switch(i) {
+                case 0:
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH);
+                    yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
+                    break;
+                case 1:
+                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH;
+                    yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
+                    break;
+                case 2:
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH);
+                    yCoords = (p.getY() + 0.5) * TileView.TILE_PIX_HEIGHT;
+                    break;
+                case 3:
+                    xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH;
+                    yCoords = (p.getY() + 0.5) * TileView.TILE_PIX_HEIGHT;
+                    break;
+                default:
+                    xCoords = (double) (p.getX() * TileView.TILE_PIX_WIDTH);
+                    yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
+                }
+                players[i].setTranslateX(xCoords);
+                players[i].setTranslateY(yCoords);
+            } else {
+                players[i].setTranslateX((p.getX() + 0.25) * TileView.TILE_PIX_WIDTH);
+                players[i].setTranslateY((p.getY() + 0.25) * TileView.TILE_PIX_HEIGHT);
+            }
+            
+            
         }
             
     }

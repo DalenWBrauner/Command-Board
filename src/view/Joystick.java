@@ -212,7 +212,7 @@ public class Joystick implements Observer  {
 	        // Event handler.
 	        left.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
-	                addToOutput("CLICKED LEFT");
+	                //addToOutput("CLICKED LEFT");
 	                chosenDirection = CardinalDirection.WEST;
                     MenuScreenView.modelThread.resume();
 	            }
@@ -228,7 +228,7 @@ public class Joystick implements Observer  {
 				
 				right.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override public void handle(ActionEvent e) {
-		                addToOutput("CLICKED RIGHT");
+		                //addToOutput("CLICKED RIGHT");
 		                chosenDirection = CardinalDirection.EAST;
 		                MenuScreenView.modelThread.resume();
 		            }
@@ -242,7 +242,7 @@ public class Joystick implements Observer  {
 			
 			up.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
-	                addToOutput("CLICKED UP");
+	                //addToOutput("CLICKED UP");
 	                chosenDirection = CardinalDirection.NORTH;
 	                MenuScreenView.modelThread.resume();
 	            }
@@ -256,7 +256,7 @@ public class Joystick implements Observer  {
 			
 			down.setOnAction(new EventHandler<ActionEvent>(){
 	            @Override public void handle(ActionEvent e) {
-	                addToOutput("CLICKED DOWN");
+	                //addToOutput("CLICKED DOWN");
 	                chosenDirection = CardinalDirection.SOUTH;
 	                MenuScreenView.modelThread.resume();
 	            }

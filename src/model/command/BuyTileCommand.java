@@ -57,11 +57,14 @@ public class BuyTileCommand extends Command {
             subtractFunds.setAmount(tileForPurchase.getCost());
             subtractFunds.execute(sourcePlayer);
 
-            // Add funds if there was a previous owner
+            // Add funds to the previous owner
             if (tileOwner != PlayerID.NOPLAYER) {
                 Player previousOwner = players.get(tileForPurchase.getOwner());
                 addFunds.setAmount(tileForPurchase.getCost());
                 addFunds.execute(previousOwner);
+
+                // Remove the tile from their possession
+                previousOwner.loseTile(tileForPurchase);
 
             // Otherwise place a card on it
             } else {

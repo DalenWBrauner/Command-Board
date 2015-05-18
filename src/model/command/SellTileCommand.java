@@ -34,6 +34,9 @@ public class SellTileCommand extends Command {
         // Reset the tile
         tileForSale.reset();
 
+        // Remove ownership
+        sourcePlayer.loseTile(tileForSale);
+
         setChanged();
         notifyObservers();
     }

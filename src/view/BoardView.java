@@ -67,23 +67,20 @@ public class BoardView extends StackPane implements Observer {
 
         // Create group of all the player sprites on the board.
         playerGroup = new Group();
-        playerGroup.setAutoSizeChildren(false);
-        playerGroup.setManaged(false);
-        // TODO: Put players in the right spots from match info.
+//        playerGroup.setAutoSizeChildren(false);
+        playerGroup.setManaged(false); // <-- VERY IMPORTANT WE DO THIS SO STACKPANE ISN'T RUDE
         List<Player> modelPlayers = m.getAllPlayers();
         int numPlayers = modelPlayers.size();
         players = new PlayerView[numPlayers];
-        for (int i=0; i < numPlayers; i++) { 
-            Player p = modelPlayers.get(i);
-            players[i] = new PlayerView(p);
-            System.out.println("Player: " + p.getID().toString() + " has coords: " +
-                    p.getX() + ", " + p.getY());
-            players[i].setTranslateX(p.getX() * TileView.TILE_PIX_WIDTH);
-            players[i].setTranslateY(p.getY() * TileView.TILE_PIX_HEIGHT);
-            players[i].setManaged(false);
+        for (int i=0; i < numPlayers; i++) {
+            players[i] = new PlayerView(modelPlayers.get(i));
+            //players[i].setManaged(false);
             playerGroup.getChildren().add(players[i]);
         }
 
+        // Place the players into their correct starting positions.
+        placePlayers();
+        
         // The order of our stackpane will go: background image,
         // tile images, and then player sprite images.
         redrawSelf();
@@ -143,7 +140,7 @@ public class BoardView extends StackPane implements Observer {
         
         boolean[] sharingSameSpot = new boolean[numPlayers];
         for (int i=0; i < numPlayers; i++) {
-            for (int j=1; j < numPlayers; j++) {
+            for (int j=i+1; j < numPlayers; j++) {
                 Player p1 = modelPlayers.get(i);
                 Player p2 = modelPlayers.get(j);
                 if (p1.getX() == p2.getX() &&
@@ -166,6 +163,7 @@ public class BoardView extends StackPane implements Observer {
                     yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
                     break;
                 case 1:
+                    System.out.println("JDLKFJDSKLFJLKSDJFL");
                     xCoords = (p.getX() + 0.5) * TileView.TILE_PIX_WIDTH;
                     yCoords = (double) (p.getY() * TileView.TILE_PIX_HEIGHT);
                     break;

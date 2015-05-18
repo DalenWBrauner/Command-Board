@@ -97,9 +97,11 @@ public class Main extends Application {
     	       @Override
     	       public void handle(WindowEvent e) {
     	           // TODO: Make this safer.
-    	          MenuScreenView.modelThread.interrupt();
-    	          Platform.exit();
-    	          System.exit(0);
+    	           if (MenuScreenView.modelThread != null) {
+    	               MenuScreenView.modelThread.interrupt();
+    	           }
+    	           Platform.exit();
+    	           System.exit(0);
     	       }
     	    });
 

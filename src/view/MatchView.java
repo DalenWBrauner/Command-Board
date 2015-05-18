@@ -1,8 +1,10 @@
 package view;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -34,11 +36,7 @@ public class MatchView implements ControlledScreen,
     private ScreenSwitcher myController;
     private VictoryView victoryScreen;
     private Match m;
-
-    //for testing
-    //Scanner scan = new Scanner(System.in);
-
-    //private Match match;
+    private static Random random = new Random();
 
     private final static Image BOARD_BACKGROUND_IMAGE = new Image(
             new File("images/boardBackground.jpg").toURI().toString(), true);
@@ -104,7 +102,7 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public  void setScreenParent(ScreenSwitcher scSw) {
+    public void setScreenParent(ScreenSwitcher scSw) {
         myController = scSw;
     }
 
@@ -115,7 +113,7 @@ public class MatchView implements ControlledScreen,
 
     @Override
     @SuppressWarnings("deprecation")
-	public  CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
+	public CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -136,10 +134,9 @@ public class MatchView implements ControlledScreen,
     //Random roll between 1 and 6
     @SuppressWarnings("deprecation")
 	@Override
-    public  int getUsersRoll(){
+    public int getUsersRoll(){
     	//Change color
     	//there's css style for this sort of thing.
-
 
     	Platform.runLater(new Runnable(){
     		@Override
@@ -164,7 +161,7 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public  SpellID getSpellCast(SpellID[] availableSpells) {
+    public SpellID getSpellCast(SpellID[] availableSpells) {
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -193,7 +190,7 @@ public class MatchView implements ControlledScreen,
         }
 
     @Override
-    public  boolean buyThisTile(PropertyTile tileForPurchase) {
+    public boolean buyThisTile(PropertyTile tileForPurchase) {
 
         final boolean[] answer = new boolean[] {false};
         Platform.runLater(new Runnable() {
@@ -213,57 +210,61 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public  CardShape placeWhichCard() {
-        // Places the first card
-        return m.getPlayer(m.getCurrentPlayerID()).getHand().getAllCards()[0];
+    public CardShape placeWhichCard() {
+        // Place a random card
+        CardShape[] hand = m.getPlayer(m.getCurrentPlayerID()).getHand().getAllCards();
+        return hand[random.nextInt(hand.length)];
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public  CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
+    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
         // Don't bother to swap cards
         return CardShape.NOCARD;
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public  Tile swapCardOnWhichTile() {
+    public Tile swapCardOnWhichTile() {
         // Don't bother to swap cards
         return new NullTile();
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public  Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
-        // Don't bother to upgrade tiles
-        return new NullTile();
+    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
+        // Upgrade a random tile
+        return upgradeableTiles[random.nextInt(upgradeableTiles.length)];
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public  int upgradeToWhatLevel(PropertyTile upgradingTile) {
-        // Don't bother to upgrade tiles
-        return 1;
+    public int upgradeToWhatLevel(PropertyTile upgradingTile) {
+        // Upgrade a Tile by one
+        return upgradingTile.getLevel() + 1;
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public  PropertyTile sellWhichTile(PlayerID sellingPlayer) {
-        // Sell the first tile
-        return m.getPlayer(sellingPlayer).getTilesOwned().get(0);
+    public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
+        // Sell a random tile
+        ArrayList<PropertyTile> sellableTiles = m.getPlayer(sellingPlayer).getTilesOwned();
+        return sellableTiles.get(random.nextInt(sellableTiles.size()));
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public PlayerID castOnPlayer(SpellID spellCast) {
-        // Cast spells on yourself
-        return m.getCurrentPlayerID();
+        // Cast spells on a random other player
+        ArrayList<PlayerID> players = m.getTurnOrder();
+        players.remove(m.getCurrentPlayerID());
+        return players.get(random.nextInt(players.size()));
         // Alert! TODO Use the GUI to ask the users!
     }
 
     // Arg will be null.
     @Override
-    public  void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
         boolean matchOver = m.isTheMatchOver();
         if (matchOver) {

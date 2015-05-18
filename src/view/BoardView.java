@@ -71,6 +71,7 @@ public class BoardView extends StackPane implements Observer {
         // Create empty group. We will fill this in the future with overlays
         // on top of our tiles.
         tileDecorationsGroup = new Group();
+        tileDecorationsGroup.setManaged(false);
 
         // Create group of all the player sprites on the board.
         playerGroup = new Group();

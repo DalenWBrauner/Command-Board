@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 
 public class TileOverlayView extends ImageView {
     
-    public final static Image PROPERTY_TILE_IMAGE = new Image(
+    public final static Image HIGHLIGHT_TILE_IMAGE = new Image(
             new File("images/TileGlow.png").toURI().toString());
     
     private int xPos;
@@ -17,13 +17,12 @@ public class TileOverlayView extends ImageView {
         
         this.xPos = tv.getXPos();
         this.yPos = tv.getYPos();
-        setImage(PROPERTY_TILE_IMAGE);
     }
     
     public void setOverlay(String overlayCmd) {
         switch (overlayCmd) {
         case "highlight":
-            setImage(PROPERTY_TILE_IMAGE);
+            setImage(HIGHLIGHT_TILE_IMAGE);
             break;
         default:
             setImage(null);

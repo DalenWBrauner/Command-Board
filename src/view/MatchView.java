@@ -27,22 +27,6 @@ import view.interfaces.ControlledScreen;
 import Main.Main;
 import controller.ScreenSwitcher;
 
-/* TODO: Watch this class like a hawk!
- * Pay attention to which methods need to be synchronized and which do not!
- *
- * HINT: (Maybe this will help!)
- * Let's pretend that this class had a "main" function, something that runs for
- * a long period of time and calls other functions inside this class.
- * The goal then is to NOT synchronize the main function itself,
- * but any methods it calls instead. (Or if it's just a lot of chunks of code,
- * break up those chunks into separate synchronized(this) blocks!)
- * The idea is that we don't want to interrupt the subroutines that modify
- * values, but if we have a subroutine that modifies values X, Y and Z,
- * and then we have a subroutine right after that modifies values A, B and C,
- * then it's probably okay to have our threads interrupt in-between those
- * subroutines. So our first subroutine would be synchronized and so would our
- * second, leaving a gap in-between.
- */
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
 
@@ -126,11 +110,11 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public synchronized void setScreenParent(ScreenSwitcher scSw) {
+    public  void setScreenParent(ScreenSwitcher scSw) {
         myController = scSw;
     }
 
-    // TODO: Decide if this should be synchronized
+    // TODO: Decide if this should be
     @Override
     public Parent getRoot() {
         return root;
@@ -140,7 +124,7 @@ public class MatchView implements ControlledScreen,
 
     @Override
     @SuppressWarnings("deprecation")
-	public synchronized CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
+	public  CardinalDirection forkInTheRoad(CardinalDirection[] availableDirections) {
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -161,7 +145,7 @@ public class MatchView implements ControlledScreen,
     //Random roll between 1 and 6
     @SuppressWarnings("deprecation")
 	@Override
-    public synchronized int getUsersRoll(){
+    public  int getUsersRoll(){
     	//Change color
     	//there's css style for this sort of thing.
 
@@ -182,7 +166,7 @@ public class MatchView implements ControlledScreen,
     	return joystick.getRollResult();
     }
 
-    // TODO: Decide if this should be synchronized
+    // TODO: Decide if this should be
     //Loads joystick
     public Group getJoystick(){
     	Group joystick = new Group();
@@ -190,7 +174,7 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public synchronized SpellID getSpellCast(SpellID[] availableSpells) {
+    public  SpellID getSpellCast(SpellID[] availableSpells) {
     	Platform.runLater(new Runnable(){
     		@Override
     		public void run(){
@@ -219,7 +203,7 @@ public class MatchView implements ControlledScreen,
         }
 
     @Override
-    public synchronized boolean buyThisTile(PropertyTile tileForPurchase) {
+    public  boolean buyThisTile(PropertyTile tileForPurchase) {
 
         final boolean[] answer = new boolean[] {false};
         Platform.runLater(new Runnable() {
@@ -239,42 +223,42 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public synchronized CardShape placeWhichCard() {
+    public  CardShape placeWhichCard() {
         // Places the first card
         return m.getPlayer(m.getCurrentPlayerID()).getHand().getAllCards()[0];
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public synchronized CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
+    public  CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
         // Don't bother to swap cards
         return CardShape.NOCARD;
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public synchronized Tile swapCardOnWhichTile() {
+    public  Tile swapCardOnWhichTile() {
         // Don't bother to swap cards
         return new NullTile();
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public synchronized Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
+    public  Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
         // Don't bother to upgrade tiles
         return new NullTile();
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public synchronized int upgradeToWhatLevel(PropertyTile upgradingTile) {
+    public  int upgradeToWhatLevel(PropertyTile upgradingTile) {
         // Don't bother to upgrade tiles
         return 1;
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public synchronized PropertyTile sellWhichTile(PlayerID sellingPlayer) {
+    public  PropertyTile sellWhichTile(PlayerID sellingPlayer) {
         // Sell the first tile
         return m.getPlayer(sellingPlayer).getTilesOwned().get(0);
         // Alert! TODO Use the GUI to ask the users!
@@ -289,7 +273,7 @@ public class MatchView implements ControlledScreen,
 
     // Arg will be null.
     @Override
-    public synchronized void update(Observable o, Object arg) {
+    public  void update(Observable o, Object arg) {
         // TODO Auto-generated method stub
         boolean matchOver = m.isTheMatchOver();
         if (matchOver) {
@@ -302,7 +286,7 @@ public class MatchView implements ControlledScreen,
             MenuScreenView.modelThread.suspend();
         }
     }
-    
+
     private void goToNextScreen() {
         victoryScreen.loadMatch(m);
         myController.setActiveScreen(Main.VICTORY_SCREEN);

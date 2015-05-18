@@ -117,8 +117,6 @@ public class Match extends Observable implements Observer, Runnable {
     private void declareWinner(PlayerID winningPlayer) {
         winner = winningPlayer;
         matchIsOver.setTrue();
-        setChanged();
-        notifyObservers();
     }
 
     // Getters

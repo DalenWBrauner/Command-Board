@@ -43,6 +43,19 @@ public class TileFactory {
         theBoard = board;
     }
 
+    /** New rule for tile creation and adding observers:
+     * Only add an observer to commands that come immediately before player decisions.
+     *
+     *
+     * As we should know, we are going to update the board after a player has moved,
+     * and after a player has landed. Once for each.
+     *
+     * The ONLY time we should add observers ourselves is if, for ANY reason,
+     * the view would NEED to know that we've changed BEFORE we go on to execute the next command.
+     * For example, updating would be required before a Player is asked to buy a tile.
+     * Updating would not be required if all that's happening is the Player is being showered with goodies.
+     */
+
     public StartTile createStart(int x, int y) {
         StartTile tile = new StartTile(x, y);
 
@@ -55,19 +68,20 @@ public class TileFactory {
         Command[] completeLapMacro = new Command[2];
         completeLapMacro[0] = new AddFundsCommand(3000);
         completeLapMacro[1] = new FillHandRandomlyCommand();
-        completeLapMacro[0].addObserver(currentTower);
-        completeLapMacro[1].addObserver(currentTower);
+//        completeLapMacro[0].addObserver(currentTower);
+//        completeLapMacro[1].addObserver(currentTower);
         Command onLapCompletion = new MacroCommand(completeLapMacro);
+//        onLapCompletion.addObserver(currentTower);
 
         // Create the onPass Command
         Command onPass = new CompleteLapCommand(onLapCompletion);
-        onPass.addObserver(currentTower);
+//        onPass.addObserver(currentTower);
 
         // Create the onLand Command
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
         Command onLand = new UpgradeAnyTileCommand(utc);
-        utc.addObserver(currentTower);
-        onLand.addObserver(currentTower);
+//        utc.addObserver(currentTower);
+//        onLand.addObserver(currentTower);
 
         // Finish
         tile.setOnPassCommand(onPass);
@@ -88,23 +102,17 @@ public class TileFactory {
         ifNotYetPassedMacro[0] = new GiveRandomCardCommand();
         ifNotYetPassedMacro[1] = new AddFundsCommand(500);
         ifNotYetPassedMacro[2] = new PrintCommand("First time this lap!");
-        ifNotYetPassedMacro[0].addObserver(currentTower);
-        ifNotYetPassedMacro[1].addObserver(currentTower);
         Command ifNotYetPassed = new MacroCommand(ifNotYetPassedMacro);
 
         // Create the onPass Command
         Command[] onPassMacro = new Command[2];
         onPassMacro[0] = new PrintCommand("You passed the "+color+" Checkpoint!");
         onPassMacro[1] = new MarkCheckpointCommand(color, ifNotYetPassed);
-        onPassMacro[0].addObserver(currentTower);
-        onPassMacro[1].addObserver(currentTower);
         Command onPass = new MacroCommand(onPassMacro);
 
         // Create the onLand Command
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
         Command onLand = new UpgradeAnyTileCommand(utc);
-        utc.addObserver(currentTower);
-        onLand.addObserver(currentTower);
 
         // Finish
         tile.setOnPassCommand(onPass);
@@ -119,9 +127,6 @@ public class TileFactory {
         AddFundsCommand afc = new AddFundsCommand();
         SubtractFundsCommand sfc = new SubtractFundsCommand();
         Command buyCommand = new BuyTileCommand(sfc, afc, currentPlayers, tile);
-        afc.addObserver(currentTower);
-        sfc.addObserver(currentTower);
-        buyCommand.addObserver(currentTower);
 
         // Create the onPass Command
         Command onPass = new NullCommand();
@@ -149,8 +154,6 @@ public class TileFactory {
         Command[] ifOwnedByYouMacro = new Command[2];
         ifOwnedByYouMacro[0] = new SwapCardCommand(tile);
         ifOwnedByYouMacro[1] = new UpgradeTileCommand(sfc, tile);
-        ifOwnedByYouMacro[0].addObserver(currentTower);
-        ifOwnedByYouMacro[1].addObserver(currentTower);
         Command ifOwnedByYou = new MacroCommand(ifOwnedByYouMacro);
 
         // Create the macro for:
@@ -160,13 +163,12 @@ public class TileFactory {
         ifNotOwnedByYouMacro[1] = buyCommand;
         Command ifNotOwnedByYou = new MacroCommand(ifNotOwnedByYouMacro);
 
+        // You need to know how much money you lost before you buy a tile
+        ifNotOwnedByYouMacro[0].addObserver(currentTower);
+
         // Create the onLand Command
         Command checkWhoOwns = new IfOwnedByYouCommand(tile, ifOwnedByYou, ifNotOwnedByYou);
-        Command onLand = new IfOwnedCommand(tile, checkWhoOwns, buyCommand); // You can buy the tile if nobody owns it
-
-        checkWhoOwns.addObserver(currentTower);
-        onLand.addObserver(currentTower);
-
+        Command onLand = new IfOwnedCommand(tile, checkWhoOwns, buyCommand);
         // Finish
         tile.setOnPassCommand(onPass);
         tile.setOnLandCommand(onLand);

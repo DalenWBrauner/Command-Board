@@ -13,264 +13,96 @@ import shared.enums.CardShape;
 
 public class TestHandRandom {
 
-    @Test
-    /** Tests whether multiple hands, when given the same seed,
-     * are 'randomly' filled with the exact same cards. */
-    public void fillRandomly_1() {
-
-        long seed = System.nanoTime();
-        System.out.println("fillRandomly_1()'s seed is:\n"+seed);
-
-        // Create a hand for 4 players
+    /** Generates 4 hands that all have the same seed. */
+    private ArrayList<Hand> genSeededHands(long seed) {
         ArrayList<Hand> playerHands = new ArrayList<>();
+
         for (int i = 0; i < 4; i++) {
-            playerHands.add(new Hand());
-        }
-
-        // Set them all to the same seed
-        for (Hand hand : playerHands) {
+            Hand hand = new Hand();
             hand.setSeed(seed);
+            playerHands.add(hand);
         }
+        return playerHands;
+    }
 
-        // Tell them each to fill randomly
+    /** Checks if the hands provided all receive identical cards
+     * after calling .fillRandomly() on each. */
+    private void fillRandomlyCheck(ArrayList<Hand> playerHands) {
+        // Tell them each to fill randomly after clearing them
         for (Hand hand : playerHands) {
+            hand.clear();
             hand.fillRandomly();
         }
 
-        // Whatever
-        CardShape[] p1Hand = playerHands.get(0).getAllCards();
-        CardShape[] p2Hand = playerHands.get(1).getAllCards();
-        CardShape[] p3Hand = playerHands.get(2).getAllCards();
-        CardShape[] p4Hand = playerHands.get(3).getAllCards();
-
         // Check that they're all the same
-        for (int i = 0; i < Hand.maxSize(); i++) {
-            assertEquals(p1Hand[i], p2Hand[i]);
-            assertEquals(p1Hand[i], p3Hand[i]);
-            assertEquals(p1Hand[i], p4Hand[i]);
+
+        // Compare them all against the first
+        CardShape[] firstHand = playerHands.get(0).getAllCards();
+        for (int h = 1; h < playerHands.size(); h++) {
+            CardShape[] nextHand = playerHands.get(h).getAllCards();
+
+            // Compare each card in the both
+            for (int i = 0; i < Hand.maxSize(); i++) {
+                assertEquals(firstHand[i], nextHand[i]);
+                assertEquals(firstHand[i], nextHand[i]);
+                assertEquals(firstHand[i], nextHand[i]);
+            }
+        }
+    }
+
+    /** Tests whether multiple hands, when given the same seed,
+     * are 'randomly' filled with the exact same cards.
+     *
+     * Performs this test X number of times. */
+    private void fillRandomly_X(int x) {
+
+        // Generate a random seed
+        long seed = System.nanoTime();
+        System.out.println("fillRandomly_"+x+"()'s seed is:\n" + seed);
+
+        // Generate 4 hands with the same seed
+        ArrayList<Hand> playerHands = genSeededHands(seed);
+
+        // Check that they get the same cards X times.
+        for (int i = 0; i < x; i++) {
+            fillRandomlyCheck(playerHands);
         }
     }
 
     @Test
-    public void fillRandomly_2() {
-
-        long seed = System.nanoTime();
-        System.out.println("fillRandomly_2()'s seed is:\n"+seed);
-
-        // Create a hand for 4 players
-        ArrayList<Hand> playerHands = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            playerHands.add(new Hand());
-        }
-
-        // Set them all to the same seed
-        for (Hand hand : playerHands) {
-            hand.setSeed(seed);
-        }
-
-        for (int randomChecks = 0; randomChecks < 2; randomChecks++) {
-
-            // Tell them each to fill randomly
-            for (Hand hand : playerHands) {
-                hand.fillRandomly();
-            }
-
-            // Whatever
-            CardShape[] p1Hand = playerHands.get(0).getAllCards();
-            CardShape[] p2Hand = playerHands.get(1).getAllCards();
-            CardShape[] p3Hand = playerHands.get(2).getAllCards();
-            CardShape[] p4Hand = playerHands.get(3).getAllCards();
-
-            // Check that they're all the same
-            for (int i = 0; i < Hand.maxSize(); i++) {
-                assertEquals(p1Hand[i], p2Hand[i]);
-                assertEquals(p1Hand[i], p3Hand[i]);
-                assertEquals(p1Hand[i], p4Hand[i]);
-            }
-
-            // Clear them all
-            for (Hand hand : playerHands) {
-                hand.clear();
-            }
-        }
+    public void fillRandomly_1() {
+        fillRandomly_X(1);
     }
 
     @Test
     public void fillRandomly_10() {
-
-        long seed = System.nanoTime();
-        System.out.println("fillRandomly_10()'s seed is:\n"+seed);
-
-        // Create a hand for 4 players
-        ArrayList<Hand> playerHands = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            playerHands.add(new Hand());
-        }
-
-        // Set them all to the same seed
-        for (Hand hand : playerHands) {
-            hand.setSeed(seed);
-        }
-
-        for (int randomChecks = 0; randomChecks < 10; randomChecks++) {
-
-            // Tell them each to fill randomly
-            for (Hand hand : playerHands) {
-                hand.fillRandomly();
-            }
-
-            // Whatever
-            CardShape[] p1Hand = playerHands.get(0).getAllCards();
-            CardShape[] p2Hand = playerHands.get(1).getAllCards();
-            CardShape[] p3Hand = playerHands.get(2).getAllCards();
-            CardShape[] p4Hand = playerHands.get(3).getAllCards();
-
-            // Check that they're all the same
-            for (int i = 0; i < Hand.maxSize(); i++) {
-                assertEquals(p1Hand[i], p2Hand[i]);
-                assertEquals(p1Hand[i], p3Hand[i]);
-                assertEquals(p1Hand[i], p4Hand[i]);
-                System.out.println(p1Hand[i] + "," + p2Hand[i]);
-                System.out.println(p1Hand[i] + "," + p3Hand[i]);
-                System.out.println(p1Hand[i] + "," + p4Hand[i]);
-            }
-
-            // Clear them all
-            for (Hand hand : playerHands) {
-                hand.clear();
-            }
-        }
+        fillRandomly_X(10);
     }
 
     @Test
     public void fillRandomly_100() {
+        fillRandomly_X(100);
+    }
 
-        long seed = System.nanoTime();
-        System.out.println("fillRandomly_100()'s seed is:\n"+seed);
-
-        // Create a hand for 4 players
-        ArrayList<Hand> playerHands = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            playerHands.add(new Hand());
-        }
-
-        // Set them all to the same seed
-        for (Hand hand : playerHands) {
-            hand.setSeed(seed);
-        }
-
-        for (int randomChecks = 0; randomChecks < 100; randomChecks++) {
-
-            // Tell them each to fill randomly
-            for (Hand hand : playerHands) {
-                hand.fillRandomly();
-            }
-
-            // Whatever
-            CardShape[] p1Hand = playerHands.get(0).getAllCards();
-            CardShape[] p2Hand = playerHands.get(1).getAllCards();
-            CardShape[] p3Hand = playerHands.get(2).getAllCards();
-            CardShape[] p4Hand = playerHands.get(3).getAllCards();
-
-            // Check that they're all the same
-            for (int i = 0; i < Hand.maxSize(); i++) {
-                assertEquals(p1Hand[i], p2Hand[i]);
-                assertEquals(p1Hand[i], p3Hand[i]);
-                assertEquals(p1Hand[i], p4Hand[i]);
-            }
-
-            // Clear them all
-            for (Hand hand : playerHands) {
-                hand.clear();
-            }
-        }
+    @Test
+    public void fillRandomly_1000() {
+        fillRandomly_X(1000);
     }
 
     @Test
     public void fillRandomly_10000() {
+        fillRandomly_X(10000);
+    }
 
-        long seed = System.nanoTime();
-        System.out.println("fillRandomly_10000()'s seed is:\n"+seed);
-
-        // Create a hand for 4 players
-        ArrayList<Hand> playerHands = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            playerHands.add(new Hand());
-        }
-
-        // Set them all to the same seed
-        for (Hand hand : playerHands) {
-            hand.setSeed(seed);
-        }
-
-        for (int randomChecks = 0; randomChecks < 10000; randomChecks++) {
-
-            // Tell them each to fill randomly
-            for (Hand hand : playerHands) {
-                hand.fillRandomly();
-            }
-
-            // Whatever
-            CardShape[] p1Hand = playerHands.get(0).getAllCards();
-            CardShape[] p2Hand = playerHands.get(1).getAllCards();
-            CardShape[] p3Hand = playerHands.get(2).getAllCards();
-            CardShape[] p4Hand = playerHands.get(3).getAllCards();
-
-            // Check that they're all the same
-            for (int i = 0; i < Hand.maxSize(); i++) {
-                assertEquals(p1Hand[i], p2Hand[i]);
-                assertEquals(p1Hand[i], p3Hand[i]);
-                assertEquals(p1Hand[i], p4Hand[i]);
-            }
-
-            // Clear them all
-            for (Hand hand : playerHands) {
-                hand.clear();
-            }
-        }
+    @Test
+    public void fillRandomly_100000() {
+        fillRandomly_X(100000);
     }
 
     @Test
     public void fillRandomly_1000000() {
-
-        long seed = System.nanoTime();
-        System.out.println("fillRandomly_1000000()'s seed is:\n"+seed);
-
-        // Create a hand for 4 players
-        ArrayList<Hand> playerHands = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            playerHands.add(new Hand());
-        }
-
-        // Set them all to the same seed
-        for (Hand hand : playerHands) {
-            hand.setSeed(seed);
-        }
-
-        for (int randomChecks = 0; randomChecks < 1000000; randomChecks++) {
-
-            // Tell them each to fill randomly
-            for (Hand hand : playerHands) {
-                hand.fillRandomly();
-            }
-
-            // Whatever
-            CardShape[] p1Hand = playerHands.get(0).getAllCards();
-            CardShape[] p2Hand = playerHands.get(1).getAllCards();
-            CardShape[] p3Hand = playerHands.get(2).getAllCards();
-            CardShape[] p4Hand = playerHands.get(3).getAllCards();
-
-            // Check that they're all the same
-            for (int i = 0; i < Hand.maxSize(); i++) {
-                assertEquals(p1Hand[i], p2Hand[i]);
-                assertEquals(p1Hand[i], p3Hand[i]);
-                assertEquals(p1Hand[i], p4Hand[i]);
-            }
-
-            // Clear them all
-            for (Hand hand : playerHands) {
-                hand.clear();
-            }
-        }
+        fillRandomly_X(1000000);
     }
+
+
 }

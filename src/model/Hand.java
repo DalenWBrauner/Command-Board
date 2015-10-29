@@ -19,6 +19,13 @@ public class Hand {
         counters.put(CardShape.SHAPE3, 0);
     }
 
+    /** Sets the seed for the random card generator.
+     * With any luck, this will allow non-local games
+     * to receive consistent random cards. */
+    public void setSeed(long seed) {
+        r.setSeed(seed);
+    }
+
     /** Returns the maximum number of cards a hand can hold. */
     public static int maxSize() { return MAX_CARDS; }
 

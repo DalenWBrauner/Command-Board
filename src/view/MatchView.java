@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import model.Hand;
 import model.Match;
 import model.Player;
 import model.tile.NullTile;
@@ -212,8 +213,10 @@ public class MatchView implements ControlledScreen,
     @Override
     public CardShape placeWhichCard() {
         // Place a random card
-        CardShape[] hand = m.getPlayer(m.getCurrentPlayerID()).getHand().getAllCards();
-        return hand[random.nextInt(hand.length)];
+        Hand hand = m.getPlayer(m.getCurrentPlayerID()).getHand();
+        CardShape[] cards = hand.getAllCards();
+        // cards can contain NOCARDS, so our max is the size of hand, not cards.
+        return cards[random.nextInt(hand.size())];
         // Alert! TODO Use the GUI to ask the users!
     }
 

@@ -11,7 +11,6 @@ public class SellAnyTileCommand extends Command {
         tileSalesman = stc;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void execute(Player sourcePlayer) {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();

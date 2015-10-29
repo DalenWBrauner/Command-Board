@@ -13,7 +13,6 @@ public class SwapCardAnyTileCommand extends Command {
         cardSwapper = scc;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void execute(Player sourcePlayer) {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();

@@ -11,6 +11,9 @@ import shared.interfaces.PlayerRepresentative;
 public class NullPlayer implements Player {
 
     @Override
+    public void setSeed(long seed) { }
+
+    @Override
     public int getX() { return 0; }
 
     @Override

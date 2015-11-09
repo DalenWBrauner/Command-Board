@@ -30,6 +30,12 @@ public class MatchFactory {
         }
         Collections.shuffle(turnOrder);
 
+        // Set the seed for each player
+        long masterSeed = System.nanoTime();
+        for (PlayerID id : allIDs) {
+            playerMap.get(id).setSeed(masterSeed++);
+        }
+
         // Print some stuff
         System.out.println("The " + numPlayers + " players play in this order:");
         for (PlayerID id : turnOrder) {

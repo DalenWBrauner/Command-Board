@@ -8,6 +8,7 @@ import shared.enums.PlayerID;
 import shared.interfaces.PlayerRepresentative;
 
 public interface Player {
+    public void setSeed(long seed);
     public int getX();
     public int getY();
     public void setX(int x);

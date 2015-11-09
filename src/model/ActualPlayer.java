@@ -41,6 +41,11 @@ public class ActualPlayer implements Player {
     }
 
     @Override
+    public void setSeed(long seed) {
+        myHand.setSeed(seed);
+    }
+
+    @Override
     public PlayerID getID() {
         return myID;
     }

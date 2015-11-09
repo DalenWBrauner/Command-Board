@@ -21,6 +21,7 @@ public class MatchFactory {
         // Instantiate Player containers
         PlayerID[] allIDs = PlayerID.getNPlayers(numPlayers);
         HashMap<PlayerID, Player> playerMap = new HashMap<>();
+        HashMap<PlayerID, Long> playerSeeds = new HashMap<>(); // I'm not sure the best way to do this just yet
         ArrayList<PlayerID> turnOrder = new ArrayList<>();
 
         // Create Player objects & shuffle turn order
@@ -31,9 +32,9 @@ public class MatchFactory {
         Collections.shuffle(turnOrder);
 
         // Set the seed for each player
-        long masterSeed = System.nanoTime();
         for (PlayerID id : allIDs) {
-            playerMap.get(id).setSeed(masterSeed++);
+            playerSeeds.put(id, System.nanoTime());
+            playerMap.get(id).setSeed(playerSeeds.get(id));
         }
 
         // Print some stuff

@@ -13,8 +13,9 @@ import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
 
 public class AIEasy implements PlayerRepresentative {
-
-    private Player thePlayer;
+	private static final long serialVersionUID = 4815063147534142013L;
+	
+	private Player thePlayer;
     private static Random r = new Random();
 
     public AIEasy(Player player) {

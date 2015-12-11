@@ -7,7 +7,9 @@ import model.tile.PropertyTile;
 import shared.enums.PlayerID;
 
 public class IfOwnedCommand extends Command {
-    private PropertyTile whichTile;
+	private static final long serialVersionUID = 3681088870462332789L;
+	
+	private PropertyTile whichTile;
     private Command ifOwned;
     private Command ifNotOwned;
 

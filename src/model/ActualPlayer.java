@@ -10,8 +10,9 @@ import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
 
 public class ActualPlayer implements Player {
-
-    private PlayerID myID;
+	private static final long serialVersionUID = -7866756744763225409L;
+	
+	private PlayerID myID;
     private int xPos;
     private int yPos;
     private int xLast;

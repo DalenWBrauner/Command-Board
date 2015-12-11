@@ -6,7 +6,9 @@ import model.Player;
 import shared.enums.CheckpointColor;
 
 public class MarkCheckpointCommand extends Command {
-    CheckpointColor myColor;
+	private static final long serialVersionUID = -3330407313396138565L;
+	
+	CheckpointColor myColor;
     /** Executes only if the Player has yet to reach this checkpoint this lap. */
     Command executeThis;
 

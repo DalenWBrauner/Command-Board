@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 import model.command.AddFundsCommand;
 import model.command.Command;
@@ -16,7 +17,13 @@ public class MatchFactory {
     private final BoardFactory boardFactory = new BoardFactory();
 
     public Match createMatch(int numPlayers, int cashGoal, String whichBoard) {
+    	return createMatch(numPlayers, cashGoal, whichBoard, System.nanoTime());
+    }
+
+    public Match createMatch(int numPlayers, int cashGoal, String whichBoard, long seed) {
         System.out.println("MatchFactory.createMatch(); START");
+        // Instantiate our RNG
+        Random rng = new Random(seed);
 
         // Instantiate Player containers
         PlayerID[] allIDs = PlayerID.getNPlayers(numPlayers);
@@ -29,11 +36,13 @@ public class MatchFactory {
             playerMap.put(id, new ActualPlayer(id));
             turnOrder.add(id);
         }
-        Collections.shuffle(turnOrder);
+        //Collections.shuffle(turnOrder);
+        Collections.shuffle(turnOrder, rng);
 
         // Set the seed for each player
         for (PlayerID id : allIDs) {
-            playerSeeds.put(id, System.nanoTime());
+            //playerSeeds.put(id, System.nanoTime());
+        	playerSeeds.put(id, seed++);
             playerMap.get(id).setSeed(playerSeeds.get(id));
         }
 

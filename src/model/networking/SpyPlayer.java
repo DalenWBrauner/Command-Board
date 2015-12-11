@@ -11,7 +11,9 @@ import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
 
 public class SpyPlayer implements PlayerRepresentative {
-    private Coordinator myBoss;
+	private static final long serialVersionUID = -6191334219536090784L;
+	
+	private Coordinator myBoss;
     private PlayerRepresentative myTarget;
     private final int playerNumber;
     private int questionNumber;
@@ -37,7 +39,7 @@ public class SpyPlayer implements PlayerRepresentative {
         SpellID theirChoice = myTarget.getSpellCast(availableSpells);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -53,7 +55,7 @@ public class SpyPlayer implements PlayerRepresentative {
         int theirChoice = myTarget.getUsersRoll();
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -69,7 +71,7 @@ public class SpyPlayer implements PlayerRepresentative {
         CardinalDirection theirChoice = myTarget.forkInTheRoad(availableDirections);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -85,7 +87,7 @@ public class SpyPlayer implements PlayerRepresentative {
         boolean theirChoice = myTarget.buyThisTile(tileForPurchase);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -101,7 +103,7 @@ public class SpyPlayer implements PlayerRepresentative {
         CardShape theirChoice = myTarget.placeWhichCard();
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -117,7 +119,7 @@ public class SpyPlayer implements PlayerRepresentative {
         CardShape theirChoice = myTarget.swapCardOnThisTile(tileForSwapping);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -133,7 +135,7 @@ public class SpyPlayer implements PlayerRepresentative {
         Tile theirChoice = myTarget.swapCardOnWhichTile();
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -149,7 +151,7 @@ public class SpyPlayer implements PlayerRepresentative {
         Tile theirChoice = myTarget.upgradeWhichTile(upgradeableTiles);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -165,7 +167,7 @@ public class SpyPlayer implements PlayerRepresentative {
         int theirChoice = myTarget.upgradeToWhatLevel(upgradingTile);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -181,7 +183,7 @@ public class SpyPlayer implements PlayerRepresentative {
         PropertyTile theirChoice = myTarget.sellWhichTile(sellingPlayer);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 
@@ -197,7 +199,7 @@ public class SpyPlayer implements PlayerRepresentative {
         PlayerID theirChoice = myTarget.castOnPlayer(spellCast);
 
         // Report back to HQ
-        System.out.println("SPY: Reporting decision to HQ...");
+        //System.out.println("SPY: Reporting decision to HQ...");
         myBoss.reportBack(playerNumber, questionNumber, theirChoice);
         questionNumber++;
 

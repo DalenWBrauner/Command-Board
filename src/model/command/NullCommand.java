@@ -7,8 +7,9 @@ import model.Player;
  * @author Dalen W. Brauner
  */
 public class NullCommand extends Command {
+	private static final long serialVersionUID = 11L;
 
-    @Override
+	@Override
     public void execute(Player sourcePlayer) {
 
         setChanged();

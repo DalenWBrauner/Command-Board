@@ -7,7 +7,9 @@ import model.Player;
 import shared.enums.PlayerID;
 
 public class CashMagnetCommand extends Command {
-    private HashMap<PlayerID, Player> players;
+	private static final long serialVersionUID = -1561212064205002924L;
+	
+	private HashMap<PlayerID, Player> players;
     private AddFundsCommand addFunds;
 
     public CashMagnetCommand(AddFundsCommand afc, int payout,

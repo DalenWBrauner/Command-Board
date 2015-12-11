@@ -7,7 +7,9 @@ import model.tile.PropertyTile;
 import shared.interfaces.PlayerRepresentative;
 
 public class SellAnyTileCommand extends Command {
-    private SellTileCommand tileSalesman;
+	private static final long serialVersionUID = 6406447739265233321L;
+	
+	private SellTileCommand tileSalesman;
 
     public SellAnyTileCommand(SellTileCommand stc) {
         tileSalesman = stc;

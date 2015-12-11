@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.tile.PropertyTile;
@@ -7,7 +8,7 @@ import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.interfaces.PlayerRepresentative;
 
-public interface Player {
+public interface Player extends Serializable {
     public void setSeed(long seed);
     public int getX();
     public int getY();

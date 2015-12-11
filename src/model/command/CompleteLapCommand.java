@@ -6,7 +6,8 @@ import model.Player;
 import shared.enums.CheckpointColor;
 
 public class CompleteLapCommand extends Command {
-    /** executeThis is only executed if the player truly completes the lap. */
+	private static final long serialVersionUID = -2694000314720776695L;
+	/** executeThis is only executed if the player truly completes the lap. */
     Command executeThis;
 
     public CompleteLapCommand(Command onLapCompletion) {

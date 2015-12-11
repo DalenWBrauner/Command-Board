@@ -6,7 +6,9 @@ import model.Player;
 import model.tile.PropertyTile;
 
 public class UpgradeTileCommand extends Command {
-    private PropertyTile thisTile;
+	private static final long serialVersionUID = -547836592224128812L;
+	
+	private PropertyTile thisTile;
     private SubtractFundsCommand subtractFunds;
 
     public UpgradeTileCommand(SubtractFundsCommand sfc) {

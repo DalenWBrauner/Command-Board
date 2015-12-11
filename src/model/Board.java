@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import model.tile.CheckpointTile;
 import model.tile.NullTile;
 import model.tile.PropertyTile;
@@ -10,9 +12,10 @@ import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 import shared.enums.TileType;
 
-public class Board {
-
-    private final static int BOARD_WIDTH = 15;
+public class Board implements Serializable {
+	private static final long serialVersionUID = 2454401015775985663L;
+	
+	private final static int BOARD_WIDTH = 15;
     private final static int BOARD_HEIGHT = 15;
 
     private int startX = 0;

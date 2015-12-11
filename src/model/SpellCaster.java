@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +23,10 @@ import shared.enums.CardShape;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
 
-public class SpellCaster {
-
-    private final Board theBoard;
+public class SpellCaster implements Serializable {
+	private static final long serialVersionUID = 7662137004243369954L;
+	
+	private final Board theBoard;
     private final HashMap<PlayerID, Player> playerMap;
     // The spellbook isn't static only because each command
     // is dependent on that match's watchtower

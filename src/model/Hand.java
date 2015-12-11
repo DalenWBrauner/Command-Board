@@ -1,14 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import shared.enums.CardShape;
 
-public class Hand {
-
-    /** Maximum # of cards allowed in one hand. */
+public class Hand implements Serializable {
+	private static final long serialVersionUID = 8979756749958367720L;
+	
+	/** Maximum # of cards allowed in one hand. */
     private final static int MAX_CARDS = 5;
     private HashMap<CardShape, Integer> counters = new HashMap<>();
     private Random r = new Random();

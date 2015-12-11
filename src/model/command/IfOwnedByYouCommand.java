@@ -6,7 +6,9 @@ import model.Player;
 import model.tile.PropertyTile;
 
 public class IfOwnedByYouCommand extends Command {
-    private PropertyTile whichTile;
+	private static final long serialVersionUID = -8849554145417627875L;
+	
+	private PropertyTile whichTile;
     private Command ifOwned;
     private Command ifNotOwned;
 

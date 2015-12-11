@@ -1,14 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import model.command.Command;
 import model.command.NullCommand;
 import model.tile.PropertyTile;
 
-public class Wallet {
-
-    private int cashOnHand;
+public class Wallet implements Serializable {
+	private static final long serialVersionUID = -2256688157329835979L;
+	
+	private int cashOnHand;
     private final Player theOwner;
     private Command onNegative = new NullCommand();
 

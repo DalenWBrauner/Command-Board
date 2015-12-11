@@ -10,7 +10,9 @@ import shared.enums.PlayerID;
 import shared.interfaces.PlayerRepresentative;
 
 public class BuyTileCommand extends Command {
-    private HashMap<PlayerID, Player> players;
+	private static final long serialVersionUID = 2147776889265297840L;
+	
+	private HashMap<PlayerID, Player> players;
     private SubtractFundsCommand subtractFunds;
     private AddFundsCommand addFunds;
     private PropertyTile tileForPurchase;

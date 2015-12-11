@@ -8,7 +8,9 @@ import shared.enums.PlayerID;
 import shared.enums.SpellID;
 
 public class CastOnPlayerCommand extends Command {
-    SpellID id;
+	private static final long serialVersionUID = -700233955012384107L;
+	
+	SpellID id;
     Command spell;
     HashMap<PlayerID, Player> playerMap;
 

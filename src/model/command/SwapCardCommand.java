@@ -7,7 +7,9 @@ import model.tile.PropertyTile;
 import shared.enums.CardShape;
 
 public class SwapCardCommand extends Command {
-    private PropertyTile thisTile;
+	private static final long serialVersionUID = -9008064653495994529L;
+	
+	private PropertyTile thisTile;
 
     public SwapCardCommand() {
         thisTile = null;

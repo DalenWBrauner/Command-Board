@@ -4,7 +4,9 @@ import model.Player;
 import model.tile.PropertyTile;
 
 public class SellTileCommand extends Command {
-    private PropertyTile tileForSale;
+	private static final long serialVersionUID = 1487107262727701312L;
+	
+	private PropertyTile tileForSale;
     private AddFundsCommand addFunds;
 
     public SellTileCommand(AddFundsCommand afc) {

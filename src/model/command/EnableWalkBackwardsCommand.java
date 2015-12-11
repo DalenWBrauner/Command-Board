@@ -3,8 +3,9 @@ package model.command;
 import model.Player;
 
 public class EnableWalkBackwardsCommand extends Command {
+	private static final long serialVersionUID = 2226737924306321907L;
 
-    @Override
+	@Override
     public void execute(Player sourcePlayer) {
         // Sets their previous position to their current one
         // i.e. they can walk anywhere except where they already are

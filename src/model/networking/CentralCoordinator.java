@@ -9,6 +9,7 @@ public class CentralCoordinator implements Coordinator {
     private final int[] playerIDs = new int[playerSlots];
     private int readyPlayers;
     private int finishedPlayers;
+    private final long seed;
     private Server myOwner; // I don't like this, but it's better than global variables
 
     // Hashmap of   PlayerID -> HashMap<TurnNumber -> Decision>
@@ -16,6 +17,7 @@ public class CentralCoordinator implements Coordinator {
 
     public CentralCoordinator(Server server) {
         myOwner = server;
+        seed = System.nanoTime();
         readyPlayers = 0;
         finishedPlayers = 0;
         allTurns = new HashMap<Integer, HashMap<Integer, Object>>();
@@ -28,6 +30,12 @@ public class CentralCoordinator implements Coordinator {
         }
     }
 
+    @Override
+	public long getSeed() { return seed; }
+
+//    @Override
+//	public void setSeed(long newSeed) { seed = newSeed; }
+    
     @SuppressWarnings("unused")
     private int emptySlots() {
         int emptySlots = 0;
@@ -167,4 +175,6 @@ public class CentralCoordinator implements Coordinator {
             myOwner.endServer();
         }
     }
+
+
 }

@@ -10,7 +10,9 @@ import shared.enums.TileType;
 import shared.interfaces.PlayerRepresentative;
 
 public class UpgradeAnyTileCommand extends Command {
-    private UpgradeTileCommand tileUpgrader;
+	private static final long serialVersionUID = 2804563968670864024L;
+	
+	private UpgradeTileCommand tileUpgrader;
 
     public UpgradeAnyTileCommand(UpgradeTileCommand utc) {
         tileUpgrader = utc;

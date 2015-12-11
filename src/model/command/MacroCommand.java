@@ -5,7 +5,9 @@ import java.rmi.RemoteException;
 import model.Player;
 
 public class MacroCommand extends Command {
-    private Command[] macro;
+	private static final long serialVersionUID = -5242038025848708012L;
+	
+	private Command[] macro;
 
     public MacroCommand(Command[] commands) {
         macro = commands;

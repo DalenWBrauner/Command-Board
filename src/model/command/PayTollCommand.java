@@ -8,7 +8,9 @@ import model.tile.PropertyTile;
 import shared.enums.PlayerID;
 
 public class PayTollCommand extends Command {
-    private HashMap<PlayerID, Player> players;
+	private static final long serialVersionUID = -6624564889015659203L;
+	
+	private HashMap<PlayerID, Player> players;
     private SubtractFundsCommand subtractFunds;
     private AddFundsCommand addFunds;
     private PropertyTile tile;

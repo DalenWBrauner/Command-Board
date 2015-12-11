@@ -12,8 +12,9 @@ import shared.enums.PlayerID;
 import shared.enums.SpellID;
 
 public class NullRepresentative implements PlayerRepresentative {
-
-    private Player thePlayer;
+	private static final long serialVersionUID = 2746071336074072115L;
+	
+	private Player thePlayer;
     private static Random r = new Random();
 
     public NullRepresentative(Player player) { thePlayer = player; }

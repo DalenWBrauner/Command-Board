@@ -3,7 +3,9 @@ package model.command;
 import model.Player;
 
 public class AddFundsCommand extends Command {
-    private int funds;
+	private static final long serialVersionUID = -5453368569251933786L;
+	
+	private int funds;
 
     public AddFundsCommand() {
         funds = 0;

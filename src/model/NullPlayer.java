@@ -9,8 +9,9 @@ import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
 
 public class NullPlayer implements Player {
+	private static final long serialVersionUID = 2380614319582208511L;
 
-    @Override
+	@Override
     public void setSeed(long seed) { }
 
     @Override

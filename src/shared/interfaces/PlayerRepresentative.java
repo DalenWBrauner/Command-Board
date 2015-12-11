@@ -1,5 +1,6 @@
 package shared.interfaces;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -21,7 +22,7 @@ import shared.enums.SpellID;
  * @author Dalen W. Brauner
  *
  */
-public interface PlayerRepresentative extends Remote {
+public interface PlayerRepresentative extends Remote, Serializable {
 
     /** The Model needs to know what spell is being cast!
      * The current player can be obtained from the Model.

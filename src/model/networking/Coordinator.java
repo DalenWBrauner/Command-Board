@@ -51,4 +51,8 @@ public interface Coordinator extends Remote {
     /** Informs the coordinator a number of players are done playing. */
     public void goodGame(int[] ID)
             throws RemoteException, NotBoundException;
+
+	public long getSeed() throws RemoteException;
+
+//	public void setSeed(long newSeed) throws RemoteException;
 }

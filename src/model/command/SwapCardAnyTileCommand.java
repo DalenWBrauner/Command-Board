@@ -9,7 +9,9 @@ import shared.enums.TileType;
 import shared.interfaces.PlayerRepresentative;
 
 public class SwapCardAnyTileCommand extends Command {
-    private SwapCardCommand cardSwapper;
+	private static final long serialVersionUID = 7182083183077118545L;
+	
+	private SwapCardCommand cardSwapper;
 
     public SwapCardAnyTileCommand(SwapCardCommand scc) {
         cardSwapper = scc;

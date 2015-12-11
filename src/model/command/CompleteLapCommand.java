@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 import shared.enums.CheckpointColor;
 
@@ -12,7 +14,7 @@ public class CompleteLapCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         // If the Player has completed the lap
         if (sourcePlayer.hasPassed(CheckpointColor.RED) &&
             sourcePlayer.hasPassed(CheckpointColor.BLU) &&

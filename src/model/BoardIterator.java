@@ -1,5 +1,6 @@
 package model;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -32,8 +33,9 @@ public class BoardIterator extends Observable {
         matchIsOver = isOver;
     }
 
-    /** Physically moves the player across the board until their turn is over. */
-    public void go() {
+    /** Physically moves the player across the board until their turn is over.
+     * @throws RemoteException */
+    public void go() throws RemoteException {
         PlayerRepresentative currentRep = movingPlayer.getRepresentative();
 
         // Get the player's dice roll
@@ -73,8 +75,9 @@ public class BoardIterator extends Observable {
         System.out.println(movingPlayerID+" is done moving!");
     }
 
-    /** Discern which of the available paths the Player is going to move in. */
-    private CardinalDirection pickAPath(PlayerRepresentative currentRep) {
+    /** Discern which of the available paths the Player is going to move in.
+     * @throws RemoteException */
+    private CardinalDirection pickAPath(PlayerRepresentative currentRep) throws RemoteException {
         CardinalDirection chosenPath;
         CardinalDirection[] availablePaths = getAvailablePaths();
 
@@ -145,8 +148,9 @@ public class BoardIterator extends Observable {
     }
 
     /** Physically moves the player in the given direction.
-     * Calls the Tile's onPass() or onLand() functions. */
-    private void moveTo(CardinalDirection chosenPath, boolean justPassingBy) {
+     * Calls the Tile's onPass() or onLand() functions.
+     * @throws RemoteException */
+    private void moveTo(CardinalDirection chosenPath, boolean justPassingBy) throws RemoteException {
 
         // Get where the Player is & was
         int xPos = movingPlayer.getX();

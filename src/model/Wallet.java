@@ -1,5 +1,7 @@
 package model;
 
+import java.rmi.RemoteException;
+
 import model.command.Command;
 import model.command.NullCommand;
 import model.tile.PropertyTile;
@@ -34,7 +36,7 @@ public class Wallet {
         cashOnHand += funds;
     }
 
-    public void subtractFunds(int funds) {
+    public void subtractFunds(int funds) throws RemoteException {
         Math.max(funds, 0); // You can't subtract negative funds
         cashOnHand -= funds;
 

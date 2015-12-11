@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 import model.tile.PropertyTile;
 import shared.interfaces.PlayerRepresentative;
@@ -12,7 +14,7 @@ public class SellAnyTileCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();
 
         // If the player doesn't have any tiles, quit early

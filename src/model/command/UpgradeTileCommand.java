@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 import model.tile.PropertyTile;
 
@@ -22,7 +24,7 @@ public class UpgradeTileCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         // Ask the player to what level they want to upgrade
         int newLevel = sourcePlayer.getRepresentative().upgradeToWhatLevel(thisTile);
 

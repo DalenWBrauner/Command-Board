@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 import model.tile.PropertyTile;
 
@@ -17,7 +19,7 @@ public class IfOwnedByYouCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         if (whichTile.getOwner() == sourcePlayer.getID()) ifOwned.execute(sourcePlayer);
         else                                           ifNotOwned.execute(sourcePlayer);
 

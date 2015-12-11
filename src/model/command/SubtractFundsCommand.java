@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 
 public class SubtractFundsCommand extends Command {
@@ -18,7 +20,7 @@ public class SubtractFundsCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         sourcePlayer.getWallet().subtractFunds(funds);
 
         setChanged();

@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
@@ -20,7 +22,7 @@ public class SwapCardCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         // Ask the player which card they'd like to swap
         CardShape card = sourcePlayer.getRepresentative().swapCardOnThisTile(thisTile);
 

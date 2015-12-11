@@ -1,10 +1,14 @@
 package model.tile;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
+
 import model.Player;
 import model.command.Command;
 import shared.enums.TileType;
 
-public abstract class Tile {
+public abstract class Tile implements Serializable {
+    private static final long serialVersionUID = -7544649620753892580L;
 
     private int xPos;
     private int yPos;
@@ -42,11 +46,11 @@ public abstract class Tile {
         onPass = command;
     }
 
-    public void onPass(Player movingPlayer) {
+    public void onPass(Player movingPlayer) throws RemoteException {
         onPass.execute(movingPlayer);
     }
 
-    public void onLand(Player movingPlayer) {
+    public void onLand(Player movingPlayer) throws RemoteException {
         onLand.execute(movingPlayer);
     }
 }

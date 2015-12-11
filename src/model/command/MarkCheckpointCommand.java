@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 import shared.enums.CheckpointColor;
 
@@ -14,7 +16,7 @@ public class MarkCheckpointCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         // If the player has yet to pass this checkpoint
         if (!sourcePlayer.hasPassed(myColor)) {
 

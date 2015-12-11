@@ -1,5 +1,7 @@
 package model.command;
 
+import java.rmi.RemoteException;
+
 import model.Player;
 
 public class MacroCommand extends Command {
@@ -9,7 +11,7 @@ public class MacroCommand extends Command {
         macro = commands;
     }
 
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         for (Command cmd : macro) {
             cmd.execute(sourcePlayer);
         }

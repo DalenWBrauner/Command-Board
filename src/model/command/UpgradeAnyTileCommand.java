@@ -1,5 +1,6 @@
 package model.command;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import model.Player;
@@ -17,7 +18,7 @@ public class UpgradeAnyTileCommand extends Command {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();
 
         // Get which tiles the player can upgrade

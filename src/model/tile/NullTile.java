@@ -4,6 +4,7 @@ import model.command.PrintCommand;
 import shared.enums.TileType;
 
 public class NullTile extends Tile {
+    private static final long serialVersionUID = 5862966370144010427L;
 
     public NullTile(int x, int y) {
         super(x, y);

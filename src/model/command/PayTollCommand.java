@@ -1,5 +1,6 @@
 package model.command;
 
+import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import model.Player;
@@ -21,7 +22,7 @@ public class PayTollCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         int toll = tile.getToll();
 
         System.out.println(sourcePlayer.getID() + " has to pay "

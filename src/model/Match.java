@@ -1,5 +1,6 @@
 package model;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -47,7 +48,12 @@ public class Match extends Observable implements Observer, Runnable {
             currentPlayer = turnOrder.get((turnNumber - 1) % turnOrder.size());
 
             // Take that player's turn.
-            takeTurn();
+            try {
+                takeTurn();
+            } catch (RemoteException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
         // The Match is over!
@@ -59,9 +65,9 @@ public class Match extends Observable implements Observer, Runnable {
 
     /** Takes the current player's turn.
      * @return true if and only if the game is over.
-     * @throws InterruptedException
+     * @throws RemoteException
      */
-    private void takeTurn() {
+    private void takeTurn() throws RemoteException {
         System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
         System.out.println("They have in their wallet: $" +

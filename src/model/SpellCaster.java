@@ -1,5 +1,6 @@
 package model;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -81,8 +82,9 @@ public class SpellCaster {
         spellCraft(tower);
     }
 
-    /** Prepares the Player to cast a spell if they can and they wish! */
-    public void performMagic(Player player) {
+    /** Prepares the Player to cast a spell if they can and they wish!
+     * @throws RemoteException */
+    public void performMagic(Player player) throws RemoteException {
 
         System.out.println(player.getID() + " has the cards:");
         for (CardShape card : player.getHand().getAllCards()) {
@@ -137,8 +139,9 @@ public class SpellCaster {
         return true;
     }
 
-    /** Subtracts the cards necessary and casts the spell! */
-    private void cast(Player player, SpellID spellCast) {
+    /** Subtracts the cards necessary and casts the spell!
+     * @throws RemoteException */
+    private void cast(Player player, SpellID spellCast) throws RemoteException {
         // Don't bother if it's the nospell
         if (spellCast != SpellID.NOSPELL) {
 

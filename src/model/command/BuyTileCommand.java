@@ -1,5 +1,6 @@
 package model.command;
 
+import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import model.Player;
@@ -35,7 +36,7 @@ public class BuyTileCommand extends Command {
     }
 
     @Override
-    public void execute(Player sourcePlayer) {
+    public void execute(Player sourcePlayer) throws RemoteException {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();
         PlayerID tileOwner = tileForPurchase.getOwner();
 

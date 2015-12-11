@@ -5,6 +5,7 @@ import shared.enums.PlayerID;
 import shared.enums.TileType;
 
 public class PropertyTile extends Tile {
+    private static final long serialVersionUID = -6620741612615500871L;
 
     private final static int DEFAULT_BASE_VALUE = 300;
     private final static double UPGRADE_PERCENT = .70;

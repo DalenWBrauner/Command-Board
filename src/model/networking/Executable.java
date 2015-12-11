@@ -16,12 +16,12 @@ import shared.interfaces.PlayerRepresentative;
 
 public class Executable {
     public final static String coordinatorName = "Coordinator";
-    public final static int portNo = 64246;
+    public static int portNo = 87778;
     public static Server server;
 
     public static void main(String[] args) {
         // If we have arguments, execute the server too
-        if (args.length > 0 && ("-s".equals(args[0]) || "--server".equals(args[0]))) {
+        if (parseLaunchServer(args)) {
             executeServer();
         }
 
@@ -33,6 +33,25 @@ public class Executable {
             System.err.println("Client exception:");
             e.printStackTrace();
         }
+    }
+
+    /** Determine from the arguments whether or not we're launching the server. */
+    private static boolean parseLaunchServer(String[] args) {
+        if (args.length > 0 && ("-s".equals(args[0]) || "--server".equals(args[0]))) {
+            return true;
+        } else return false;
+    }
+
+    /** Determine from the arguments the number of local players in our game. */
+    private static int parseNumberPlaying(String[] args) {
+        return 1;
+    }
+
+    /** Determine from the arguments the IP address we're connecting to. */
+    private static String parseIPAddress(String[] args) {
+        if (args.length > 1 && ("-c".equals(args[0]) || "--client".equals(args[0]))) {
+            return args[0];
+        } else return "";
     }
 
     private static void executeServer() {
@@ -47,35 +66,38 @@ public class Executable {
 
     private static Registry connect(String[] args)
             throws AccessException, ConnectException, RemoteException {
+        // Determine who we're connecting to
+        String IP = parseIPAddress(args);
+
         // Establish a registry
         Registry registry;
-
-        // If they use the -c or --client arguments, assume the next argument is an IP address
-        if (args.length > 1 && ("-c".equals(args[0]) || "--client".equals(args[0]))) {
-            System.out.println("Connecting to "+args[1]+"...");
-            registry = LocateRegistry.getRegistry(args[1], portNo);
-        } else {
+        if (IP.equals("")) {
             System.out.println("Connecting to localhost...");
             registry = LocateRegistry.getRegistry(portNo);
+        } else {
+            System.out.println("Connecting to "+IP+"...");
+            registry = LocateRegistry.getRegistry(IP, portNo);
         }
         // NOTE: we haven't actually connected to the registry, just
         // created an object that points to it.
 
         // Here's the part where we actually connect.
-        registry.list(); // This will fail if there's no registry to connect to.
+        try {
+            registry.list(); // This will fail if there's no registry to connect to.
+        } catch (ConnectException e) {
+            System.out.println("Client unable to connect to Server!");
+            e.printStackTrace();
+            registry = null;
+        }
         return registry;
     }
 
     private static void executeClient(String[] args) throws RemoteException, NotBoundException {
         System.out.println("Launching Client...");
-        Registry registry;
-        try {
-            registry = connect(args);
-        } catch (ConnectException e) {
-            System.out.println("Client unable to connect to Server!");
-            e.printStackTrace();
-            return;
-        }
+
+        // Get the registry
+        Registry registry = connect(args);
+        if (registry == null) return; // If the connection failed
         System.out.println("Client successfully connected to Server!");
 
         // Get the coordinator
@@ -89,13 +111,13 @@ public class Executable {
             return; // If I can't, leave
         }
         System.out.println("YES! I'm player "+String.valueOf(myID)+"!");
-        
+
         // Create our arbitrary match
         long seed = coordinator.getSeed();
         System.out.println("The coordinator's seed is "+String.valueOf(seed));
         MatchFactory mFactory = new MatchFactory();
         Match theMatch = mFactory.createMatch(4, 6000, "Keyblade", seed);
-        
+
         // Get all our Player Objects
         ArrayList<Player> ourPlayers = theMatch.getAllPlayers();
 
@@ -115,7 +137,7 @@ public class Executable {
                 players[i] = new ServerPlayer(coordinator, i);
                 System.out.println("Creating ServerPlayer with ID "+String.valueOf(i));
             }
-            
+
             // Set our representatives
             ourPlayers.get(i).setRepresentative(players[i]);
         }
@@ -134,22 +156,17 @@ public class Executable {
 
     }
 
-    @SuppressWarnings("unused")
     private static void executeClient2Player(String[] args) throws RemoteException, NotBoundException {
         System.out.println("Launching Client...");
-        Registry registry;
-        try {
-            registry = connect(args);
-        } catch (ConnectException e) {
-            System.out.println("Client unable to connect to Server!");
-            e.printStackTrace();
-            return;
-        }
+
+        // Get the registry
+        Registry registry = connect(args);
+        if (registry == null) return; // If the connection failed
         System.out.println("Client successfully connected to Server!");
 
         // Get the coordinator
         Coordinator coordinator = (Coordinator) registry.lookup(coordinatorName);
-        
+
         // Some prep
         int maxPlayers = coordinator.maxPlayers();
         int[] myIDs = new int[2];
@@ -171,7 +188,7 @@ public class Executable {
         System.out.println("The coordinator's seed is "+String.valueOf(seed));
         MatchFactory mFactory = new MatchFactory();
         Match theMatch = mFactory.createMatch(4, 6000, "Keyblade", seed);
-        
+
         // Get all our Player Objects
         ArrayList<Player> ourPlayers = theMatch.getAllPlayers();
 
@@ -188,7 +205,7 @@ public class Executable {
                 // Create server players
                 players[i] = new ServerPlayer(coordinator, i);
             }
-            
+
             // Set our representatives
             ourPlayers.get(i).setRepresentative(players[i]);
         }

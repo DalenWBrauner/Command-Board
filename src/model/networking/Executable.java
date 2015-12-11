@@ -16,7 +16,7 @@ import shared.interfaces.PlayerRepresentative;
 
 public class Executable {
     public final static String coordinatorName = "Coordinator";
-    public static int portNo = 87778;
+    public static int portNo = 64246;
     public static Server server;
 
     public static void main(String[] args) {
@@ -35,31 +35,49 @@ public class Executable {
         }
     }
 
+    /** Find and return the position of a given argument from the command line */
+    private static int findArg(String[] args, String findMe) {
+        for (int i = 0; i < args.length; i++) {
+            if (findMe.equals(args[i])) return i;
+        }
+        return -1; // If we didn't find it
+    }
+
     /** Determine from the arguments whether or not we're launching the server. */
     private static boolean parseLaunchServer(String[] args) {
-        if (args.length > 0 && ("-s".equals(args[0]) || "--server".equals(args[0]))) {
-            return true;
-        } else return false;
+        if (findArg(args, "-s") > -1
+         || findArg(args, "--server") > -1) return true;
+        else return false;
     }
 
     /** Determine from the arguments the number of local players in our game. */
     private static int parseNumberPlaying(String[] args) {
-        return 1;
+        int terse = findArg(args,"-p");
+        int verbose = findArg(args,"--players");
+        if (terse > -1) {
+            try { return Integer.valueOf(args[terse+1]); }
+            catch (Exception e) { return 1; }
+        } else if (verbose > -1) {
+            try { return Integer.valueOf(args[verbose+1]); }
+            catch (Exception e) { return 1; }
+        } else return 1;
     }
 
     /** Determine from the arguments the IP address we're connecting to. */
     private static String parseIPAddress(String[] args) {
-        if (args.length > 1 && ("-c".equals(args[0]) || "--client".equals(args[0]))) {
-            return args[0];
-        } else return "";
+        int terse = findArg(args, "-ip");
+        if (terse > -1) return args[terse+1];
+        else return "";
     }
 
+    /** Launch the Server thread */
     private static void executeServer() {
         System.out.println("Launching Server...");
         server = new Server();
         server.run();
     }
 
+    /** End the Server thread */
     public static void endServer() throws RemoteException, NotBoundException {
         server.endServer();
     }
@@ -103,19 +121,24 @@ public class Executable {
         // Get the coordinator
         Coordinator coordinator = (Coordinator) registry.lookup(coordinatorName);
 
-        // Ask to play
+        // Get the number of local players
+        int numPlaying = parseNumberPlaying(args);
+
+        // Ask if they can play
         System.out.println("Can I play?");
-        int myID = coordinator.canIPlay();
-        if (myID < 0) {
+        int[] myIDs = coordinator.canIPlay(numPlaying);
+        if (myIDs[0] < 0) {
             System.out.println("Aww, the game was full...");
             return; // If I can't, leave
         }
-        System.out.println("YES! I'm player "+String.valueOf(myID)+"!");
+        System.out.println("YES! We are players:");
+        for (int ID : myIDs) System.out.println(String.valueOf(ID));
 
-        // Create our arbitrary match
+        // Create our match
         long seed = coordinator.getSeed();
         System.out.println("The coordinator's seed is "+String.valueOf(seed));
         MatchFactory mFactory = new MatchFactory();
+        // We are currently using arbitrary arguments
         Match theMatch = mFactory.createMatch(4, 6000, "Keyblade", seed);
 
         // Get all our Player Objects
@@ -126,87 +149,20 @@ public class Executable {
         PlayerRepresentative[] players = new PlayerRepresentative[maxPlayers];
         for (int i = 0; i < maxPlayers; i++) {
 
-            // If it's us, create a local wrapped in a spy
-            if (i == myID) {
-                players[i] = new SpyPlayer(coordinator,
-                        new AIEasy(ourPlayers.get(i)), i);
-                System.out.println("Creating Spy with ID "+String.valueOf(i));
-
-            } else {
-                // Create server players
-                players[i] = new ServerPlayer(coordinator, i);
-                System.out.println("Creating ServerPlayer with ID "+String.valueOf(i));
+            // Check if it's one of us
+            boolean localPlayer = false;
+            for (int ID : myIDs) {
+                if (i == ID) localPlayer = true;
             }
 
-            // Set our representatives
-            ourPlayers.get(i).setRepresentative(players[i]);
-        }
+            // If it is, create a local wrapped in a spy
+            if (localPlayer) players[i] = new SpyPlayer(
+                    coordinator, new AIEasy(ourPlayers.get(i)), i);
 
-        // Make sure everyone's ready...
-        System.out.println("Ready...");
-        coordinator.imReady(myID);
+            // Create server players
+            else players[i] = new ServerPlayer(coordinator, i);
 
-        // Then START!
-        System.out.println("PLAYING!");
-        theMatch.run();
-
-        // Once the game is over
-        System.out.println("Good game, everyone!");
-        coordinator.goodGame(myID);
-
-    }
-
-    private static void executeClient2Player(String[] args) throws RemoteException, NotBoundException {
-        System.out.println("Launching Client...");
-
-        // Get the registry
-        Registry registry = connect(args);
-        if (registry == null) return; // If the connection failed
-        System.out.println("Client successfully connected to Server!");
-
-        // Get the coordinator
-        Coordinator coordinator = (Coordinator) registry.lookup(coordinatorName);
-
-        // Some prep
-        int maxPlayers = coordinator.maxPlayers();
-        int[] myIDs = new int[2];
-
-        // Startup 2 players
-        for (int player = 0; player < 2; player++) {
-            // Ask to play
-            System.out.println("Can I play?");
-            myIDs[player] = coordinator.canIPlay();
-            if (myIDs[player] < 0) {
-                System.out.println("Aww, the game was full...");
-                return; // If I can't, leave
-            }
-            System.out.println("YES! I'm player "+String.valueOf(myIDs[player])+"!");
-        }
-
-        // Create our arbitrary match
-        long seed = coordinator.getSeed();
-        System.out.println("The coordinator's seed is "+String.valueOf(seed));
-        MatchFactory mFactory = new MatchFactory();
-        Match theMatch = mFactory.createMatch(4, 6000, "Keyblade", seed);
-
-        // Get all our Player Objects
-        ArrayList<Player> ourPlayers = theMatch.getAllPlayers();
-
-        // Create all of our players' representatives
-        PlayerRepresentative[] players = new PlayerRepresentative[maxPlayers];
-        for (int i = 0; i < maxPlayers; i++) {
-
-            // If it's us, create a local wrapped in a spy
-            if (i == myIDs[0] || i == myIDs[1]) {
-                players[i] = new SpyPlayer(coordinator,
-                        new AIEasy(ourPlayers.get(i)), i);
-
-            } else {
-                // Create server players
-                players[i] = new ServerPlayer(coordinator, i);
-            }
-
-            // Set our representatives
+            // Set our representative
             ourPlayers.get(i).setRepresentative(players[i]);
         }
 

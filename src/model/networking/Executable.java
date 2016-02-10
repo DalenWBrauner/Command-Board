@@ -24,11 +24,9 @@ public class Executable {
         if (parseLaunchServer(args)) {
             executeServer();
         }
-
         // Launch the Client
         try {
             executeClient(args);
-            //executeClient2Player(args);
         } catch (Exception e) {
             System.err.println("Client exception:");
             e.printStackTrace();

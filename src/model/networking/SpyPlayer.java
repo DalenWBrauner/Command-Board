@@ -3,7 +3,6 @@ package model.networking;
 import java.rmi.RemoteException;
 
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -12,7 +11,7 @@ import shared.interfaces.PlayerRepresentative;
 
 public class SpyPlayer implements PlayerRepresentative {
 	private static final long serialVersionUID = -6191334219536090784L;
-	
+
 	private Coordinator myBoss;
     private PlayerRepresentative myTarget;
     private final int playerNumber;
@@ -128,11 +127,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public Tile swapCardOnWhichTile()
+    public int[] swapCardOnWhichTile()
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        Tile theirChoice = myTarget.swapCardOnWhichTile();
+        int[] theirChoice = myTarget.swapCardOnWhichTile();
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");
@@ -144,11 +143,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles)
+    public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        Tile theirChoice = myTarget.upgradeWhichTile(upgradeableTiles);
+        int[] theirChoice = myTarget.upgradeWhichTile(upgradeableTiles);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");
@@ -176,11 +175,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer)
+    public int[] sellWhichTile(PlayerID sellingPlayer)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        PropertyTile theirChoice = myTarget.sellWhichTile(sellingPlayer);
+        int[] theirChoice = myTarget.sellWhichTile(sellingPlayer);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");

@@ -3,7 +3,6 @@ package model.networking;
 import java.rmi.RemoteException;
 
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -12,7 +11,7 @@ import shared.interfaces.PlayerRepresentative;
 
 public class ServerPlayer implements PlayerRepresentative {
 	private static final long serialVersionUID = 3858988624853971590L;
-	
+
 	private Coordinator coordinator;
     private int questionNumber;
     private int playerNumber;
@@ -82,19 +81,19 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public Tile swapCardOnWhichTile()
+    public int[] swapCardOnWhichTile()
             throws RemoteException {
         //System.out.println("swapCardOnWhichTile Asking the server what the player chose...");
-        Tile result = (Tile) coordinator.whatHappened(playerNumber, questionNumber);
+        int[] result = (int[]) coordinator.whatHappened(playerNumber, questionNumber);
         questionNumber++;
         return result;
     }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles)
+    public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles)
             throws RemoteException {
         //System.out.println("upgradeWhichTileAsking the server what the player chose...");
-        Tile result = (Tile) coordinator.whatHappened(playerNumber, questionNumber);
+        int[] result = (int[]) coordinator.whatHappened(playerNumber, questionNumber);
         questionNumber++;
         return result;
     }
@@ -109,10 +108,10 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer)
+    public int[] sellWhichTile(PlayerID sellingPlayer)
             throws RemoteException {
         //System.out.println("sellWhichTile Asking the server what the player chose...");
-        PropertyTile result = (PropertyTile) coordinator.whatHappened(playerNumber, questionNumber);
+        int[] result = (int[]) coordinator.whatHappened(playerNumber, questionNumber);
         questionNumber++;
         return result;
     }

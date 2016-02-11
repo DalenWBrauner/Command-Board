@@ -24,18 +24,10 @@ public class SellAnyTileCommand extends Command {
         if (sourcePlayer.getTilesOwned().size() == 0) return;
 
         // Ask the player which tile they have to sell
-//      PropertyTile soldTile = rep.sellWhichTile(sourcePlayer.getID());
         int[] soldTilePos = rep.sellWhichTile(sourcePlayer.getID());
 
+        // Lookup the corresponding Tile from the Board.
         Tile toBeSoldTile = theBoard.getTile(soldTilePos[0], soldTilePos[1]);
-
-//        System.out.println("What did I get? - SellCardAnyTileCommand");
-//        System.out.println(toBeSoldTile.getTileType());
-//        System.out.println("Where is it?");
-//        System.out.print(soldTilePos[0]);
-//        System.out.print(", ");
-//        System.out.print(soldTilePos[1]);
-//        System.out.println();
 
         // Assert this is a PropertyTile (unngh)
         assert(toBeSoldTile.getTileType() == TileType.PROPERTY);

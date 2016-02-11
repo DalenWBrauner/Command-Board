@@ -23,24 +23,13 @@ public class SwapCardAnyTileCommand extends Command {
         if (sourcePlayer.getTilesOwned().size() == 0) return;
 
         // Ask the player which tile they have to sell
-//        Tile swappingTile = rep.swapCardOnWhichTile();
         int[] swapTilePos = rep.swapCardOnWhichTile();
 
-        // If they didn't want to swap with anything, quit now
+        // If they didn't want to swap with anything, quit early
         if (swapTilePos.length != 2) return;
 
+        // Else, lookup the corresponding Tile from the Board.
         Tile swappingTile = theBoard.getTile(swapTilePos[0], swapTilePos[1]);
-
-//        System.out.println("What did I get? - SwapCardAnyTileCommand");
-//        System.out.println(swappingTile.getTileType());
-//        System.out.println("Where is it?");
-//        System.out.print(swapTilePos[0]);
-//        System.out.print(", ");
-//        System.out.print(swapTilePos[1]);
-//        System.out.println();
-
-        // If they didn't want to swap with anything, quit now
-//        if (swappingTile.getTileType() == TileType.NONE) return;
 
         // SWAP! SWAP! SWAP! SWAP!
         cardSwapper.setTile((PropertyTile) swappingTile);

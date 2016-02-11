@@ -24,6 +24,10 @@ public abstract class Tile {
         return yPos;
     }
 
+    public int[] getPos() {
+        return new int[] {xPos, yPos};
+    }
+
     public void setX(int x) {
         xPos = x;
     }

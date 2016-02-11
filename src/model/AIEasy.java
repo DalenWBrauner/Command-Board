@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -56,13 +55,7 @@ public class AIEasy implements PlayerRepresentative {
     /** Easy AI will upgrade a Tile at random. */
     @Override
     public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles) {
-
-        // TODO add .getPos() to tiles to simplify this
-        int[] pos = new int[2];
-        Tile chosenTile = upgradeableTiles[r.nextInt(upgradeableTiles.length)];
-        pos[0] = chosenTile.getX();
-        pos[1] = chosenTile.getY();
-        return pos;
+        return upgradeableTiles[r.nextInt(upgradeableTiles.length)].getPos();
     }
 
     /** Easy AI upgrades each Tile by 1. */
@@ -75,13 +68,7 @@ public class AIEasy implements PlayerRepresentative {
     @Override
     public int[] sellWhichTile(PlayerID sellingPlayer) {
         ArrayList<PropertyTile> tilesOwned = thePlayer.getTilesOwned();
-
-        // TODO add .getPos() to tiles to simplify this
-        int[] pos = new int[2];
-        PropertyTile chosenTile = tilesOwned.get(r.nextInt(tilesOwned.size()));
-        pos[0] = chosenTile.getX();
-        pos[1] = chosenTile.getY();
-        return pos;
+        return tilesOwned.get(r.nextInt(tilesOwned.size())).getPos();
     }
 
     /** Easy AI doesn't cast spells. */

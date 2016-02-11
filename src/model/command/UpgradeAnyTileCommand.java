@@ -6,6 +6,7 @@ import model.Board;
 import model.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
+import shared.enums.TileType;
 import shared.interfaces.PlayerRepresentative;
 
 public class UpgradeAnyTileCommand extends Command {
@@ -42,13 +43,10 @@ public class UpgradeAnyTileCommand extends Command {
         ownedTiles.toArray(upgradeableTiles);
 
         // Ask the player which tile they'd like to upgrade
-        int[] whichTilePos = rep.upgradeWhichTile(upgradeableTiles);
+        Tile whichTile = theBoard.getTile(rep.upgradeWhichTile(upgradeableTiles));
 
         // If they don't want to upgrade a tile, quit early
-        if (whichTilePos.length != 2) return;
-
-        // Else, lookup the corresponding Tile from the Board.
-        Tile whichTile = theBoard.getTile(whichTilePos[0], whichTilePos[1]);
+        if (whichTile.getTileType() == TileType.NONE) return;
 
         // Otherwise, go ahead and upgrade!
         tileUpgrader.setTile((PropertyTile) whichTile);

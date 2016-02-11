@@ -4,6 +4,7 @@ import model.Board;
 import model.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
+import shared.enums.TileType;
 import shared.interfaces.PlayerRepresentative;
 
 public class SwapCardAnyTileCommand extends Command {
@@ -23,13 +24,10 @@ public class SwapCardAnyTileCommand extends Command {
         if (sourcePlayer.getTilesOwned().size() == 0) return;
 
         // Ask the player which tile they have to sell
-        int[] swapTilePos = rep.swapCardOnWhichTile();
+        Tile swappingTile = theBoard.getTile(rep.swapCardOnWhichTile());
 
         // If they didn't want to swap with anything, quit early
-        if (swapTilePos.length != 2) return;
-
-        // Else, lookup the corresponding Tile from the Board.
-        Tile swappingTile = theBoard.getTile(swapTilePos[0], swapTilePos[1]);
+        if (swappingTile.getTileType() == TileType.NONE) return;
 
         // SWAP! SWAP! SWAP! SWAP!
         cardSwapper.setTile((PropertyTile) swappingTile);

@@ -17,7 +17,6 @@ import model.Hand;
 import model.Match;
 import model.Player;
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -230,16 +229,13 @@ public class MatchView implements ControlledScreen,
     public int[] swapCardOnWhichTile() {
         // Don't bother to swap cards
         return new int[] {};
-//        return new NullTile();
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
     public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles) {
         // Upgrade a random tile
-        Tile t = upgradeableTiles[random.nextInt(upgradeableTiles.length)];
-        return new int[] {t.getX(), t.getY()};
-//        return upgradeableTiles[random.nextInt(upgradeableTiles.length)];
+        return upgradeableTiles[random.nextInt(upgradeableTiles.length)].getPos();
         // Alert! TODO Use the GUI to ask the users!
     }
 
@@ -254,9 +250,7 @@ public class MatchView implements ControlledScreen,
     public int[] sellWhichTile(PlayerID sellingPlayer) {
         // Sell a random tile
         ArrayList<PropertyTile> sellableTiles = m.getPlayer(sellingPlayer).getTilesOwned();
-        PropertyTile t = sellableTiles.get(random.nextInt(sellableTiles.size()));
-        return new int[] {t.getX(), t.getY()};
-//        return sellableTiles.get(random.nextInt(sellableTiles.size()));
+        return sellableTiles.get(random.nextInt(sellableTiles.size())).getPos();
         // Alert! TODO Use the GUI to ask the users!
     }
 

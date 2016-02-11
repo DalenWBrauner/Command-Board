@@ -179,7 +179,7 @@ public class SpellCaster implements Serializable {
     private Command craftForeclosure(WatchTower tower) {
         AddFundsCommand afc = new AddFundsCommand();
         SellTileCommand stc = new SellTileCommand(afc);
-        Command foreclose = new SellAnyTileCommand(stc);
+        Command foreclose = new SellAnyTileCommand(stc, theBoard);
         Command spell = new CastOnPlayerCommand(SpellID.SPELL2, foreclose, playerMap);
 
         spell.addObserver(tower);
@@ -190,7 +190,7 @@ public class SpellCaster implements Serializable {
     private Command craftUpgrade(WatchTower tower) {
         SubtractFundsCommand sfc = new SubtractFundsCommand();
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
-        Command spell = new UpgradeAnyTileCommand(utc);
+        Command spell = new UpgradeAnyTileCommand(utc, theBoard);
 
         spell.addObserver(tower);
         return spell;
@@ -199,7 +199,7 @@ public class SpellCaster implements Serializable {
     /** Returns the Card Swap Spell */
     private Command craftCardSwap(WatchTower tower) {
         SwapCardCommand scc = new SwapCardCommand();
-        Command spell = new SwapCardAnyTileCommand(scc);
+        Command spell = new SwapCardAnyTileCommand(scc, theBoard);
 
         spell.addObserver(tower);
         return spell;

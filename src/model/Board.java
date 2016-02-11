@@ -76,6 +76,17 @@ public class Board implements Serializable {
         }
     }
 
+    public Tile getTile(int[] positions) {
+        // Return a null tile in cases of invalid input
+        if (positions.length != 2) {
+            return new NullTile();
+
+        // Otherwise return the tile
+        } else {
+            return getTile(positions[0], positions[1]);
+        }
+    }
+
     public int getWidth() {
         return BOARD_WIDTH;
     }

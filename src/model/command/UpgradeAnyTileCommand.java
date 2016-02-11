@@ -3,6 +3,7 @@ package model.command;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import model.Board;
 import model.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
@@ -11,11 +12,12 @@ import shared.interfaces.PlayerRepresentative;
 
 public class UpgradeAnyTileCommand extends Command {
 	private static final long serialVersionUID = 2804563968670864024L;
-	
 	private UpgradeTileCommand tileUpgrader;
+    private Board theBoard;
 
-    public UpgradeAnyTileCommand(UpgradeTileCommand utc) {
+    public UpgradeAnyTileCommand(UpgradeTileCommand utc, Board b) {
         tileUpgrader = utc;
+        theBoard = b;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +45,7 @@ public class UpgradeAnyTileCommand extends Command {
         ownedTiles.toArray(upgradeableTiles);
 
         // Ask the player which tile they'd like to upgrade
-        Tile whichTile = rep.upgradeWhichTile(upgradeableTiles);
+        Tile whichTile = theBoard.getTile(rep.upgradeWhichTile(upgradeableTiles));
 
         // If they don't want to upgrade a tile, quit early
         if (whichTile.getTileType() != TileType.PROPERTY) return;

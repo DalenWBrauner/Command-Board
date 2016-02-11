@@ -79,7 +79,7 @@ public class TileFactory {
 
         // Create the onLand Command
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
-        Command onLand = new UpgradeAnyTileCommand(utc);
+        Command onLand = new UpgradeAnyTileCommand(utc, theBoard);
 //        utc.addObserver(currentTower);
 //        onLand.addObserver(currentTower);
 
@@ -112,7 +112,7 @@ public class TileFactory {
 
         // Create the onLand Command
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
-        Command onLand = new UpgradeAnyTileCommand(utc);
+        Command onLand = new UpgradeAnyTileCommand(utc, theBoard);
 
         // Finish
         tile.setOnPassCommand(onPass);

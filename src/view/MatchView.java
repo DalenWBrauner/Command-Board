@@ -16,9 +16,7 @@ import javafx.scene.layout.VBox;
 import model.Hand;
 import model.Match;
 import model.Player;
-import model.tile.NullTile;
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -228,16 +226,16 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public Tile swapCardOnWhichTile() {
+    public int[] swapCardOnWhichTile() {
         // Don't bother to swap cards
-        return new NullTile();
+        return new int[] {};
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) {
+    public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles) {
         // Upgrade a random tile
-        return upgradeableTiles[random.nextInt(upgradeableTiles.length)];
+        return upgradeableTiles[random.nextInt(upgradeableTiles.length)].getPos();
         // Alert! TODO Use the GUI to ask the users!
     }
 
@@ -249,10 +247,10 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer) {
+    public int[] sellWhichTile(PlayerID sellingPlayer) {
         // Sell a random tile
         ArrayList<PropertyTile> sellableTiles = m.getPlayer(sellingPlayer).getTilesOwned();
-        return sellableTiles.get(random.nextInt(sellableTiles.size()));
+        return sellableTiles.get(random.nextInt(sellableTiles.size())).getPos();
         // Alert! TODO Use the GUI to ask the users!
     }
 

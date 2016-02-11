@@ -5,7 +5,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -90,20 +89,20 @@ public interface PlayerRepresentative extends Remote, Serializable {
 
     /** The Model needs to which Tile the Player wants to swap cards with!
      *
-     * @return NullTile if the Player does not wish to swap cards with a Tile,
-     *         or which PropertyTile the Player wishes to upgrade.
+     * @return int[].size < 2 if the Player does not wish to swap cards with a Tile,
+     *         or [x, y] coordinates of the PropertyTile the Player wishes to upgrade.
      */
-    public Tile swapCardOnWhichTile()
+    public int[] swapCardOnWhichTile()
             throws RemoteException;
 
     /** The Model needs to know which Tile the Player wants to upgrade!
      * @param questionNumber
      *
      * @param upgradeableTiles All possible Tiles the Player can upgrade.
-     * @return NullTile if the Player does not wish to upgrade a Tile, or
-     *         which PropertyTile the Player wishes to upgrade.
+     * @return int[].size < 2 if the Player does not wish to upgrade a Tile, or
+     *         [x, y] coordinates of the PropertyTile the Player wishes to upgrade.
      */
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles)
+    public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles)
             throws RemoteException;
 
     /** The Model needs to know what Level the Tile is being upgraded to!
@@ -117,9 +116,9 @@ public interface PlayerRepresentative extends Remote, Serializable {
      * @param questionNumber
      *
      * @param sellingPlayer The ID of the Player currently forced to sell.
-     * @return The PropertyTile the Player has chosen to sell.
+     * @return The [x,y] position of the PropertyTile the Player has chosen to sell.
      */
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer)
+    public int[] sellWhichTile(PlayerID sellingPlayer)
             throws RemoteException;
 
     /** The Model needs to know which Player is on the receiving end of a spell!

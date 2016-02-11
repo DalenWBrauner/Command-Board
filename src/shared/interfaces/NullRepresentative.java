@@ -3,9 +3,7 @@ package shared.interfaces;
 import java.util.Random;
 
 import model.Player;
-import model.tile.NullTile;
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -29,13 +27,13 @@ public class NullRepresentative implements PlayerRepresentative {
     public CardinalDirection forkInTheRoad( CardinalDirection[] availableDirections) { return availableDirections[0]; }
 
     @Override
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles) { return new NullTile(); }
+    public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles) { return new int[] {}; }
 
     @Override
     public int upgradeToWhatLevel(PropertyTile upgradingTile) { return 1; }
 
     @Override
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer) { return thePlayer.getTilesOwned().get(0); }
+    public int[] sellWhichTile(PlayerID sellingPlayer) { return thePlayer.getTilesOwned().get(0).getPos(); }
 
     @Override
     public boolean buyThisTile(PropertyTile tileForPurchase) { return false; }
@@ -47,7 +45,7 @@ public class NullRepresentative implements PlayerRepresentative {
     public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) { return CardShape.NOCARD; }
 
     @Override
-    public Tile swapCardOnWhichTile() { return new NullTile(); }
+    public int[] swapCardOnWhichTile() { return new int[] {}; }
 
     @Override
     public PlayerID castOnPlayer(SpellID spellCast) { return thePlayer.getID(); }

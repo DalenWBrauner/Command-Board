@@ -65,7 +65,7 @@ public class MatchFactory {
         // Instantiate the command executed when a Player's balance falls below zero
         AddFundsCommand afc = new AddFundsCommand();
         SellTileCommand stc = new SellTileCommand(afc);
-        Command onNegativeCommand = new SellAnyTileCommand(stc);
+        Command onNegativeCommand = new SellAnyTileCommand(stc, theBoard);
         afc.addObserver(tower);
         stc.addObserver(tower);
         onNegativeCommand.addObserver(tower);

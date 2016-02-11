@@ -1,7 +1,6 @@
 package shared.interfaces;
 
 import model.tile.PropertyTile;
-import model.tile.Tile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
@@ -75,18 +74,18 @@ public interface PlayerRepresentative {
 
     /** The Model needs to which Tile the Player wants to swap cards with!
      *
-     * @return NullTile if the Player does not wish to swap cards with a Tile,
-     *         or which PropertyTile the Player wishes to upgrade.
+     * @return int[].size < 2 if the Player does not wish to swap cards with a Tile,
+     *         or [x, y] coordinates of the PropertyTile the Player wishes to upgrade.
      */
-    public Tile swapCardOnWhichTile();
+    public int[] swapCardOnWhichTile();
 
     /** The Model needs to know which Tile the Player wants to upgrade!
      *
      * @param upgradeableTiles All possible Tiles the Player can upgrade.
-     * @return NullTile if the Player does not wish to upgrade a Tile, or
-     *         which PropertyTile the Player wishes to upgrade.
+     * @return int[].size < 2 if the Player does not wish to upgrade a Tile, or
+     *         [x, y] coordinates of the PropertyTile the Player wishes to upgrade.
      */
-    public Tile upgradeWhichTile(PropertyTile[] upgradeableTiles);
+    public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles);
 
     /** The Model needs to know what Level the Tile is being upgraded to!
      *
@@ -97,9 +96,9 @@ public interface PlayerRepresentative {
     /** The Model needs to know what Tile the Player has chosen to sell!
      *
      * @param sellingPlayer The ID of the Player currently forced to sell.
-     * @return The PropertyTile the Player has chosen to sell.
+     * @return The [x,y] position of the PropertyTile the Player has chosen to sell.
      */
-    public PropertyTile sellWhichTile(PlayerID sellingPlayer);
+    public int[] sellWhichTile(PlayerID sellingPlayer);
 
     /** The Model needs to know which Player is on the receiving end of a spell!
      *

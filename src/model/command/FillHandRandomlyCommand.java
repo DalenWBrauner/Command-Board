@@ -1,6 +1,6 @@
 package model.command;
 
-import model.Player;
+import model.player.Player;
 
 public class FillHandRandomlyCommand extends Command {
 	private static final long serialVersionUID = 8268132047707911012L;

@@ -1,8 +1,10 @@
-package model;
+package model.player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.Hand;
+import model.Wallet;
 import model.tile.PropertyTile;
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;

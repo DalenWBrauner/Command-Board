@@ -18,6 +18,7 @@ import model.command.SwapCardAnyTileCommand;
 import model.command.SwapCardCommand;
 import model.command.UpgradeAnyTileCommand;
 import model.command.UpgradeTileCommand;
+import model.player.Player;
 import shared.WatchTower;
 import shared.enums.CardShape;
 import shared.enums.PlayerID;

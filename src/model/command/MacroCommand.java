@@ -2,7 +2,7 @@ package model.command;
 
 import java.rmi.RemoteException;
 
-import model.Player;
+import model.player.Player;
 
 public class MacroCommand extends Command {
 	private static final long serialVersionUID = -5242038025848708012L;

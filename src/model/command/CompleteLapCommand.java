@@ -2,7 +2,7 @@ package model.command;
 
 import java.rmi.RemoteException;
 
-import model.Player;
+import model.player.Player;
 import shared.enums.CheckpointColor;
 
 public class CompleteLapCommand extends Command {

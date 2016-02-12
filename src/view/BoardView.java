@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
+
 import shared.enums.CardShape;
 import shared.enums.PlayerID;
 import shared.enums.TileType;
@@ -21,7 +22,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import model.Match;
-import model.Player;
+import model.player.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
 import shared.enums.TileType;

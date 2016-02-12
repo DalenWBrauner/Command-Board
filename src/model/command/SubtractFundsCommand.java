@@ -2,7 +2,7 @@ package model.command;
 
 import java.rmi.RemoteException;
 
-import model.Player;
+import model.player.Player;
 
 public class SubtractFundsCommand extends Command {
 	private static final long serialVersionUID = -8375067438786634212L;

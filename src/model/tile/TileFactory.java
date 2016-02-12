@@ -3,7 +3,6 @@ package model.tile;
 import java.util.HashMap;
 
 import model.Board;
-import model.Player;
 import model.command.AddFundsCommand;
 import model.command.BuyTileCommand;
 import model.command.Command;
@@ -21,6 +20,7 @@ import model.command.SubtractFundsCommand;
 import model.command.SwapCardCommand;
 import model.command.UpgradeAnyTileCommand;
 import model.command.UpgradeTileCommand;
+import model.player.Player;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;

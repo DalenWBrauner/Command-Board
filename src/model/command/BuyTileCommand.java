@@ -3,7 +3,7 @@ package model.command;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
-import model.Player;
+import model.player.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.PlayerID;

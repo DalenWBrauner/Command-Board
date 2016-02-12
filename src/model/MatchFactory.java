@@ -9,6 +9,8 @@ import model.command.AddFundsCommand;
 import model.command.Command;
 import model.command.SellAnyTileCommand;
 import model.command.SellTileCommand;
+import model.player.ActualPlayer;
+import model.player.Player;
 import shared.WatchTower;
 import shared.enums.PlayerID;
 

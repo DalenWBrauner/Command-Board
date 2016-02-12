@@ -3,8 +3,8 @@ package model.tile;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import model.Player;
 import model.command.Command;
+import model.player.Player;
 import shared.enums.TileType;
 
 public abstract class Tile implements Serializable {

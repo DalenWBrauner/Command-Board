@@ -1,6 +1,6 @@
 package model.command;
 
-import model.Player;
+import model.player.Player;
 
 public class EnableWalkBackwardsCommand extends Command {
 	private static final long serialVersionUID = 2226737924306321907L;

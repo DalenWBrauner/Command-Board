@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.player.Player;
 import model.tile.Tile;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;

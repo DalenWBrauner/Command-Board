@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 
+import model.player.Player;
 import model.tile.TileFactory;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;

@@ -1,8 +1,9 @@
-package model;
+package model.player;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import model.Hand;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;

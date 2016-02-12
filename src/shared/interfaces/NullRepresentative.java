@@ -2,7 +2,7 @@ package shared.interfaces;
 
 import java.util.Random;
 
-import model.Player;
+import model.player.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;

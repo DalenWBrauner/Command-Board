@@ -8,10 +8,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
-import model.AIEasy;
 import model.Match;
 import model.MatchFactory;
-import model.Player;
+import model.player.AIEasy;
+import model.player.Player;
 import shared.interfaces.PlayerRepresentative;
 
 public class Executable {

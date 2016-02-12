@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import model.Hand;
 import model.Match;
-import model.Player;
+import model.player.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;

@@ -1,6 +1,6 @@
 package model.command;
 
-import model.Player;
+import model.player.Player;
 
 public class PrintCommand extends Command {
 	private static final long serialVersionUID = 8438997610010816070L;

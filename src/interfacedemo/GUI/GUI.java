@@ -1,6 +1,5 @@
 package interfacedemo.GUI;
 
-
 import interfacedemo.questions.GUIRep;
 import interfacedemo.questions.WhichCard;
 import interfacedemo.questions.WhichDirection;

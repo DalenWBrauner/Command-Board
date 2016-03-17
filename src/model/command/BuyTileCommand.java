@@ -75,7 +75,7 @@ public class BuyTileCommand extends Command {
             } else {
 
                 // Get the card they'd like to place
-                CardShape card = rep.placeWhichCard();
+                CardShape card = rep.placeWhichCard(sourcePlayer.getHand().getCardSlots());
                 tileForPurchase.setCard(card);
 
                 // Remove that card from their hand

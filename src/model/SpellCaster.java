@@ -90,7 +90,7 @@ public class SpellCaster implements Serializable {
     public void performMagic(Player player) throws RemoteException {
 
         System.out.println(player.getID() + " has the cards:");
-        for (CardShape card : player.getHand().getAllCards()) {
+        for (CardShape card : player.getHand().getCardSlots()) {
             if (card != CardShape.NOCARD) System.out.println(card + " card");
         }
 

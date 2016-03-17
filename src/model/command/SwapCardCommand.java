@@ -26,7 +26,8 @@ public class SwapCardCommand extends Command {
     @Override
     public void execute(Player sourcePlayer) throws RemoteException {
         // Ask the player which card they'd like to swap
-        CardShape card = sourcePlayer.getRepresentative().swapCardOnThisTile(thisTile);
+        CardShape card = sourcePlayer.getRepresentative().swapCardOnThisTile(
+        		sourcePlayer.getHand().getCardSlots(), thisTile);
 
         // If they wanted to swap,
         if (card != CardShape.NOCARD) {

@@ -87,8 +87,9 @@ public class Hand implements Serializable {
         }
     }
 
-    /** Returns an array of all the cards in your hand. */
-    public CardShape[] getAllCards() {
+    /** Returns an array of all the cards in your hand, including NOCARDs.
+     * This array is always the maximum size. */
+    public CardShape[] getCardSlots() {
         // This is literally the least object-oriented thing ever
         CardShape[] allCardsArray = new CardShape[MAX_CARDS];
         ArrayList<CardShape> allCardsList = new ArrayList<>();
@@ -112,6 +113,29 @@ public class Hand implements Serializable {
 
         // Convert to array
         allCardsList.toArray(allCardsArray);
+        return allCardsArray;
+    }
+    
+    /** Returns an array of all the cards in your hand, excluding NOCARDs.
+     * This array's length always matches Hand.size(). */
+    public CardShape[] getCards() {
+        CardShape[] allCardsArray = new CardShape[size()];
+
+        // Add the correct amount of each shape to our list (IN ORDER)
+        int i = 0;
+        
+        for (; i < getNumberOfCards(CardShape.SHAPE1)+i; i++) {
+            allCardsArray[i] = CardShape.SHAPE1;
+        }
+
+        for (; i < getNumberOfCards(CardShape.SHAPE2)+i; i++) {
+        	allCardsArray[i] = CardShape.SHAPE2;
+        }
+
+        for (; i < getNumberOfCards(CardShape.SHAPE3)+i; i++) {
+        	allCardsArray[i] = CardShape.SHAPE3;
+        }
+
         return allCardsArray;
     }
 

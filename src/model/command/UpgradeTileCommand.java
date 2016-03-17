@@ -27,8 +27,28 @@ public class UpgradeTileCommand extends Command {
 
     @Override
     public void execute(Player sourcePlayer) throws RemoteException {
+    	
+    	// Figure out which upgrades the player can afford
+    	int currentFunds = sourcePlayer.getWallet().getCashOnHand();
+    	
+    	System.out.println("THIS PLAYER HAS: " + String.valueOf(currentFunds));
+    	
+    	// Count the number of upgrades the player can afford
+    	int affordableUpgrades = 0;
+    	for (int i = thisTile.getLevel(); i < 5; i++) {
+    		System.out.println(String.valueOf(i) + " : " + String.valueOf(thisTile.getUpgradeCost(i)));
+    		if (currentFunds >= thisTile.getUpgradeCost(i)) affordableUpgrades++;
+    	}
+    	
+    	// Stick em in a list of options for the player
+    	int[] affordableLevels = new int[affordableUpgrades];
+    	for (int i = 0; i < affordableUpgrades; i++) {
+    		affordableLevels[i] = thisTile.getLevel() + 1 + i; 
+    	}
+    	
         // Ask the player to what level they want to upgrade
-        int newLevel = sourcePlayer.getRepresentative().upgradeToWhatLevel(thisTile);
+        int newLevel = sourcePlayer.getRepresentative().upgradeToWhatLevel(
+        		affordableLevels, thisTile);
 
         // TODO: If desired, check against a level cap
         System.out.println(sourcePlayer.getID() + " is upgrading the tile at ("+

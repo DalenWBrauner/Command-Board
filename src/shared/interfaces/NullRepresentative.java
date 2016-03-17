@@ -30,22 +30,25 @@ public class NullRepresentative implements PlayerRepresentative {
     public int[] upgradeWhichTile(PropertyTile[] upgradeableTiles) { return new int[] {}; }
 
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile) { return 1; }
+    public int upgradeToWhatLevel(int[] levelsAvailable, PropertyTile upgradingTile) { return 1; }
 
     @Override
-    public int[] sellWhichTile(PlayerID sellingPlayer) { return thePlayer.getTilesOwned().get(0).getPos(); }
+    public int[] sellWhichTile(PropertyTile[] sellableTiles, PlayerID sellingPlayer) {
+    	return sellableTiles[0].getPos();
+    }
 
     @Override
     public boolean buyThisTile(PropertyTile tileForPurchase) { return false; }
 
     @Override
-    public CardShape placeWhichCard() { return thePlayer.getHand().getAllCards()[0]; }
+    public CardShape placeWhichCard(CardShape[] cardsOwned) { return cardsOwned[0]; }
 
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) { return CardShape.NOCARD; }
+    public CardShape swapCardOnThisTile(
+    		CardShape[] cardsOwned, PropertyTile tileForSwapping) { return CardShape.NOCARD; }
 
     @Override
-    public int[] swapCardOnWhichTile() { return new int[] {}; }
+    public int[] swapCardOnWhichTile(PropertyTile[] swappableTiles) { return new int[] {}; }
 
     @Override
     public PlayerID castOnPlayer(SpellID spellCast) { return thePlayer.getID(); }

@@ -1,9 +1,7 @@
 package model.player;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import model.Hand;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
@@ -41,18 +39,19 @@ public class AIEasy implements PlayerRepresentative {
 
     /** Easy AI will place a card at random. */
     @Override
-    public CardShape placeWhichCard() {
-        Hand playersHand = thePlayer.getHand();
-        return playersHand.getAllCards()[r.nextInt(playersHand.size())];
+    public CardShape placeWhichCard(CardShape[] cardsOwned) {
+        return cardsOwned[r.nextInt(cardsOwned.length)];
+    }
+
+    /** Easy AI will swap a card at random. */
+    @Override
+    public CardShape swapCardOnThisTile(CardShape[] cardsOwned, PropertyTile tileForSwapping) {
+    	return CardShape.NOCARD;
     }
 
     /** Easy AI won't bother to swap cards. */
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) { return CardShape.NOCARD; }
-
-    /** Easy AI won't bother to swap cards. */
-    @Override
-    public int[] swapCardOnWhichTile() { return new int[] {-1}; }
+    public int[] swapCardOnWhichTile(PropertyTile[] swappableTiles) { return new int[] {-1}; }
 
     /** Easy AI will upgrade a Tile at random. */
     @Override
@@ -62,15 +61,14 @@ public class AIEasy implements PlayerRepresentative {
 
     /** Easy AI upgrades each Tile by 1. */
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile) {
+    public int upgradeToWhatLevel(int[] levelsAvailable, PropertyTile upgradingTile) {
         return upgradingTile.getLevel() + 1;
     }
 
     /** Easy AI sells a tile at random. */
     @Override
-    public int[] sellWhichTile(PlayerID sellingPlayer) {
-        ArrayList<PropertyTile> tilesOwned = thePlayer.getTilesOwned();
-        return tilesOwned.get(r.nextInt(tilesOwned.size())).getPos();
+    public int[] sellWhichTile(PropertyTile[] sellableTiles, PlayerID sellingPlayer) {
+        return sellableTiles[r.nextInt(sellableTiles.length)].getPos();
     }
 
     /** Easy AI doesn't cast spells. */

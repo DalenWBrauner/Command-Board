@@ -38,9 +38,9 @@ public class TestHandRandom {
 //        System.out.println("nextHandNo, cardNo; firstHand Card, nextHand Card");
 
         // Compare them all against the first
-        CardShape[] firstHand = playerHands.get(0).getAllCards();
+        CardShape[] firstHand = playerHands.get(0).getCardSlots();
         for (int h = 1; h < playerHands.size(); h++) {
-            CardShape[] nextHand = playerHands.get(h).getAllCards();
+            CardShape[] nextHand = playerHands.get(h).getCardSlots();
 
             // Compare each card in the both
             for (int i = 0; i < Hand.maxSize(); i++) {
@@ -155,10 +155,10 @@ public class TestHandRandom {
         for (int p = 0; p < NUMPLAYERS; p++) { // For each player
 
             // Compare the first games' copy to the rest
-            CardShape[] firstHand = localCopies.get(0).get(p).getAllCards();
+            CardShape[] firstHand = localCopies.get(0).get(p).getCardSlots();
 
             for (int c = 1; c < NUMPLAYERS; c++) { // For each copy
-                CardShape[] nextHand = localCopies.get(c).get(p).getAllCards();
+                CardShape[] nextHand = localCopies.get(c).get(p).getCardSlots();
 
                 // Compare each card in both
                 for (int i = 0; i < Hand.maxSize(); i++) {

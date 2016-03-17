@@ -6,6 +6,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import Main.Main;
+import controller.ScreenSwitcher;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -13,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import model.Hand;
 import model.Match;
 import model.player.Player;
 import model.tile.PropertyTile;
@@ -23,8 +24,6 @@ import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
 import view.interfaces.ControlledScreen;
-import Main.Main;
-import controller.ScreenSwitcher;
 
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
@@ -209,24 +208,21 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public CardShape placeWhichCard() {
+    public CardShape placeWhichCard(CardShape[] cardsOwned) {
         // Place a random card
-        Hand hand = m.getPlayer(m.getCurrentPlayerID()).getHand();
-        CardShape[] cards = hand.getAllCards();
-        // cards can contain NOCARDS, so our max is the size of hand, not cards.
-        return cards[random.nextInt(hand.size())];
+        return cardsOwned[random.nextInt(cardsOwned.length)];
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping) {
+    public CardShape swapCardOnThisTile(CardShape[] cardsOwned, PropertyTile tileForSwapping) {
         // Don't bother to swap cards
         return CardShape.NOCARD;
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public int[] swapCardOnWhichTile() {
+    public int[] swapCardOnWhichTile(PropertyTile[] swappableTiles) {
         // Don't bother to swap cards
         return new int[] {};
         // Alert! TODO Use the GUI to ask the users!
@@ -240,17 +236,16 @@ public class MatchView implements ControlledScreen,
     }
 
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile) {
+    public int upgradeToWhatLevel(int[] levelsAvailable, PropertyTile upgradingTile) {
         // Upgrade a Tile by one
         return upgradingTile.getLevel() + 1;
         // Alert! TODO Use the GUI to ask the users!
     }
 
     @Override
-    public int[] sellWhichTile(PlayerID sellingPlayer) {
+    public int[] sellWhichTile(PropertyTile[] sellableTiles, PlayerID sellingPlayer) {
         // Sell a random tile
-        ArrayList<PropertyTile> sellableTiles = m.getPlayer(sellingPlayer).getTilesOwned();
-        return sellableTiles.get(random.nextInt(sellableTiles.size())).getPos();
+        return sellableTiles[random.nextInt(sellableTiles.length)].getPos();
         // Alert! TODO Use the GUI to ask the users!
     }
 

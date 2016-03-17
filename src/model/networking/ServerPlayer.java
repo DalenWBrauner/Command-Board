@@ -63,7 +63,7 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public CardShape placeWhichCard()
+    public CardShape placeWhichCard(CardShape[] cardsOwned)
             throws RemoteException {
         //System.out.println("placeWhichCard Asking the server what the player chose...");
         CardShape result = (CardShape) coordinator.whatHappened(playerNumber, questionNumber);
@@ -72,7 +72,7 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping)
+    public CardShape swapCardOnThisTile(CardShape[] cardsOwned, PropertyTile tileForSwapping)
                     throws RemoteException {
         //System.out.println("swapCardOnThisTile Asking the server what the player chose...");
         CardShape result = (CardShape) coordinator.whatHappened(playerNumber, questionNumber);
@@ -81,7 +81,7 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public int[] swapCardOnWhichTile()
+    public int[] swapCardOnWhichTile(PropertyTile[] swappableTiles)
             throws RemoteException {
         //System.out.println("swapCardOnWhichTile Asking the server what the player chose...");
         int[] result = (int[]) coordinator.whatHappened(playerNumber, questionNumber);
@@ -99,7 +99,7 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile)
+    public int upgradeToWhatLevel(int[] levelsAvailable, PropertyTile upgradingTile)
             throws RemoteException {
         //System.out.println("upgradeToWhatLevel Asking the server what the player chose...");
         int result = (int) coordinator.whatHappened(playerNumber, questionNumber);
@@ -108,7 +108,7 @@ public class ServerPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public int[] sellWhichTile(PlayerID sellingPlayer)
+    public int[] sellWhichTile(PropertyTile[] sellableTiles, PlayerID sellingPlayer)
             throws RemoteException {
         //System.out.println("sellWhichTile Asking the server what the player chose...");
         int[] result = (int[]) coordinator.whatHappened(playerNumber, questionNumber);

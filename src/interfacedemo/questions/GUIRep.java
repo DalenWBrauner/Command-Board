@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.application.Platform;
-import model.Hand;
 import model.Match;
 import model.player.Player;
 import model.tile.PropertyTile;
@@ -191,31 +190,14 @@ public class GUIRep implements PlayerRepresentative {
 	}
 
 	@Override
-	public synchronized CardShape placeWhichCard()
+	public synchronized CardShape placeWhichCard(CardShape[] cardsOwned)
 			throws RemoteException {
-		
-		// Get the options from the Match
-//		CardShape[] options = theMatch.getPlayer(theMatch.getCurrentPlayerID()).getHand().getAllCards();
-		System.out.println("Step 1...");
-		PlayerID currentPlayerID = theMatch.getCurrentPlayerID();
-		System.out.println("Step 2...");
-		Player currentPlayer = theMatch.getPlayer(currentPlayerID);
-		System.out.println("Step 3...");
-		Hand theirHand = currentPlayer.getHand();
-		System.out.println("Step 4...");
-		CardShape[] options = theirHand.getAllCards();
-		System.out.println("Step 5...");
-		
-		
-		for (CardShape o : options) {
-			System.out.println(o.toString());
-		}
 		
 		// Present the question
 		Platform.runLater(() -> {
 			popupCard.resetAnswer();
 			popupCard.setQuestion("Which card would you like to place?");
-			popupCard.setOptions(options);
+			popupCard.setOptions(cardsOwned);
 			popupCard.show();
 		});
 
@@ -228,7 +210,8 @@ public class GUIRep implements PlayerRepresentative {
 	}
 
 	@Override
-	public synchronized CardShape swapCardOnThisTile(PropertyTile tileForSwapping)
+	public synchronized CardShape swapCardOnThisTile(
+			CardShape[] cardsOwned, PropertyTile tileForSwapping)
 			throws RemoteException {
 		
 		// Setup question
@@ -237,14 +220,11 @@ public class GUIRep implements PlayerRepresentative {
 		q += "?";
 		final String question = q;
 		
-		// Get the options from the Match
-		CardShape[] options = theMatch.getPlayer(theMatch.getCurrentPlayerID()).getHand().getAllCards();
-		
 		// Present the question
 		Platform.runLater(() -> {
 			popupCard.resetAnswer();
 			popupCard.setQuestion(question);
-			popupCard.setOptions(options);
+			popupCard.setOptions(cardsOwned);
 			popupCard.show();
 		});
 
@@ -257,31 +237,17 @@ public class GUIRep implements PlayerRepresentative {
 	}
 	
 	@Override
-	public synchronized int[] swapCardOnWhichTile()
+	public synchronized int[] swapCardOnWhichTile(PropertyTile[] swappableTiles)
 			throws RemoteException {
 		
 		// Setup question
 		String question = "Which tile would you like to swap cards with?";
 		
-		// Get the options from the Match
-		ArrayList<PropertyTile> swappableTiles =
-				theMatch.getPlayer(theMatch.getCurrentPlayerID()).getTilesOwned();
-		
 		// Rephrase them as positions
-		int[][] options = new int[swappableTiles.size()][2];
+		int[][] options = new int[swappableTiles.length][2];
 		for (int i = 0; i < options.length; i++) {
-			options[i] = swappableTiles.get(i).getPos();
+			options[i] = swappableTiles[i].getPos();
 		}
-		
-//		// Setup options
-//		int[][] options = new int[9][2];
-//		int i = 0;
-//		for (int j = 0; j < 3; j++) {
-//			for (int k = 0; k < 3; k++) {
-//				options[i] = new int[]{j, k}; 
-//				i++;
-//			}
-//		}
 		
 		// Present the question
 		Platform.runLater(() -> {
@@ -330,25 +296,30 @@ public class GUIRep implements PlayerRepresentative {
 	}
 
 	@Override
-	public synchronized int upgradeToWhatLevel(PropertyTile upgradingTile)
+	public synchronized int upgradeToWhatLevel(
+			int[] levelsAvailable, PropertyTile upgradingTile)
 			throws RemoteException {
 		
 		// Setup question
 		String question = "What level would you like to upgrade this tile to?";
 		
-		String[] options;
-		// Check if there are even any levels left to upgrade to
-		int level = upgradingTile.getLevel();
-		if (level >= 5) {
-			options = new String[] { "5" };
-		
-		// Otherwise offer all remaining levels
-		} else {
-			options = new String[5 - level];
-			for (int i = 0; i < 5 - level; i++) {
-				options[i] = String.valueOf(i + 1 + level);
-			}
+		String[] options = new String[levelsAvailable.length];
+		for (int i = 0; i < levelsAvailable.length; i++) {
+			options[i] = String.valueOf(levelsAvailable[i]);
 		}
+		
+//		// Check if there are even any levels left to upgrade to
+//		int level = upgradingTile.getLevel();
+//		if (level >= 5) {
+//			options = new String[] { "5" };
+//		
+//		// Otherwise offer all remaining levels
+//		} else {
+//			options = new String[5 - level];
+//			for (int i = 0; i < 5 - level; i++) {
+//				options[i] = String.valueOf(i + 1 + level);
+//			}
+//		}
 		
 		// Present the question
 		Platform.runLater(() -> {
@@ -367,31 +338,20 @@ public class GUIRep implements PlayerRepresentative {
 	}
 
 	@Override
-	public synchronized int[] sellWhichTile(PlayerID sellingPlayer)
+	public synchronized int[] sellWhichTile(
+			PropertyTile[] sellableTiles, PlayerID sellingPlayer)
 			throws RemoteException {
 		
 		// Setup question
 		String question = "Which tile would you like to sell?";
 
 		// Get the options from the Match
-		ArrayList<PropertyTile> sellableTiles =
-				theMatch.getPlayer(sellingPlayer).getTilesOwned();
 		
 		// Rephrase them as positions
-		int[][] options = new int[sellableTiles.size()][2];
+		int[][] options = new int[sellableTiles.length][2];
 		for (int i = 0; i < options.length; i++) {
-			options[i] = sellableTiles.get(i).getPos();
+			options[i] = sellableTiles[i].getPos();
 		}
-		
-//		// Setup options
-//		int[][] options = new int[9][2];
-//		int i = 0;
-//		for (int j = 0; j < 3; j++) {
-//			for (int k = 0; k < 3; k++) {
-//				options[i] = new int[]{j, k}; 
-//				i++;
-//			}
-//		}
 		
 		// Present the question
 		Platform.runLater(() -> {

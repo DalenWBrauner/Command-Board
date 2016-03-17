@@ -27,7 +27,9 @@ public class SellAnyTileCommand extends Command {
         if (sourcePlayer.getTilesOwned().size() == 0) return;
 
         // Ask the player which tile they have to sell
-        Tile toBeSoldTile = theBoard.getTile(rep.sellWhichTile(sourcePlayer.getID()));
+        Tile toBeSoldTile = theBoard.getTile(rep.sellWhichTile(
+        		(PropertyTile[]) sourcePlayer.getTilesOwned().toArray(),
+        		sourcePlayer.getID()));
 
         // Assert this is a PropertyTile (unngh)
         assert(toBeSoldTile.getTileType() == TileType.PROPERTY);

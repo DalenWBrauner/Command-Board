@@ -23,7 +23,7 @@ public class TestHand {
         // The hand should be filled to the brim with NOCARD
         assertEquals(Hand.maxSize(), theHand.getNumberOfCards(CardShape.NOCARD));
 
-        CardShape[] cards = theHand.getAllCards();
+        CardShape[] cards = theHand.getCardSlots();
         assertEquals(Hand.maxSize(), cards.length);
         for (int i = 0; i < Hand.maxSize(); i++) {
             assertEquals(cards[i], CardShape.NOCARD);
@@ -37,7 +37,7 @@ public class TestHand {
         assertEquals(0, theHand.size());
 
         CardShape[] cards;
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
 
         // False Addition: NOCARD
         // Nothing should change
@@ -46,7 +46,7 @@ public class TestHand {
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.NOCARD, cards[0]);
         assertEquals(CardShape.NOCARD, cards[1]);
         assertEquals(CardShape.NOCARD, cards[2]);
@@ -59,7 +59,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.NOCARD, cards[1]);
         assertEquals(CardShape.NOCARD, cards[2]);
@@ -72,7 +72,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.SHAPE3, cards[1]);
         assertEquals(CardShape.NOCARD, cards[2]);
@@ -86,7 +86,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.SHAPE3, cards[1]);
         assertEquals(CardShape.NOCARD, cards[2]);
@@ -99,7 +99,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.SHAPE2, cards[1]);
         assertEquals(CardShape.SHAPE3, cards[2]);
@@ -112,7 +112,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(2, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.SHAPE2, cards[1]);
         assertEquals(CardShape.SHAPE3, cards[2]);
@@ -125,7 +125,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(2, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(2, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.SHAPE2, cards[1]);
         assertEquals(CardShape.SHAPE2, cards[2]);
@@ -139,7 +139,7 @@ public class TestHand {
         assertEquals(1, theHand.getNumberOfCards(CardShape.SHAPE1));
         assertEquals(2, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(2, theHand.getNumberOfCards(CardShape.SHAPE3));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(CardShape.SHAPE1, cards[0]);
         assertEquals(CardShape.SHAPE2, cards[1]);
         assertEquals(CardShape.SHAPE2, cards[2]);
@@ -154,7 +154,7 @@ public class TestHand {
         assertEquals(0, theHand.size());
 
         theHand.fillRandomly();
-        final CardShape[] filledCards = theHand.getAllCards();
+        final CardShape[] filledCards = theHand.getCardSlots();
 
         // Check we're full
         assertEquals(Hand.maxSize(), theHand.size());
@@ -165,18 +165,18 @@ public class TestHand {
         // Assure we can add nothing once full
         theHand.add(CardShape.SHAPE1);
         assertEquals(Hand.maxSize(), theHand.size());
-        for (CardShape card : theHand.getAllCards()) {
+        for (CardShape card : theHand.getCardSlots()) {
             assertFalse(card == CardShape.NOCARD);
         }
         theHand.add(CardShape.SHAPE3);
         assertEquals(Hand.maxSize(), theHand.size());
-        for (CardShape card : theHand.getAllCards()) {
+        for (CardShape card : theHand.getCardSlots()) {
             assertFalse(card == CardShape.NOCARD);
         }
 
         // Assure nothing changes if we try
         CardShape[] cardsAfterTrying;
-        cardsAfterTrying = theHand.getAllCards();
+        cardsAfterTrying = theHand.getCardSlots();
         for (int i = 0; i < theHand.size(); i++) {
             assertEquals(filledCards[i], cardsAfterTrying[i]);
         }
@@ -193,14 +193,14 @@ public class TestHand {
         theHand.add(CardShape.SHAPE3);
         theHand.add(CardShape.SHAPE2);
         theHand.add(CardShape.SHAPE3);
-        cardsAfterTrying = theHand.getAllCards();
+        cardsAfterTrying = theHand.getCardSlots();
         for (int i = 0; i < theHand.size(); i++) {
             assertEquals(filledCards[i], cardsAfterTrying[i]);
         }
 
         // Even if we ask the code to do it for us
         theHand.fillRandomly();
-        cardsAfterTrying = theHand.getAllCards();
+        cardsAfterTrying = theHand.getCardSlots();
         for (int i = 0; i < theHand.size(); i++) {
             assertEquals(filledCards[i], cardsAfterTrying[i]);
         }
@@ -231,7 +231,7 @@ public class TestHand {
         }
 
         // Double-check we're empty
-        CardShape[] cards = theHand.getAllCards();
+        CardShape[] cards = theHand.getCardSlots();
         assertEquals(Hand.maxSize(), cards.length);
         for (int i = 0; i < Hand.maxSize(); i++) {
             assertEquals(cards[i], CardShape.NOCARD);
@@ -305,7 +305,7 @@ public class TestHand {
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE3));
         assertEquals(Hand.maxSize(), theHand.getNumberOfCards(CardShape.NOCARD));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(Hand.maxSize(), cards.length);
         for (int i = 0; i < Hand.maxSize(); i++) {
             assertEquals(cards[i], CardShape.NOCARD);
@@ -320,7 +320,7 @@ public class TestHand {
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE3));
         assertEquals(Hand.maxSize(), theHand.getNumberOfCards(CardShape.NOCARD));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(Hand.maxSize(), cards.length);
         for (int i = 0; i < Hand.maxSize(); i++) {
             assertEquals(cards[i], CardShape.NOCARD);
@@ -336,7 +336,7 @@ public class TestHand {
 
         // Fill first
         theHand.fillRandomly();
-        final CardShape[] filledCards = theHand.getAllCards();
+        final CardShape[] filledCards = theHand.getCardSlots();
 
         // Check we're full
         assertEquals(Hand.maxSize(), theHand.size());
@@ -353,7 +353,7 @@ public class TestHand {
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE3));
         assertEquals(Hand.maxSize(), theHand.getNumberOfCards(CardShape.NOCARD));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(Hand.maxSize(), cards.length);
         for (int i = 0; i < Hand.maxSize(); i++) {
             assertEquals(cards[i], CardShape.NOCARD);
@@ -377,7 +377,7 @@ public class TestHand {
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE2));
         assertEquals(0, theHand.getNumberOfCards(CardShape.SHAPE3));
         assertEquals(Hand.maxSize(), theHand.getNumberOfCards(CardShape.NOCARD));
-        cards = theHand.getAllCards();
+        cards = theHand.getCardSlots();
         assertEquals(Hand.maxSize(), cards.length);
         for (int i = 0; i < Hand.maxSize(); i++) {
             assertEquals(cards[i], CardShape.NOCARD);

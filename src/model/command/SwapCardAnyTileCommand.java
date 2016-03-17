@@ -27,8 +27,9 @@ public class SwapCardAnyTileCommand extends Command {
         // If the player doesn't have any tiles, quit early
         if (sourcePlayer.getTilesOwned().size() == 0) return;
 
-        // Ask the player which tile they have to sell
-        Tile swappingTile = theBoard.getTile(rep.swapCardOnWhichTile());
+        // Ask the player which tile they want to swap on
+        Tile swappingTile = theBoard.getTile(rep.swapCardOnWhichTile(
+        		(PropertyTile[]) sourcePlayer.getTilesOwned().toArray()));
 
         // If they didn't want to swap with anything, quit early
         if (swappingTile.getTileType() != TileType.PROPERTY) return;

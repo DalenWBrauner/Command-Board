@@ -95,11 +95,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public CardShape placeWhichCard()
+    public CardShape placeWhichCard(CardShape[] cardsOwned)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        CardShape theirChoice = myTarget.placeWhichCard();
+        CardShape theirChoice = myTarget.placeWhichCard(cardsOwned);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");
@@ -111,11 +111,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public CardShape swapCardOnThisTile(PropertyTile tileForSwapping)
+    public CardShape swapCardOnThisTile(CardShape[] cardsOwned, PropertyTile tileForSwapping)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        CardShape theirChoice = myTarget.swapCardOnThisTile(tileForSwapping);
+        CardShape theirChoice = myTarget.swapCardOnThisTile(cardsOwned, tileForSwapping);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");
@@ -127,11 +127,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public int[] swapCardOnWhichTile()
+    public int[] swapCardOnWhichTile(PropertyTile[] swappableTiles)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        int[] theirChoice = myTarget.swapCardOnWhichTile();
+        int[] theirChoice = myTarget.swapCardOnWhichTile(swappableTiles);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");
@@ -159,11 +159,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public int upgradeToWhatLevel(PropertyTile upgradingTile)
+    public int upgradeToWhatLevel(int[] levelsAvailable, PropertyTile upgradingTile)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        int theirChoice = myTarget.upgradeToWhatLevel(upgradingTile);
+        int theirChoice = myTarget.upgradeToWhatLevel(levelsAvailable, upgradingTile);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");
@@ -175,11 +175,11 @@ public class SpyPlayer implements PlayerRepresentative {
     }
 
     @Override
-    public int[] sellWhichTile(PlayerID sellingPlayer)
+    public int[] sellWhichTile(PropertyTile[] sellableTiles, PlayerID sellingPlayer)
             throws RemoteException {
 
         // Tell the player it's their turn but intercept their response
-        int[] theirChoice = myTarget.sellWhichTile(sellingPlayer);
+        int[] theirChoice = myTarget.sellWhichTile(sellableTiles, sellingPlayer);
 
         // Report back to HQ
         //System.out.println("SPY: Reporting decision to HQ...");

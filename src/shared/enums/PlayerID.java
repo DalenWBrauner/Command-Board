@@ -18,6 +18,18 @@ public enum PlayerID {
         return myName;
     }
     
+    public static PlayerID fromString(String text) {
+    	if (text != null) {
+    		for (PlayerID b : PlayerID.values()) {
+    			if (text.equalsIgnoreCase(b.myName)
+    			||  text.equalsIgnoreCase(getShortName(b))) {
+    				return b;
+    			}
+    		}
+    	}
+    	return null;
+     }
+    
     public static String getShortName(PlayerID pID) {
         switch (pID) {
         case NOPLAYER:

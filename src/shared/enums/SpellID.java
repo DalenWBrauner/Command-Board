@@ -25,14 +25,13 @@ public enum SpellID {
     }
 
     public static SpellID fromString(String text) {
-        if (text != null) {
-          for (SpellID b : SpellID.values()) {
-            if (text.equalsIgnoreCase(b.myName)) {
-              return b;
-            }
-          }
-        }
-        return null;
-      }
-
+    	if (text != null) {
+    		for (SpellID b : SpellID.values()) {
+    			if (text.equalsIgnoreCase(b.myName)) {
+    				return b;
+    			}
+    		}
+    	}
+    	return null;
+     }
 }

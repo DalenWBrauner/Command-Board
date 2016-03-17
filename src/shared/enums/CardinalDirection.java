@@ -17,5 +17,15 @@ public enum CardinalDirection {
     public String toString() {
         return myName;
     }
-
+    
+    public static CardinalDirection fromString(String text) {
+    	if (text != null) {
+    		for (CardinalDirection b : CardinalDirection.values()) {
+    			if (text.equalsIgnoreCase(b.myName)) {
+    				return b;
+    			}
+    		}
+    	}
+    	return null;
+     }
 }

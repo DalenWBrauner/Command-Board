@@ -16,6 +16,16 @@ public enum CardShape {
     public String toString() {
         return myName;
     }
-
+    
+    public static CardShape fromString(String text) {
+    	if (text != null) {
+    		for (CardShape b : CardShape.values()) {
+    			if (text.equalsIgnoreCase(b.myName)) {
+    				return b;
+    			}
+    		}
+    	}
+    	return null;
+     }
 }
 

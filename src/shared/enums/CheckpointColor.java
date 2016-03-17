@@ -16,5 +16,15 @@ public enum CheckpointColor {
     public String toString() {
         return myName;
     }
-
+    
+    public static CheckpointColor fromString(String text) {
+    	if (text != null) {
+    		for (CheckpointColor b : CheckpointColor.values()) {
+    			if (text.equalsIgnoreCase(b.myName)) {
+    				return b;
+    			}
+    		}
+    	}
+    	return null;
+     }
 }

@@ -123,16 +123,19 @@ public class Hand implements Serializable {
 
         // Add the correct amount of each shape to our list (IN ORDER)
         int i = 0;
+        int previousI = 0;
         
-        for (; i < getNumberOfCards(CardShape.SHAPE1)+i; i++) {
+        for (; i < getNumberOfCards(CardShape.SHAPE1)+previousI; i++) {
             allCardsArray[i] = CardShape.SHAPE1;
         }
 
-        for (; i < getNumberOfCards(CardShape.SHAPE2)+i; i++) {
+        previousI = i;
+        for (; i < getNumberOfCards(CardShape.SHAPE2)+previousI; i++) {
         	allCardsArray[i] = CardShape.SHAPE2;
         }
 
-        for (; i < getNumberOfCards(CardShape.SHAPE3)+i; i++) {
+        previousI = i;
+        for (; i < getNumberOfCards(CardShape.SHAPE3)+previousI; i++) {
         	allCardsArray[i] = CardShape.SHAPE3;
         }
 

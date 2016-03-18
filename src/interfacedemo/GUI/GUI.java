@@ -23,8 +23,8 @@ public class GUI extends Application {
 	private StackPane root = new StackPane();
 	private StackPane popupStack = new StackPane();
 	private GridPane overlay = new GridPane();
-	private ModelThread gamethread;
 	private GUIRep asker = new GUIRep();
+	private ModelThread gamethread = getAGame(asker);
 
 	private Button makeDummyButton() {
 		
@@ -33,6 +33,29 @@ public class GUI extends Application {
 		b.setOnAction(
 				(event) -> {
 					System.out.println("hey there");
+				}
+		);
+		return b;
+	}
+	
+	private Button makeNewGameButton() {
+		
+		// Create the button and its effect 
+		Button b = new Button("Start Game");
+		b.setOnAction(
+				(event) -> {
+					// If the game is over,
+					if (gamethread.isOver()) {
+						
+						// Make and start a new one!
+						gamethread = getAGame(asker);
+						Thread t = new Thread(gamethread);
+						t.setDaemon(true);
+						t.start();
+						
+					} else {
+						System.out.println("THE GAME AIN'T OVA YET!");
+					}
 				}
 		);
 		return b;
@@ -54,11 +77,14 @@ public class GUI extends Application {
 	public void start(Stage theStage) {
 		setupPopups();
 		
-		// Stick a dummy button in the top left corner
-		overlay.add(makeDummyButton(), 0, 0);
+		// Stick a New Game button in the top left corner
+		overlay.add(makeNewGameButton(), 1, 0);
 		
 		// Stick a quit button right next to it
-		overlay.add(makeQuitButton(), 1, 0);
+		overlay.add(makeQuitButton(), 2, 0);
+		
+		// Stick a dummy button just beneath them
+		overlay.add(makeDummyButton(), 0, 1, 3, 1);
 		
 		// Make a space for all the popups right under them
 		root.getChildren().addAll(overlay, popupStack);
@@ -66,18 +92,10 @@ public class GUI extends Application {
 		// We wanna be able to click everything
 		Utility.giveChildrenClickTransparency(root);
 		
-		// Let's start a game
-		gamethread = getAGame(asker);
-		
 		// Display the GUI
 		Scene theScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 		theStage.setScene(theScene);
 		theStage.show();
-		
-		// Launch the thread
-		Thread t = new Thread(gamethread);
-		t.setDaemon(true);
-		t.start();
 	}
 	
 	private ModelThread getAGame(GUIRep iNeedThis) {

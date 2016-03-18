@@ -45,7 +45,7 @@ public class GUI extends Application {
 		b.setOnAction(
 				(event) -> {
 					// If the game is over,
-					if (gamethread.isOver()) {
+					if (!gamethread.inProgress()) {
 						
 						// Make and start a new one!
 						gamethread = getAGame(asker);

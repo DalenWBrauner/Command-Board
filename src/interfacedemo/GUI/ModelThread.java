@@ -10,7 +10,7 @@ public class ModelThread implements Runnable {
 	private final MatchFactory mFactory = new MatchFactory();
 	private Match theMatch;
 	private GUIRep rep;
-	private boolean finished = true;
+	private boolean currentlyRunning = false;
 	
 	public ModelThread(GUIRep rep, int numPlayers, int cashGoal, String whichBoard) {
 		theMatch = mFactory.createMatch(numPlayers, cashGoal, whichBoard);
@@ -29,7 +29,7 @@ public class ModelThread implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("On your marks...");
-		finished = false;
+		currentlyRunning = true;
 		
 		System.out.print("Get set... ");
         // Set all the players to use the GUI
@@ -43,8 +43,8 @@ public class ModelThread implements Runnable {
         
         // The game is over.
         System.out.println("GAME OVER!");
-        finished = true;
+        currentlyRunning = false;
 	}
 	
-	public synchronized boolean isOver() { return finished; }
+	public synchronized boolean inProgress() { return currentlyRunning; }
 }

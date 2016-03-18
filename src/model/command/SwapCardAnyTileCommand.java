@@ -28,8 +28,11 @@ public class SwapCardAnyTileCommand extends Command {
         if (sourcePlayer.getTilesOwned().size() == 0) return;
 
         // Ask the player which tile they want to swap on
+        PropertyTile[] ownedTiles = new PropertyTile[sourcePlayer.getTilesOwned().size()];
+		sourcePlayer.getTilesOwned().toArray(ownedTiles);
+        
         Tile swappingTile = theBoard.getTile(rep.swapCardOnWhichTile(
-        		(PropertyTile[]) sourcePlayer.getTilesOwned().toArray()));
+        		ownedTiles));
 
         // If they didn't want to swap with anything, quit early
         if (swappingTile.getTileType() != TileType.PROPERTY) return;

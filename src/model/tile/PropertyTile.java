@@ -43,7 +43,7 @@ public class PropertyTile extends Tile {
         int value = baseValue;
 
         // The value increases by (UPGRADE_PERCENT + UPC) at each level
-        for (int i = 1; i < myLevel; i++) {
+        for (int i = 1; i < level; i++) {
             value += (baseValue * (UPGRADE_PERCENT + (i - 1) * UPC));
         }
 
@@ -66,8 +66,21 @@ public class PropertyTile extends Tile {
     }
 
     public int getUpgradeCost(int newLevel) {
-        if (newLevel <= myLevel) { return 0; }
-        else                     { return currentValue - getValueAtLevel(newLevel); }
+    	System.out.print("I'm a Lvl. "+String.valueOf(myLevel));
+    	System.out.print(" at "+String.valueOf(getX())+", "+String.valueOf(getY()));
+    	System.out.println(" .getUpgradeCost("+String.valueOf(newLevel)+");");
+        if (newLevel <= myLevel) {
+        	System.out.println(String.valueOf(newLevel) + " <= " + String.valueOf(myLevel));
+        	return 0;
+        }
+        else                     {
+        	System.out.println(String.valueOf(newLevel) + " >  " + String.valueOf(myLevel));
+        	int upgradeCost = getValueAtLevel(newLevel) - currentValue;
+        	System.out.println(String.valueOf(currentValue)
+        			+ " - " + String.valueOf(getValueAtLevel(newLevel))
+        			+ " = " + String.valueOf(upgradeCost));
+        	return upgradeCost;
+        }
     }
 
     public int getLevel() {

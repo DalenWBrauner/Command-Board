@@ -20,11 +20,16 @@ public class GUI extends Application {
 	private double SCREEN_WIDTH = 800;
 	private double SCREEN_HEIGHT = 600;
 	
+	private int defaultNumPlayers = 2;
+	private int defaultCashGoal = 6000;
+	private String defaultBoard = "Keyblade";
+	
 	private StackPane root = new StackPane();
 	private StackPane popupStack = new StackPane();
 	private GridPane overlay = new GridPane();
 	private GUIRep asker = new GUIRep();
-	private ModelThread gamethread = getAGame(asker);
+	private ModelThread gamethread = new ModelThread(
+			asker, defaultNumPlayers, defaultCashGoal, defaultBoard);
 
 	private Button makeDummyButton() {
 		
@@ -39,16 +44,32 @@ public class GUI extends Application {
 	}
 	
 	private Button makeNewGameButton() {
+		return makeNewGameButton(defaultNumPlayers);
+	}
+	
+	private Button makeNewGameButton(int numPlayers) {
+		return makeNewGameButton(numPlayers, defaultCashGoal);
+	}
+	
+	private Button makeNewGameButton(int numPlayers, int cashGoal) {
+		return makeNewGameButton(numPlayers, cashGoal, defaultBoard);
+	}
+
+	private Button makeNewGameButton(
+			int numPlayers, int cashGoal, String boardName) {
 		
 		// Create the button and its effect 
-		Button b = new Button("Start Game");
+		Button b = new Button("Start Game (" +
+				String.valueOf(numPlayers) + "p, $" +
+				String.valueOf(cashGoal) + ", " +
+				String.valueOf(boardName) + " board)");
 		b.setOnAction(
 				(event) -> {
 					// If the game is over,
 					if (!gamethread.inProgress()) {
 						
 						// Make and start a new one!
-						gamethread = getAGame(asker);
+						gamethread = new ModelThread(asker, numPlayers, cashGoal, boardName);
 						Thread t = new Thread(gamethread);
 						t.setDaemon(true);
 						t.start();
@@ -77,16 +98,18 @@ public class GUI extends Application {
 	public void start(Stage theStage) {
 		setupPopups();
 		
-		// Stick a New Game button in the top left corner
-		overlay.add(makeNewGameButton(), 1, 0);
+		// Stick a Quit button in the top left corner
+		overlay.add(makeQuitButton(), 0, 0);
 		
-		// Stick a quit button right next to it
-		overlay.add(makeQuitButton(), 2, 0);
+		// Stick a dummy button right next to it
+		overlay.add(makeDummyButton(), 1, 0);
 		
-		// Stick a dummy button just beneath them
-		overlay.add(makeDummyButton(), 0, 1, 3, 1);
+		// Stick some New Game buttons on there
+		for (int i = 2; i < 5; i++) {
+			overlay.add(makeNewGameButton(i), 0, i-1, 2, 1);
+		}
 		
-		// Make a space for all the popups right under them
+		// Slap all the popups on top
 		root.getChildren().addAll(overlay, popupStack);
 
 		// We wanna be able to click everything
@@ -96,11 +119,6 @@ public class GUI extends Application {
 		Scene theScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 		theStage.setScene(theScene);
 		theStage.show();
-	}
-	
-	private ModelThread getAGame(GUIRep iNeedThis) {
-		// Let's choose some options here...
-		return new ModelThread(iNeedThis, 2, 6000, "Keyblade");
 	}
 	
 	private void setupPopups() {

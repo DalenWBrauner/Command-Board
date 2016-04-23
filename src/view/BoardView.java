@@ -4,11 +4,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-
-
-import shared.enums.CardShape;
-import shared.enums.PlayerID;
-import shared.enums.TileType;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -25,6 +20,8 @@ import model.Match;
 import model.player.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
+import shared.enums.CardShape;
+import shared.enums.PlayerID;
 import shared.enums.TileType;
 
 public class BoardView extends StackPane implements Observer {
@@ -183,7 +180,7 @@ public class BoardView extends StackPane implements Observer {
                 tileViews[x][y].setCurrentState(t);
                 if (t.getTileType() == TileType.PROPERTY) {
                     PropertyTile pt = (PropertyTile)t;
-                    PlayerID owner = pt.getOwner();
+                    PlayerID owner = pt.getOwner().getID();
                     if (owner != PlayerID.NOPLAYER) {
                         OwnerView currOwnerV = tileOwners[x][y];
                         if (currOwnerV != null) {

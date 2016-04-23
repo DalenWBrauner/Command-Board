@@ -114,7 +114,7 @@ public class ActualPlayer implements Player {
     @Override
     public void gainTile(PropertyTile newTile) {
         myTiles.add(newTile);
-        newTile.setOwner(myID);
+        newTile.setOwner(this);
     }
 
     @Override

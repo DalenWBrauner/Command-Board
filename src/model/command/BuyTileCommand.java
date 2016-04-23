@@ -1,7 +1,6 @@
 package model.command;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
 
 import model.player.Player;
 import model.tile.PropertyTile;
@@ -12,22 +11,18 @@ import shared.interfaces.PlayerRepresentative;
 public class BuyTileCommand extends Command {
 	private static final long serialVersionUID = 2147776889265297840L;
 	
-	private HashMap<PlayerID, Player> players;
     private SubtractFundsCommand subtractFunds;
     private AddFundsCommand addFunds;
     private PropertyTile tileForPurchase;
 
-    public BuyTileCommand(SubtractFundsCommand sfc, AddFundsCommand afc,
-                          HashMap<PlayerID, Player> thePlayers) {
-        players = thePlayers;
+    public BuyTileCommand(SubtractFundsCommand sfc, AddFundsCommand afc) {
         addFunds = afc;
         subtractFunds = sfc;
         tileForPurchase = null;
     }
 
     public BuyTileCommand(SubtractFundsCommand sfc, AddFundsCommand afc,
-                          HashMap<PlayerID, Player> thePlayers, PropertyTile tile) {
-        players = thePlayers;
+                          PropertyTile tile) {
         addFunds = afc;
         subtractFunds = sfc;
         tileForPurchase = tile;
@@ -40,7 +35,7 @@ public class BuyTileCommand extends Command {
     @Override
     public void execute(Player sourcePlayer) throws RemoteException {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();
-        PlayerID tileOwner = tileForPurchase.getOwner();
+        PlayerID tileOwner = tileForPurchase.getOwner().getID();
 
         // If they can't afford it, tough luck
         if (tileForPurchase.getCost() > sourcePlayer.getWallet().getCashOnHand()) return;
@@ -62,7 +57,7 @@ public class BuyTileCommand extends Command {
 
             // Add funds to the previous owner
             if (tileOwner != PlayerID.NOPLAYER) {
-                Player previousOwner = players.get(tileForPurchase.getOwner());
+                Player previousOwner = tileForPurchase.getOwner();
                 addFunds.setAmount(tileForPurchase.getCost());
                 addFunds.execute(previousOwner);
 
@@ -85,7 +80,7 @@ public class BuyTileCommand extends Command {
             }
 
             // Set the tile's new owner!
-            tileForPurchase.setOwner(sourcePlayer.getID());
+            tileForPurchase.setOwner(sourcePlayer);
             sourcePlayer.gainTile(tileForPurchase);
 
             setChanged();

@@ -139,7 +139,7 @@ public class Board implements Serializable {
                                 + " Property Tile");
 
                         // Display Tile Owner
-                        PlayerID tileOwner = ((PropertyTile) thisTile).getOwner();
+                        PlayerID tileOwner = ((PropertyTile) thisTile).getOwner().getID();
                         sb.append(" owned by " + tileOwner.toString());
 
                         // Display Card

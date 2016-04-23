@@ -1,23 +1,19 @@
 package model.command;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
 
 import model.player.Player;
 import model.tile.PropertyTile;
-import shared.enums.PlayerID;
 
 public class PayTollCommand extends Command {
 	private static final long serialVersionUID = -6624564889015659203L;
 	
-	private HashMap<PlayerID, Player> players;
     private SubtractFundsCommand subtractFunds;
     private AddFundsCommand addFunds;
     private PropertyTile tile;
 
     public PayTollCommand(SubtractFundsCommand sfc, AddFundsCommand afc,
-                          HashMap<PlayerID, Player> thePlayers, PropertyTile theTile) {
-        players = thePlayers;
+                          PropertyTile theTile) {
         addFunds = afc;
         subtractFunds = sfc;
         tile = theTile;
@@ -28,7 +24,7 @@ public class PayTollCommand extends Command {
         int toll = tile.getToll();
 
         System.out.println(sourcePlayer.getID() + " has to pay "
-                         + tile.getOwner() + " a toll of " + toll + "!");
+                         + tile.getOwner().getID() + " a toll of " + toll + "!");
 
         // Subtract their funds no matter what
         subtractFunds.setAmount(toll);
@@ -36,7 +32,7 @@ public class PayTollCommand extends Command {
 
         // Give these to the player who owns the tile
         addFunds.setAmount(toll);
-        addFunds.execute(players.get(tile.getOwner()));
+        addFunds.execute(tile.getOwner());
 
         setChanged();
         notifyObservers();

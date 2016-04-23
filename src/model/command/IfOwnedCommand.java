@@ -22,7 +22,7 @@ public class IfOwnedCommand extends Command {
 
     @Override
     public void execute(Player sourcePlayer) throws RemoteException {
-        if (whichTile.getOwner() != PlayerID.NOPLAYER) ifOwned.execute(sourcePlayer);
+        if (whichTile.getOwner().getID() != PlayerID.NOPLAYER) ifOwned.execute(sourcePlayer);
         else                                        ifNotOwned.execute(sourcePlayer);
 
         setChanged();

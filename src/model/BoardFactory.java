@@ -1,12 +1,8 @@
 package model;
 
-import java.util.HashMap;
-
-import model.player.Player;
 import model.tile.TileFactory;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;
-import shared.enums.PlayerID;
 
 public class BoardFactory {
 
@@ -14,10 +10,6 @@ public class BoardFactory {
 
     public void setWatchTower(WatchTower tower) {
         tf.setWatchTower(tower);
-    }
-
-    public void setPlayerMap(HashMap<PlayerID, Player> playerMap) {
-        tf.setPlayerMap(playerMap);
     }
 
     public Board getBoard(String boardName) throws IllegalArgumentException {

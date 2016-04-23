@@ -1,7 +1,5 @@
 package model.tile;
 
-import java.util.HashMap;
-
 import model.Board;
 import model.command.AddFundsCommand;
 import model.command.BuyTileCommand;
@@ -20,23 +18,16 @@ import model.command.SubtractFundsCommand;
 import model.command.SwapCardCommand;
 import model.command.UpgradeAnyTileCommand;
 import model.command.UpgradeTileCommand;
-import model.player.Player;
 import shared.WatchTower;
 import shared.enums.CheckpointColor;
-import shared.enums.PlayerID;
 
 public class TileFactory {
 
     private WatchTower currentTower;
     private Board theBoard;
-    private HashMap<PlayerID, Player> currentPlayers;
 
     public void setWatchTower(WatchTower tower) {
         currentTower = tower;
-    }
-
-    public void setPlayerMap(HashMap<PlayerID, Player> playerMap) {
-        currentPlayers = playerMap;
     }
 
     public void setBoard(Board board) {
@@ -126,7 +117,7 @@ public class TileFactory {
         // We'll need these soon
         AddFundsCommand afc = new AddFundsCommand();
         SubtractFundsCommand sfc = new SubtractFundsCommand();
-        Command buyCommand = new BuyTileCommand(sfc, afc, currentPlayers, tile);
+        Command buyCommand = new BuyTileCommand(sfc, afc, tile);
 
         // Create the onPass Command
         Command onPass = new NullCommand();
@@ -159,7 +150,7 @@ public class TileFactory {
         // Create the macro for:
         // If the tile is owned by someone else
         Command[] ifNotOwnedByYouMacro = new Command[2];
-        ifNotOwnedByYouMacro[0] = new PayTollCommand(sfc, afc, currentPlayers, tile);
+        ifNotOwnedByYouMacro[0] = new PayTollCommand(sfc, afc, tile);
         ifNotOwnedByYouMacro[1] = buyCommand;
         Command ifNotOwnedByYou = new MacroCommand(ifNotOwnedByYouMacro);
 

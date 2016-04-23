@@ -61,7 +61,6 @@ public class MatchFactory {
 
         // Create Board Object
         boardFactory.setWatchTower(tower);
-        boardFactory.setPlayerMap(playerMap);
         Board theBoard = boardFactory.getBoard(whichBoard);
 
         // Instantiate the command executed when a Player's balance falls below zero

@@ -1,6 +1,6 @@
 package model.command;
 
-import model.player.Player;
+import model.Player;
 
 /** Does nothing when executed!
  *

@@ -3,7 +3,7 @@ package model.command;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.player.Player;
+import model.Player;
 import shared.enums.PlayerID;
 
 public class CashMagnetCommand extends Command {

@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import model.player.Player;
 import model.tile.Tile;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;

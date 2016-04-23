@@ -9,8 +9,6 @@ import model.command.AddFundsCommand;
 import model.command.Command;
 import model.command.SellAnyTileCommand;
 import model.command.SellTileCommand;
-import model.player.ActualPlayer;
-import model.player.Player;
 import shared.WatchTower;
 import shared.enums.PlayerID;
 
@@ -35,7 +33,7 @@ public class MatchFactory {
 
         // Create Player objects & shuffle turn order
         for (PlayerID id : allIDs) {
-            playerMap.put(id, new ActualPlayer(id));
+            playerMap.put(id, new Player(id));
             turnOrder.add(id);
         }
         //Collections.shuffle(turnOrder);

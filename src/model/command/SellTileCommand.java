@@ -1,6 +1,6 @@
 package model.command;
 
-import model.player.Player;
+import model.Player;
 import model.tile.PropertyTile;
 
 public class SellTileCommand extends Command {

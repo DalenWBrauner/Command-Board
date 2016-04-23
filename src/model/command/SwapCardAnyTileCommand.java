@@ -4,7 +4,7 @@ package model.command;
 import java.rmi.RemoteException;
 
 import model.Board;
-import model.player.Player;
+import model.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
 import shared.enums.TileType;

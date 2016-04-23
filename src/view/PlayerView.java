@@ -4,7 +4,7 @@ import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import model.player.Player;
+import model.Player;
 
 public class PlayerView extends ImageView {
 

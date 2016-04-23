@@ -17,7 +17,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import model.Match;
-import model.player.Player;
+import model.Player;
 import model.tile.PropertyTile;
 import model.tile.Tile;
 import shared.enums.CardShape;

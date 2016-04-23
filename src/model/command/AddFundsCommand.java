@@ -1,6 +1,6 @@
 package model.command;
 
-import model.player.Player;
+import model.Player;
 
 public class AddFundsCommand extends Command {
 	private static final long serialVersionUID = -5453368569251933786L;

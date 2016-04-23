@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import model.Hand;
-import model.player.Player;
+import model.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;

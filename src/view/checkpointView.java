@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Match;
-import model.player.Player;
+import model.Player;
 import shared.enums.CheckpointColor;
 import shared.enums.PlayerID;
 

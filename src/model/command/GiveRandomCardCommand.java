@@ -1,6 +1,6 @@
 package model.command;
 
-import model.player.Player;
+import model.Player;
 
 public class GiveRandomCardCommand extends Command {
 	private static final long serialVersionUID = -195837818771793569L;

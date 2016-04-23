@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import model.Match;
 import model.MatchFactory;
-import model.player.Player;
+import model.Player;
 import shared.interfaces.AIEasy;
 import shared.interfaces.PlayerRepresentative;
 

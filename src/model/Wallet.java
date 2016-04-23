@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 
 import model.command.Command;
 import model.command.NullCommand;
-import model.player.Player;
 import model.tile.PropertyTile;
 
 public class Wallet implements Serializable {

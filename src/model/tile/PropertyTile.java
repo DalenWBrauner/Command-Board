@@ -1,8 +1,8 @@
 package model.tile;
 
-import model.player.NullPlayer;
-import model.player.Player;
+import model.Player;
 import shared.enums.CardShape;
+import shared.enums.PlayerID;
 import shared.enums.TileType;
 
 public class PropertyTile extends Tile {
@@ -15,7 +15,7 @@ public class PropertyTile extends Tile {
     private final int baseValue;
     private int currentValue;   // Should be set to the baseValue
     private int myLevel         = 1;
-    private Player owner        = new NullPlayer();
+    private Player owner        = new Player(PlayerID.NOPLAYER);
     private CardShape myCard    = CardShape.NOCARD;
 
     public PropertyTile(int x, int y) {
@@ -98,7 +98,7 @@ public class PropertyTile extends Tile {
 
     public void reset() {
         setCard(CardShape.NOCARD);
-        setOwner(new NullPlayer());
+        setOwner(new Player(PlayerID.NOPLAYER));
         setLevel(1);
     }
 }

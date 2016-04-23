@@ -84,7 +84,6 @@ public class PropertyTile extends Tile {
         return owner;
     }
     
-
     public void setOwner(Player newOwner) {
         owner = newOwner;
     }

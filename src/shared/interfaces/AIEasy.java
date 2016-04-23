@@ -1,15 +1,15 @@
-package model.player;
+package shared.interfaces;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import model.Hand;
+import model.player.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
 import shared.enums.CardinalDirection;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
-import shared.interfaces.PlayerRepresentative;
 
 public class AIEasy implements PlayerRepresentative {
 	private static final long serialVersionUID = 4815063147534142013L;

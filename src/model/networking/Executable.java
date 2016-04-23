@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import model.Match;
 import model.MatchFactory;
-import model.player.AIEasy;
 import model.player.Player;
+import shared.interfaces.AIEasy;
 import shared.interfaces.PlayerRepresentative;
 
 public class Executable {

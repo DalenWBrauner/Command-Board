@@ -23,7 +23,7 @@ public class IfOwnedByYouCommand extends Command {
     @Override
     public void execute(Player sourcePlayer) throws RemoteException {
         if (whichTile.getOwner().getID() == sourcePlayer.getID()) ifOwned.execute(sourcePlayer);
-        else                                           ifNotOwned.execute(sourcePlayer);
+        else                           				              ifNotOwned.execute(sourcePlayer);
 
         setChanged();
         notifyObservers();

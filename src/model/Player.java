@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,8 +10,8 @@ import shared.enums.PlayerID;
 import shared.interfaces.NullRepresentative;
 import shared.interfaces.PlayerRepresentative;
 
-public class Player {
-	private static final long serialVersionUID = -7866756744763225409L;
+public class Player implements Serializable {
+	private static final long serialVersionUID = -715917839463006593L;
 	
 	private PlayerID myID;
     private int xPos;

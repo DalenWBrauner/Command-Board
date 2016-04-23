@@ -35,12 +35,16 @@ public class Wallet implements Serializable {
     }
 
     public void addFunds(int funds) {
-        Math.max(funds, 0); // You can't add negative funds
+    	// If you were passed a negative number,
+    	// treat it as zero; don't subtract funds.
+        Math.max(funds, 0);
         cashOnHand += funds;
     }
 
     public void subtractFunds(int funds) throws RemoteException {
-        Math.max(funds, 0); // You can't subtract negative funds
+    	// If you were passed a negative number,
+    	// treat it as zero; don't add funds.
+        Math.max(funds, 0);
         cashOnHand -= funds;
 
         // If funds fall below zero

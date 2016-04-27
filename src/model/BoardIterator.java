@@ -16,10 +16,10 @@ import shared.interfaces.PlayerRepresentative;
 public class BoardIterator extends Observable {
 
     // Modifiers
-    private final static int northY = -1;
-    private final static int southY = +1;
-    private final static int westX  = -1;
-    private final static int eastX  = +1;
+    private static final int northY = -1;
+    private static final int southY = +1;
+    private static final int westX  = -1;
+    private static final int eastX  = +1;
 
     private final Board    theBoard;
     private final PlayerID movingPlayerID;

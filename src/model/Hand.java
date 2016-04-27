@@ -11,7 +11,7 @@ public class Hand implements Serializable {
 	private static final long serialVersionUID = 8979756749958367720L;
 	
 	/** Maximum # of cards allowed in one hand. */
-    private final static int MAX_CARDS = 5;
+    private static final int MAX_CARDS = 5;
     private HashMap<CardShape, Integer> counters = new HashMap<>();
     private Random r = new Random();
 

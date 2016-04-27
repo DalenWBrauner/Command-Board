@@ -8,9 +8,9 @@ import shared.enums.TileType;
 public class PropertyTile extends Tile {
     private static final long serialVersionUID = -6620741612615500871L;
 
-    private final static int DEFAULT_BASE_VALUE = 300;
-    private final static double UPGRADE_PERCENT = .70;
-    private final static double UPC = .20; // Upgrade Percent Increment
+    private static final int DEFAULT_BASE_VALUE = 300;
+    private static final double UPGRADE_PERCENT = .70;
+    private static final double UPC = .20; // Upgrade Percent Increment
 
     private final int baseValue;
     private int currentValue;   // Should be set to the baseValue

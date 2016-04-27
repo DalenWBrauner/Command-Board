@@ -8,13 +8,13 @@ import model.Player;
 
 public class PlayerView extends ImageView {
 
-    public final static Image PLAYER1_IMAGE = new Image(
+    public static final Image PLAYER1_IMAGE = new Image(
             new File("images/Player 1.png").toURI().toString());
-    public final static Image PLAYER2_IMAGE = new Image(
+    public static final Image PLAYER2_IMAGE = new Image(
             new File("images/Player 2.png").toURI().toString());
-    public final static Image PLAYER3_IMAGE = new Image(
+    public static final Image PLAYER3_IMAGE = new Image(
             new File("images/Player 3.png").toURI().toString());
-    public final static Image PLAYER4_IMAGE = new Image(
+    public static final Image PLAYER4_IMAGE = new Image(
             new File("images/Player 4.png").toURI().toString());
 
     private Player p;

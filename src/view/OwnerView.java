@@ -8,13 +8,13 @@ import javafx.scene.image.ImageView;
 
 public class OwnerView extends ImageView{
 
-    private final static Image P1_IMAGE = new Image(
+    private static final Image P1_IMAGE = new Image(
             new File("images/Sign - Player 1.png").toURI().toString());
-    private final static Image P2_IMAGE = new Image(
+    private static final Image P2_IMAGE = new Image(
             new File("images/Sign - Player 2.png").toURI().toString());
-    private final static Image P3_IMAGE = new Image(
+    private static final Image P3_IMAGE = new Image(
             new File("images/Sign - Player 3.png").toURI().toString());
-    private final static Image P4_IMAGE = new Image(
+    private static final Image P4_IMAGE = new Image(
             new File("images/Sign - Player 4.png").toURI().toString());
     
     private PlayerID owner;

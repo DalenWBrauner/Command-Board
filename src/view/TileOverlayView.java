@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 
 public class TileOverlayView extends ImageView {
 
-    public final static Image HIGHLIGHT_TILE_IMAGE = new Image(
+    public static final Image HIGHLIGHT_TILE_IMAGE = new Image(
             new File("images/TileGlow.png").toURI().toString());
 
     private int xPos;

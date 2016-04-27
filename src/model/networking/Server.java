@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Server implements Runnable {
     public static final int portNo = 64246;
-    public final static String coordinatorName = "Coordinator";
+    public static final String coordinatorName = "Coordinator";
 
     private Registry serverRegistry;
     private ArrayList<Remote> registeredObjects = new ArrayList<>();

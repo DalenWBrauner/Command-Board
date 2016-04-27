@@ -37,7 +37,7 @@ public class MatchView implements ControlledScreen,
     private Match m;
     private static Random random = new Random();
 
-    private final static Image BOARD_BACKGROUND_IMAGE = new Image(
+    private static final Image BOARD_BACKGROUND_IMAGE = new Image(
             new File("images/boardBackground.jpg").toURI().toString(), true);
 //            MatchView.class.getResource("/images/gameBackground.jpg")
 //            .toString());

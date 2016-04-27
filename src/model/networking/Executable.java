@@ -15,7 +15,7 @@ import shared.interfaces.AIEasy;
 import shared.interfaces.PlayerRepresentative;
 
 public class Executable {
-    public final static String coordinatorName = "Coordinator";
+    public static final String coordinatorName = "Coordinator";
     public static int portNo = 64246;
     public static Server server;
 

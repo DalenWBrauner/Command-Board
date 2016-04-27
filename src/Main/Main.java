@@ -25,26 +25,26 @@ public class Main extends Application {
     /** Default settings for Match creation
      * Feel free to change these, they are arbitrary (for now).
      */
-    public final static int MAX_NUMBER_OF_PLAYERS = 4;
-    private final static int DEFAULT_CASH_GOAL_LOW       = 3000;
-    private final static int DEFAULT_CASH_GOAL_MEDIUM    = 6000;
-    private final static int DEFAULT_CASH_GOAL_HIGH      = 8500;
-    private final static int DEFAULT_CASH_GOAL_VERY_HIGH = 15000;
-    public final static Map<String, Integer> CASH_GOAL_OPTIONS = new
+    public static final int MAX_NUMBER_OF_PLAYERS = 4;
+    private static final int DEFAULT_CASH_GOAL_LOW       = 3000;
+    private static final int DEFAULT_CASH_GOAL_MEDIUM    = 6000;
+    private static final int DEFAULT_CASH_GOAL_HIGH      = 8500;
+    private static final int DEFAULT_CASH_GOAL_VERY_HIGH = 15000;
+    public static final Map<String, Integer> CASH_GOAL_OPTIONS = new
             TreeMap<String, Integer>();
-    public final static String MENU_SCREEN = "menu";
-    public final static String GAME_SCREEN = "command board";
-    public final static String VICTORY_SCREEN = "victory";
-    public final static String[] PLAYABLE_BOARDS = {
+    public static final String MENU_SCREEN = "menu";
+    public static final String GAME_SCREEN = "command board";
+    public static final String VICTORY_SCREEN = "victory";
+    public static final String[] PLAYABLE_BOARDS = {
         "Keyblade","Honeypot","Butterfly","Snailshell","Rings"};
 
 
     //private static Logger logger =  Logger.getLogger(PegSolitaire.class);
 
-    public final static MatchFactory theMatchFactory = new MatchFactory();
+    public static final MatchFactory theMatchFactory = new MatchFactory();
 
-    public final static int MAIN_WINDOW_HEIGHT = 600;
-    public final static int MAIN_WINDOW_WIDTH = 800;
+    public static final int MAIN_WINDOW_HEIGHT = 600;
+    public static final int MAIN_WINDOW_WIDTH = 800;
     public static Stage prim;
 
     public static void main(String[] args) {

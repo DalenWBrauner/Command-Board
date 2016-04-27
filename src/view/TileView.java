@@ -11,21 +11,21 @@ import controller.PropertyTileEventHandler;
 
 public class TileView extends ImageView {
 
-    public final static Image PROPERTY_TILE_IMAGE = new Image(
+    public static final Image PROPERTY_TILE_IMAGE = new Image(
             new File("images/Property.png").toURI().toString());
-    public final static Image CHECKPOINT_TILE_RED_IMAGE = new Image(
+    public static final Image CHECKPOINT_TILE_RED_IMAGE = new Image(
             new File("images/Checkpoint - Red.png").toURI().toString());
-    public final static Image CHECKPOINT_TILE_BLUE_IMAGE = new Image(
+    public static final Image CHECKPOINT_TILE_BLUE_IMAGE = new Image(
             new File("images/Checkpoint - Blue.png").toURI().toString());
-    public final static Image CHECKPOINT_TILE_GREEN_IMAGE = new Image(
+    public static final Image CHECKPOINT_TILE_GREEN_IMAGE = new Image(
             new File("images/Checkpoint - Green.png").toURI().toString());
-    public final static Image CHECKPOINT_TILE_YELLOW_IMAGE = new Image(
+    public static final Image CHECKPOINT_TILE_YELLOW_IMAGE = new Image(
             new File("images/Checkpoint - Yellow.png").toURI().toString());
-    public final static Image START_TILE_IMAGE = new Image(
+    public static final Image START_TILE_IMAGE = new Image(
             new File("images/Start.png").toURI().toString());
 
-    public final static int TILE_PIX_HEIGHT = (int) START_TILE_IMAGE.getHeight();
-    public final static int TILE_PIX_WIDTH = (int) START_TILE_IMAGE.getWidth();
+    public static final int TILE_PIX_HEIGHT = (int) START_TILE_IMAGE.getHeight();
+    public static final int TILE_PIX_WIDTH = (int) START_TILE_IMAGE.getWidth();
 
     private int xPos, yPos;
     private TileType currentState;

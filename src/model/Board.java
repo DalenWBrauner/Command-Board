@@ -15,8 +15,8 @@ import shared.enums.TileType;
 public class Board implements Serializable {
 	private static final long serialVersionUID = 2454401015775985663L;
 	
-	private final static int BOARD_WIDTH = 15;
-    private final static int BOARD_HEIGHT = 15;
+	private static final int BOARD_WIDTH = 15;
+    private static final int BOARD_HEIGHT = 15;
 
     private int startX = 0;
     private int startY = 0;

@@ -8,11 +8,11 @@ import javafx.scene.image.ImageView;
 
 public class CardView extends ImageView{
 
-    private final static Image CARD1_IMAGE = new Image(
+    private static final Image CARD1_IMAGE = new Image(
             new File("images/Card - Circle.png").toURI().toString());
-    private final static Image CARD2_IMAGE = new Image(
+    private static final Image CARD2_IMAGE = new Image(
             new File("images/Card - Square.png").toURI().toString());
-    private final static Image CARD3_IMAGE = new Image(
+    private static final Image CARD3_IMAGE = new Image(
             new File("images/Card - Triangle.png").toURI().toString());
     
     private CardShape card;

@@ -32,6 +32,7 @@ public class SpellCaster implements Serializable {
     // is dependent on that match's watchtower
     private final HashMap<SpellID, Command> spellBook = new HashMap<>();
     private static final HashMap<SpellID, HashMap<CardShape, Integer>> spellCosts;
+    // Instantiate spell costs
     static {
         spellCosts = new HashMap<>();
         spellCosts.put(SpellID.NOSPELL, new HashMap<>());
@@ -108,37 +109,6 @@ public class SpellCaster implements Serializable {
 
         // Third, cast that spell.
         cast(player, spellCast);
-    }
-
-    /** Returns the list of spells that can be cast with the cards in the given hand. */
-    private SpellID[] getCastableSpells(Hand playersHand) {
-        ArrayList<SpellID> castableSpells = new ArrayList<>();
-
-        // Add any spells we can cast
-        for (SpellID spell : spellCosts.keySet()) {
-            if (canCastSpell(playersHand, spell)) castableSpells.add(spell);
-        }
-
-        // Convert to array
-        SpellID[] arrayOfCastableSpells = new SpellID[castableSpells.size()];
-        castableSpells.toArray(arrayOfCastableSpells);
-        return arrayOfCastableSpells;
-    }
-
-    /** Returns whether the given hand has the cards to cast the given spell. */
-    private boolean canCastSpell(Hand playersHand, SpellID spell) {
-        HashMap<CardShape, Integer> cost = spellCosts.get(spell);
-
-        // Check each shape needed against the number in the hand
-        for (CardShape shape : cost.keySet()) {
-            // If the cost is greater, we can't cast it.
-            if (cost.get(shape) > playersHand.getNumberOfCards(shape)) {
-                return false;
-            }
-        }
-
-        // If none of the costs are too great, we can cast!
-        return true;
     }
 
     /** Subtracts the cards necessary and casts the spell!
@@ -223,5 +193,36 @@ public class SpellCaster implements Serializable {
 
     public static Set<SpellID> getSpellList() {
         return spellCosts.keySet();
+    }
+
+    /** Returns the list of spells that can be cast with the cards in the given hand. */
+    public static SpellID[] getCastableSpells(Hand playersHand) {
+        ArrayList<SpellID> castableSpells = new ArrayList<>();
+
+        // Add any spells we can cast
+        for (SpellID spell : spellCosts.keySet()) {
+            if (canCastSpell(playersHand, spell)) castableSpells.add(spell);
+        }
+
+        // Convert to array
+        SpellID[] arrayOfCastableSpells = new SpellID[castableSpells.size()];
+        castableSpells.toArray(arrayOfCastableSpells);
+        return arrayOfCastableSpells;
+    }
+
+    /** Returns whether the given hand has the cards to cast the given spell. */
+    public static boolean canCastSpell(Hand playersHand, SpellID spell) {
+        HashMap<CardShape, Integer> cost = spellCosts.get(spell);
+
+        // Check each shape needed against the number in the hand
+        for (CardShape shape : cost.keySet()) {
+            // If the cost is greater, we can't cast it.
+            if (cost.get(shape) > playersHand.getNumberOfCards(shape)) {
+                return false;
+            }
+        }
+
+        // If none of the costs are too great, we can cast!
+        return true;
     }
 }

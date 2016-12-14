@@ -30,17 +30,14 @@ public class PropertyTile extends Tile {
     private Player owner        = new Player(PlayerID.NOPLAYER);
     private CardShape myCard    = CardShape.NOCARD;
 
-    public PropertyTile(int x, int y) {
-        super(x, y);
-        baseValue = DEFAULT_BASE_VALUE;
-        updateValue();
+    public PropertyTile(int x, int y, WatchTower currentTower) {
+        this(x, y, DEFAULT_BASE_VALUE, currentTower);
     }
 
     public PropertyTile(int x, int y, int theBaseValue, WatchTower currentTower) {
         super(x, y);
         baseValue = theBaseValue;
         updateValue();
-        
 
         // We'll need these soon
         AddFundsCommand afc = new AddFundsCommand();

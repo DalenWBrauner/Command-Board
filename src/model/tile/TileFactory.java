@@ -45,6 +45,11 @@ public class TileFactory {
      * the view would NEED to know that we've changed BEFORE we go on to execute the next command.
      * For example, updating would be required before a Player is asked to buy a tile.
      * Updating would not be required if all that's happening is the Player is being showered with goodies.
+     * 
+     * ^^WHAT WAS I THINKING?! WHAT IF WE WANT A COOL ANIMATION EVERY TIME THE PLAYER'S WALLET MAKES MONEY?!
+     * What I was thinking was how to unnecessarily optimize the current system
+     * What we NEED is to rework the Observer system so that way we can decide to observe anything we want
+     * AND know exactly what we're observing.
      */
 
     public StartTile createStart(int x, int y) {

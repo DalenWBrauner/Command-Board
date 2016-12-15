@@ -1,15 +1,16 @@
 package model;
 
+import java.util.Observer;
+
 import model.tile.TileFactory;
-import shared.WatchTower;
 import shared.enums.CheckpointColor;
 
 public class BoardFactory {
 
     private final TileFactory tf = new TileFactory();
 
-    public void setWatchTower(WatchTower tower) {
-        tf.setWatchTower(tower);
+    public void setObserver(Observer observer) {
+        tf.setObserver(observer);
     }
 
     public Board getBoard(String boardName) throws IllegalArgumentException {

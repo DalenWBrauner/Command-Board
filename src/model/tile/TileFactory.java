@@ -1,5 +1,7 @@
 package model.tile;
 
+import java.util.Observer;
+
 import model.Board;
 import model.command.AddFundsCommand;
 import model.command.BuyTileCommand;
@@ -18,16 +20,15 @@ import model.command.SubtractFundsCommand;
 import model.command.SwapCardCommand;
 import model.command.UpgradeAnyTileCommand;
 import model.command.UpgradeTileCommand;
-import shared.WatchTower;
 import shared.enums.CheckpointColor;
 
 public class TileFactory {
 
-    private WatchTower currentTower;
+    private Observer theObserver;
     private Board theBoard;
 
-    public void setWatchTower(WatchTower tower) {
-        currentTower = tower;
+    public void setObserver(Observer observer) {
+        theObserver = observer;
     }
 
     public void setBoard(Board board) {
@@ -57,7 +58,7 @@ public class TileFactory {
 
         // I'll need this soon
         SubtractFundsCommand sfc = new SubtractFundsCommand();
-        sfc.addObserver(currentTower);
+        sfc.addObserver(theObserver);
 
         // Create a macro for:
         // When a player passes the start after passing all 4 checkpoints
@@ -90,7 +91,7 @@ public class TileFactory {
 
         // I'll need this soon
         SubtractFundsCommand sfc = new SubtractFundsCommand();
-        sfc.addObserver(currentTower);
+        sfc.addObserver(theObserver);
 
         // Create a macro for:
         // First time a player passes a checkpoint in a given lap
@@ -126,7 +127,7 @@ public class TileFactory {
 
         // Create the onPass Command
         Command onPass = new NullCommand();
-        onPass.addObserver(currentTower);
+        onPass.addObserver(theObserver);
 
         /* The process that happens after landing on a property tile is complex.
          *
@@ -160,7 +161,7 @@ public class TileFactory {
         Command ifNotOwnedByYou = new MacroCommand(ifNotOwnedByYouMacro);
 
         // You need to know how much money you lost before you buy a tile
-        ifNotOwnedByYouMacro[0].addObserver(currentTower);
+        ifNotOwnedByYouMacro[0].addObserver(theObserver);
 
         // Create the onLand Command
         Command checkWhoOwns = new IfOwnedByYouCommand(tile, ifOwnedByYou, ifNotOwnedByYou);

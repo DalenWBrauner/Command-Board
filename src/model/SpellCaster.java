@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observer;
 import java.util.Set;
 
 import model.command.AddFundsCommand;
@@ -18,7 +19,6 @@ import model.command.SwapCardAnyTileCommand;
 import model.command.SwapCardCommand;
 import model.command.UpgradeAnyTileCommand;
 import model.command.UpgradeTileCommand;
-import shared.WatchTower;
 import shared.enums.CardShape;
 import shared.enums.PlayerID;
 import shared.enums.SpellID;
@@ -78,11 +78,11 @@ public class SpellCaster implements Serializable {
     }
 
     /** Creates a SpellCaster unique to this match. */
-    public SpellCaster(WatchTower tower, Board board,
+    public SpellCaster(Observer observer, Board board,
                        HashMap<PlayerID, Player> players) {
         theBoard = board;
         playerMap = players;
-        spellCraft(tower);
+        spellCraft(observer);
     }
 
     /** Prepares the Player to cast a spell if they can and they wish!
@@ -130,57 +130,57 @@ public class SpellCaster implements Serializable {
     }
 
     /** Creates each spell and places them into the spellbook. */
-    private void spellCraft(WatchTower tower) {
-        spellBook.put(SpellID.SPELL1, craftNavigator(tower));
-        spellBook.put(SpellID.SPELL2, craftForeclosure(tower));
-        spellBook.put(SpellID.SPELL3, craftUpgrade(tower));
-        spellBook.put(SpellID.SPELL4, craftCardSwap(tower));
-        spellBook.put(SpellID.SPELL6, craftCashMagnet(tower));
+    private void spellCraft(Observer observer) {
+        spellBook.put(SpellID.SPELL1, craftNavigator(observer));
+        spellBook.put(SpellID.SPELL2, craftForeclosure(observer));
+        spellBook.put(SpellID.SPELL3, craftUpgrade(observer));
+        spellBook.put(SpellID.SPELL4, craftCardSwap(observer));
+        spellBook.put(SpellID.SPELL6, craftCashMagnet(observer));
     }
 
     /** Returns the Navigator Spell */
-    private Command craftNavigator(WatchTower tower) {
+    private Command craftNavigator(Observer observer) {
         Command spell = new EnableWalkBackwardsCommand();
-        spell.addObserver(tower);
+        spell.addObserver(observer);
         return spell;
     }
 
     /** Returns the Foreclosure Spell */
-    private Command craftForeclosure(WatchTower tower) {
+    private Command craftForeclosure(Observer observer) {
         AddFundsCommand afc = new AddFundsCommand();
         SellTileCommand stc = new SellTileCommand(afc);
         Command foreclose = new SellAnyTileCommand(stc, theBoard);
         Command spell = new CastOnPlayerCommand(SpellID.SPELL2, foreclose, playerMap);
 
-        spell.addObserver(tower);
+        spell.addObserver(observer);
         return spell;
     }
 
     /** Returns the Upgrade Spell */
-    private Command craftUpgrade(WatchTower tower) {
+    private Command craftUpgrade(Observer observer) {
         SubtractFundsCommand sfc = new SubtractFundsCommand();
         UpgradeTileCommand utc = new UpgradeTileCommand(sfc);
         Command spell = new UpgradeAnyTileCommand(utc, theBoard);
 
-        spell.addObserver(tower);
+        spell.addObserver(observer);
         return spell;
     }
 
     /** Returns the Card Swap Spell */
-    private Command craftCardSwap(WatchTower tower) {
+    private Command craftCardSwap(Observer observer) {
         SwapCardCommand scc = new SwapCardCommand();
         Command spell = new SwapCardAnyTileCommand(scc, theBoard);
 
-        spell.addObserver(tower);
+        spell.addObserver(observer);
         return spell;
     }
 
     /** Returns the Cash Magnet Spell */
-    private Command craftCashMagnet(WatchTower tower) {
+    private Command craftCashMagnet(Observer observer) {
         AddFundsCommand afc = new AddFundsCommand();
         Command spell = new CashMagnetCommand(afc, 300, playerMap);
 
-        spell.addObserver(tower);
+        spell.addObserver(observer);
         return spell;
     }
 

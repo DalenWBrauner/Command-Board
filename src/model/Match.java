@@ -6,27 +6,36 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.tile.Tile;
-
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
+import model.tile.Tile;
 import shared.enums.PlayerID;
 
 public class Match extends Observable implements Observer, Runnable {
 
-    private final int cashGoal;
-    private final Board theBoard;
-    private final SpellCaster donald;
-    private final ArrayList<PlayerID> turnOrder;
-    private final HashMap<PlayerID, Player> players;
-    private final MutableBoolean matchIsOver;
+    private int cashGoal;
+    private Board theBoard;
+    private SpellCaster donald;
+    private ArrayList<PlayerID> turnOrder;
+    private HashMap<PlayerID, Player> players;
+    private MutableBoolean matchIsOver;
     private PlayerID currentPlayer;
     private PlayerID winner;
     private int turnNumber;
-
+    private boolean ready = false;
+    
     public Match(int theCashGoal, Board requestedBoard, SpellCaster caster,
                  ArrayList<PlayerID> playerIDsInTurnOrder, HashMap<PlayerID, Player> idMap) {
-        System.out.println("new Match();");
+    	System.out.println("new Match();");
+        fillMatch(theCashGoal, requestedBoard, caster, playerIDsInTurnOrder, idMap);
+    }
+    
+    public Match() {
+    	ready = false;
+    }
+    
+    public void fillMatch(int theCashGoal, Board requestedBoard, SpellCaster caster,
+    		ArrayList<PlayerID> playerIDsInTurnOrder, HashMap<PlayerID, Player> idMap) {
         cashGoal = theCashGoal;
         theBoard = requestedBoard;
         donald = caster;
@@ -34,11 +43,17 @@ public class Match extends Observable implements Observer, Runnable {
         turnOrder = playerIDsInTurnOrder;
         winner = PlayerID.NOPLAYER;
         matchIsOver = new MutableBoolean(false);
+        ready = true;
     }
 
     /** Starts the game. */
     @Override
     public void run() {
+    	if (!ready) {
+    		System.out.println("Match.start(); Not ready!");
+    		System.out.println("(Fill the Match!)");
+    		return;
+    	}
         System.out.println("Match.start(); START");
 
         turnNumber = 0;

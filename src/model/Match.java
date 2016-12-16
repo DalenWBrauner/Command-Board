@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.tile.Tile;
-
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
+import model.tile.Tile;
 import shared.enums.PlayerID;
 
 public class Match extends Observable implements Observer, Runnable {
@@ -29,6 +28,7 @@ public class Match extends Observable implements Observer, Runnable {
         System.out.println("new Match();");
         cashGoal = theCashGoal;
         theBoard = requestedBoard;
+        theBoard.addObserver(this); // We want to be notified when the BoardIterator moves players
         donald = caster;
         players = idMap;
         turnOrder = playerIDsInTurnOrder;
@@ -79,9 +79,8 @@ public class Match extends Observable implements Observer, Runnable {
         donald.performMagic(getPlayer(currentPlayer));
 
         // Move the Player!
-        BoardIterator itr = new BoardIterator(players.get(currentPlayer), theBoard, matchIsOver);
-        itr.addObserver(this); // We want to be notified when the BoardIterator moves players
-        itr.go();
+        theBoard.setMovingPlayer(players.get(currentPlayer), matchIsOver);
+        theBoard.go();
     }
 
     /** Passes news of an update onto its observers. */

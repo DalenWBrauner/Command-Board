@@ -18,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Hand;
 import model.Match;
 import model.Player;
 import model.SpellCaster;
@@ -224,10 +223,9 @@ public class spellView {
 
 		PlayerID IDcurrentPlayer = myMatch.getCurrentPlayerID();
 		Player currentPlayer = myMatch.getPlayer(IDcurrentPlayer);
-		Hand currentHand = currentPlayer.getHand();
-		int yourNumCircle = currentHand.getNumberOfCards(CardShape.SHAPE1);
-		int yourNumSquare = currentHand.getNumberOfCards(CardShape.SHAPE2);
-		int yourNumTriangle = currentHand.getNumberOfCards(CardShape.SHAPE3);
+		int yourNumCircle = currentPlayer.getNumberOfCards(CardShape.SHAPE1);
+		int yourNumSquare = currentPlayer.getNumberOfCards(CardShape.SHAPE2);
+		int yourNumTriangle = currentPlayer.getNumberOfCards(CardShape.SHAPE3);
 
 		if (yourNumTriangle >= numTriangle &&
 		    yourNumSquare >= numSquare &&

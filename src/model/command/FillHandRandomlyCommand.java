@@ -7,7 +7,7 @@ public class FillHandRandomlyCommand extends Command {
 
 	@Override
     public void execute(Player sourcePlayer) {
-        sourcePlayer.getHand().fillRandomly();
+        sourcePlayer.fillHandRandomly();
         setChanged();
         notifyObservers();
     }

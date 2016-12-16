@@ -7,7 +7,7 @@ public class GiveRandomCardCommand extends Command {
 
 	@Override
     public void execute(Player sourcePlayer) {
-        sourcePlayer.getHand().addRandomCard();
+        sourcePlayer.addRandomCard();
         setChanged();
         notifyObservers();
     }

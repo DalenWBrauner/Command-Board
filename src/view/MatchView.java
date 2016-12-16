@@ -6,6 +6,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import Main.Main;
+import controller.ScreenSwitcher;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -13,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import model.Hand;
 import model.Match;
 import model.Player;
 import model.tile.PropertyTile;
@@ -23,8 +24,6 @@ import shared.enums.PlayerID;
 import shared.enums.SpellID;
 import shared.interfaces.PlayerRepresentative;
 import view.interfaces.ControlledScreen;
-import Main.Main;
-import controller.ScreenSwitcher;
 
 public class MatchView implements ControlledScreen,
         PlayerRepresentative, Observer {
@@ -211,10 +210,10 @@ public class MatchView implements ControlledScreen,
     @Override
     public CardShape placeWhichCard() {
         // Place a random card
-        Hand hand = m.getPlayer(m.getCurrentPlayerID()).getHand();
-        CardShape[] cards = hand.getAllCards();
+        Player player = m.getPlayer(m.getCurrentPlayerID());
+        CardShape[] cards = player.getAllCards();
         // cards can contain NOCARDS, so our max is the size of hand, not cards.
-        return cards[random.nextInt(hand.size())];
+        return cards[random.nextInt(player.handSize())];
         // Alert! TODO Use the GUI to ask the users!
     }
 

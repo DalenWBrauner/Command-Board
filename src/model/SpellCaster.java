@@ -90,12 +90,12 @@ public class SpellCaster implements Serializable {
     public void performMagic(Player player) throws RemoteException {
 
         System.out.println(player.getID() + " has the cards:");
-        for (CardShape card : player.getHand().getAllCards()) {
+        for (CardShape card : player.getAllCards()) {
             if (card != CardShape.NOCARD) System.out.println(card + " card");
         }
 
         // First, get all of the possible spells that player could cast.
-        SpellID[] castableSpells = getCastableSpells(player.getHand());
+        SpellID[] castableSpells = getCastableSpells(player);
 
         System.out.println("and can cast the spells: ");
         for (SpellID spell : castableSpells) {
@@ -118,10 +118,9 @@ public class SpellCaster implements Serializable {
         if (spellCast != SpellID.NOSPELL) {
 
             // First subtract their cards
-            Hand playersHand = player.getHand();
             HashMap<CardShape, Integer> cost = spellCosts.get(spellCast);
             for (CardShape card : cost.keySet()) {
-                playersHand.remove(card, cost.get(card));
+                player.removeCard(card, cost.get(card));
             }
 
             // Then execute the comman- err, perform feats of magic!
@@ -196,12 +195,12 @@ public class SpellCaster implements Serializable {
     }
 
     /** Returns the list of spells that can be cast with the cards in the given hand. */
-    public static SpellID[] getCastableSpells(Hand playersHand) {
+    public static SpellID[] getCastableSpells(Player player) {
         ArrayList<SpellID> castableSpells = new ArrayList<>();
 
         // Add any spells we can cast
         for (SpellID spell : spellCosts.keySet()) {
-            if (canCastSpell(playersHand, spell)) castableSpells.add(spell);
+            if (canCastSpell(player, spell)) castableSpells.add(spell);
         }
 
         // Convert to array
@@ -211,13 +210,13 @@ public class SpellCaster implements Serializable {
     }
 
     /** Returns whether the given hand has the cards to cast the given spell. */
-    public static boolean canCastSpell(Hand playersHand, SpellID spell) {
+    public static boolean canCastSpell(Player player, SpellID spell) {
         HashMap<CardShape, Integer> cost = spellCosts.get(spell);
 
         // Check each shape needed against the number in the hand
         for (CardShape shape : cost.keySet()) {
             // If the cost is greater, we can't cast it.
-            if (cost.get(shape) > playersHand.getNumberOfCards(shape)) {
+            if (cost.get(shape) > player.getNumberOfCards(shape)) {
                 return false;
             }
         }

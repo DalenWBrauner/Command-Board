@@ -3,7 +3,6 @@ package shared.interfaces;
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.Hand;
 import model.Player;
 import model.tile.PropertyTile;
 import shared.enums.CardShape;
@@ -42,8 +41,7 @@ public class AIEasy implements PlayerRepresentative {
     /** Easy AI will place a card at random. */
     @Override
     public CardShape placeWhichCard() {
-        Hand playersHand = thePlayer.getHand();
-        return playersHand.getAllCards()[r.nextInt(playersHand.size())];
+        return thePlayer.getAllCards()[r.nextInt(thePlayer.handSize())];
     }
 
     /** Easy AI won't bother to swap cards. */

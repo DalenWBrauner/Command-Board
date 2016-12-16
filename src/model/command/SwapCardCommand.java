@@ -32,11 +32,11 @@ public class SwapCardCommand extends Command {
         if (card != CardShape.NOCARD) {
 
             // Take the card out of their hand
-            sourcePlayer.getHand().remove(card);
+            sourcePlayer.removeCard(card);
 
             // Add to their hand the card on the tile
             CardShape newCard = thisTile.getCard();
-            sourcePlayer.getHand().add(newCard);
+            sourcePlayer.addCard(newCard);
 
             // Place the card from their hand onto the tile
             thisTile.setCard(card);

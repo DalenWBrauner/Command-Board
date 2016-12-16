@@ -41,7 +41,7 @@ public class BuyTileCommand extends Command {
         if (tileForPurchase.getCost() > sourcePlayer.getWallet().getCashOnHand()) return;
 
         // If they need to place a card and their hand is empty, tough luck
-        if (tileOwner == PlayerID.NOPLAYER && sourcePlayer.getHand().size() == 0) return;
+        if (tileOwner == PlayerID.NOPLAYER && sourcePlayer.handSize() == 0) return;
 
         // Ask if they want to buy it
         boolean theyAgreed = rep.buyThisTile(tileForPurchase);
@@ -74,7 +74,7 @@ public class BuyTileCommand extends Command {
                 tileForPurchase.setCard(card);
 
                 // Remove that card from their hand
-                sourcePlayer.getHand().remove(card);
+                sourcePlayer.removeCard(card);
 
                 System.out.println("They placed a "+card+" card on it!");
             }

@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Match;
-import model.Wallet;
+import model.Player;
 import shared.enums.PlayerID;
 
 public class walletView {
@@ -169,15 +169,15 @@ public class walletView {
 
 	    for (int i=0; i < pIDs.length; i++) {
 	        PlayerID pID = pIDs[i];
-	        Wallet w = m.getPlayer(pID).getWallet();
+	        Player p = m.getPlayer(pID);
 	        Label money = labels[i][0];
 	        Label netValue = labels[i][1];
 
 	        String shortName = PlayerID.getShortName(pID);
 	        money.setText(String.format("%s ON HAND: $",
-	                shortName) + w.getCashOnHand());
+	                shortName) + p.getCashOnHand());
 	        netValue.setText(String.format("%s NET VALUE: $",
-	                shortName) + w.getNetValue());
+	                shortName) + p.getNetValue());
 	    }
 	}
 

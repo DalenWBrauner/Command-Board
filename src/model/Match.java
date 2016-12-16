@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.tile.Tile;
-
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
+import model.tile.Tile;
 import shared.enums.PlayerID;
 
 public class Match extends Observable implements Observer, Runnable {
@@ -71,9 +70,9 @@ public class Match extends Observable implements Observer, Runnable {
         System.out.print("\nTURN  " + turnNumber + ":\t");
         System.out.println("It's "+ currentPlayer.toString() + "'s turn!");
         System.out.println("They have in their wallet: $" +
-                           getPlayer(currentPlayer).getWallet().getCashOnHand() + "!");
+                           getPlayer(currentPlayer).getCashOnHand() + "!");
         System.out.println("They have a net value of:  $" +
-                           getPlayer(currentPlayer).getWallet().getNetValue() + "!");
+                           getPlayer(currentPlayer).getNetValue() + "!");
 
         // Let the Player cast a spell!
         donald.performMagic(getPlayer(currentPlayer));
@@ -112,7 +111,7 @@ public class Match extends Observable implements Observer, Runnable {
                 p.getY() == startY) {
 
                 // If that player has more $$ than the Cash Goal, they win!
-                if (p.getWallet().getNetValue() > cashGoal) {
+                if (p.getNetValue() > cashGoal) {
                     declareWinner(p.getID());
                 }
             }

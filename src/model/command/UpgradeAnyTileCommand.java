@@ -26,7 +26,7 @@ public class UpgradeAnyTileCommand extends Command {
         PlayerRepresentative rep = sourcePlayer.getRepresentative();
 
         // Get which tiles the player can upgrade
-        int currentFunds = sourcePlayer.getWallet().getCashOnHand();
+        int currentFunds = sourcePlayer.getCashOnHand();
         ArrayList<PropertyTile> ownedTiles = sourcePlayer.getTilesOwned();
         for (PropertyTile tile :
             (ArrayList<PropertyTile>) ownedTiles.clone()) {

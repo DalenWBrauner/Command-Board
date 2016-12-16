@@ -78,10 +78,10 @@ public class MatchFactory {
             player.setLastPosition(player.getX(), player.getY());
 
             // ...wallet the onNegativeCommand
-            player.getWallet().setOnNegativeCommand(onNegativeCommand);
+            player.setBankruptcyCommand(onNegativeCommand);
 
             // ...wallet $1000 to start with
-            player.getWallet().addFunds(1000);
+            player.addFunds(1000);
 
             // ...hand a random set of cards
             player.getHand().fillRandomly();

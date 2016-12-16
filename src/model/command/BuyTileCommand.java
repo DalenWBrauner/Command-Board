@@ -38,7 +38,7 @@ public class BuyTileCommand extends Command {
         PlayerID tileOwner = tileForPurchase.getOwner().getID();
 
         // If they can't afford it, tough luck
-        if (tileForPurchase.getCost() > sourcePlayer.getWallet().getCashOnHand()) return;
+        if (tileForPurchase.getCost() > sourcePlayer.getCashOnHand()) return;
 
         // If they need to place a card and their hand is empty, tough luck
         if (tileOwner == PlayerID.NOPLAYER && sourcePlayer.getHand().size() == 0) return;

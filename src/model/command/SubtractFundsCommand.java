@@ -23,7 +23,7 @@ public class SubtractFundsCommand extends Command {
 
     @Override
     public void execute(Player sourcePlayer) throws RemoteException {
-        sourcePlayer.getWallet().subtractFunds(funds);
+        sourcePlayer.subtractFunds(funds);
 
         setChanged();
         notifyObservers();
